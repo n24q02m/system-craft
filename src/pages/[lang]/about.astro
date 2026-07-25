@@ -70,17 +70,38 @@ const lang = Astro.params.lang as Lang;
           ) : (
             <Fragment>
               <p>
-                When a project ends, what usually survives is a source tree and a few numbers in a
-                report. The most valuable part lives somewhere else: the decisions made and why, the
-                places that looked right and were not, and the distance between how it was done here
-                and how the industry does the same thing.
+                A system that has shipped leaves behind more than a source tree: the structure that
+                was chosen, the reasoning behind each decision, and the way that field actually
+                operates according to its established standards. That part rarely lives in the code,
+                and if nobody writes it down it disappears along with the project.
               </p>
-              <h2>What these notes cover</h2>
+
+              <h2>What each post contains</h2>
               <p>
-                Each post takes one machine learning system that was actually built and works through
-                four layers: what the problem really was, the approach taken, how the industry solves
-                it, and what remained useful afterwards. The focus is on principles rather than
-                step-by-step instructions.
+                What the problem was and why it was hard. What the system that was built consisted
+                of, how the pieces fit together, what technology went into them. The background
+                needed to follow the field. How the industry solves the same problem, and under
+                which standards and protocols. And finally a handful of principles that still hold
+                up afterwards.
+              </p>
+              <p>
+                The emphasis is on <strong>principles and architecture</strong>, not step-by-step
+                instructions. There are no performance numbers either: a figure from one particular
+                run means very little on its own, whereas the way a system is organised is something
+                you can carry into the next project.
+              </p>
+
+              <h2>Who this is for</h2>
+              <p>
+                For the people who worked on these systems, as a shared record. And for anyone
+                starting out in one of these fields — the background and industry-standards sections
+                are written to stand on their own, without any knowledge of the original project.
+              </p>
+
+              <h2>On terminology</h2>
+              <p>
+                Technical terms are used in their standard English form, with a short explanation at
+                first mention where the concept is not obvious.
               </p>
             </Fragment>
           )

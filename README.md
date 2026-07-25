@@ -3,8 +3,8 @@
 Ghi chép kỹ thuật về những hệ thống học máy đã từng xây: cách tiếp cận, đối chiếu với chuẩn ngành,
 và những bài học còn lại sau khi mọi thứ đã chạy xong.
 
-Nội dung hiện có bản tiếng Việt. Bản tiếng Anh sẽ được bổ sung sau — cấu trúc site đã sẵn sàng cho
-song ngữ.
+Song ngữ Việt — Anh. Chuyển ngôn ngữ bằng liên kết trên thanh điều hướng; mỗi bài giữ nguyên vị trí
+khi đổi ngôn ngữ.
 
 ## Chạy tại máy
 
@@ -19,7 +19,7 @@ bun run build    # xuất tĩnh ra dist/
 ```
 src/
   content/blog/vi/   bài viết tiếng Việt (tên tệp tiếng Anh)
-  content/blog/en/   bản tiếng Anh, thêm sau
+  content/blog/en/   bản tiếng Anh, cùng tên tệp
   pages/[lang]/      trang chỉ mục, trang bài, trang giới thiệu theo ngôn ngữ
   i18n.ts            danh sách ngôn ngữ đang bật và chuỗi giao diện
 ```

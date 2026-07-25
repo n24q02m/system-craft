@@ -3,8 +3,8 @@ export type Lang = (typeof LANGS)[number];
 
 export const DEFAULT_LANG: Lang = "vi";
 
-/** Ngôn ngữ đã có nội dung thật. Thêm "en" vào đây khi bản dịch sẵn sàng. */
-export const ACTIVE_LANGS: Lang[] = ["vi"];
+/** Ngôn ngữ đã có nội dung thật. Thêm mã ngôn ngữ vào đây khi bản dịch sẵn sàng. */
+export const ACTIVE_LANGS: Lang[] = ["vi", "en"];
 
 export const LABEL: Record<Lang, string> = {
   vi: "Tiếng Việt",
@@ -36,9 +36,9 @@ export const T: Record<Lang, Record<Key, string>> = {
     footer: "Ghi chép kỹ thuật về những hệ thống đã từng xây.",
   },
   en: {
-    siteTitle: "Engineering Lessons — notes on systems I have built",
+    siteTitle: "Engineering Lessons — notes on systems that were built",
     siteDescription:
-      "Essays on machine learning systems built over the years: the approach taken, how the industry does it, and what stayed useful afterwards.",
+      "Notes on machine learning systems that were actually built: how they were put together, how the industry solves the same problems, and what stayed useful afterwards.",
     navPosts: "Posts",
     navAbout: "About",
     toggleTheme: "Light / Dark",
