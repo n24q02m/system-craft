@@ -23,7 +23,10 @@
   --mono: ui-monospace, "Cascadia Mono", "SF Mono", "JetBrains Mono", Menlo, Consolas,
     monospace;
 
-  --measure: 68ch;
+  /* Độ dài dòng đọc thoải mái. Tiếng Việt có dấu nên cần rộng hơn tiếng Anh một chút. */
+  --measure: 40rem;
+  --toc-w: 15rem;
+  --toc-gap: 4rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -92,8 +95,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--body);
-  font-size: 16.5px;
-  line-height: 1.68;
+  font-size: 17px;
+  line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -271,10 +274,16 @@ h3 {
 }
 
 /* ---------- trang bài ---------- */
+/* Khung hẹp hơn khung chung: cột chữ đúng độ dài đọc, mục lục sát ngay bên phải,
+   không để lại khoảng trống lớn giữa hai cột. */
+.wrap--post {
+  max-width: calc(var(--measure) + var(--toc-gap) + var(--toc-w) + 52px);
+}
+
 .post-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 232px;
-  gap: 56px;
+  grid-template-columns: minmax(0, var(--measure)) var(--toc-w);
+  gap: var(--toc-gap);
   align-items: start;
 }
 
@@ -288,14 +297,14 @@ h3 {
   margin: 12px 0 16px;
 }
 .post-head .lede {
-  font-size: 18px;
+  font-size: 18.5px;
   color: var(--ink-soft);
   max-width: var(--measure);
   margin: 0 0 18px;
 }
 
 .prose {
-  max-width: var(--measure);
+  max-width: none;
 }
 .prose h2 {
   font-size: clamp(21px, 2.6vw, 27px);
@@ -506,3 +515,47 @@ h3 {
 }
 
 .lang-link { border-bottom: 1px dotted var(--line-strong); }
+
+/* ---------- hình minh hoạ ---------- */
+.diagram {
+  margin: 30px 0 26px;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  color: var(--ink);
+  overflow: visible;
+}
+.diagram svg text {
+  font-family: var(--body);
+  fill: currentColor;
+}
+.diagram svg text.lbl {
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+}
+.diagram svg .box {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.1;
+}
+.diagram svg .box-accent {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 1.2;
+}
+.diagram svg .flow {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 1.2;
+}
+.diagram svg .dim {
+  opacity: 0.62;
+}
+.diagram figcaption {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 12px;
+  line-height: 1.55;
+}
