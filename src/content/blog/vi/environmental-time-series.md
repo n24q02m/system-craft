@@ -37,7 +37,7 @@ Phần thú vị của bài toán này không nằm ở chỗ ai cũng nghĩ. Tr
   </g>
   <g font-size="10" class="dim">
     <text x="10" y="66">đo không đều, có khoảng trống</text>
-    <text x="10" y="134">toạ độ trạm, truy vấn theo bán kính</text>
+    <text x="10" y="134">toạ độ trạm, truy vấn bán kính</text>
     <text x="222" y="98">chuỗi thời gian và chỉ mục địa lý</text>
     <text x="458" y="58">một mô hình cho mỗi thông số</text>
     <text x="458" y="136">chọn bậc tự động, phân cụm mật độ</text>
