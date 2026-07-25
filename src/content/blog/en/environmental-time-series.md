@@ -337,15 +337,15 @@ Deep models need **many observations per series** to beat statistical methods. W
 <figure class="diagram">
 <svg viewBox="0 0 640 226" role="img" aria-label="Two forecast quality curves crossing as the number of observations per series increases">
   <text class="lbl dim" x="0" y="18" font-size="9.5">FORECAST QUALITY</text>
-  <text class="lbl dim" x="120" y="18" font-size="9.5">THIS PROBLEM — A FEW HUNDRED POINTS PER SERIES</text>
   <rect class="area" x="120" y="26" width="120" height="154"/>
+  <text class="lbl dim" x="124" y="40" font-size="9.5">THIS PROBLEM</text>
   <path class="axis" d="M40 26 V180 H610"/>
   <line class="axis dashed" x1="305" y1="26" x2="305" y2="186"/>
   <path class="curve" d="M60 140 L90 128 L120 118.4 L150 110.6 L185 103.4 L220 97.8 L260 92.9 L305 88.8 L350 85.8 L400 83.5 L450 81.8 L500 80.7 L550 79.9 L600 79.3"/>
   <path class="curve-accent" d="M60 170 L90 153.6 L120 139.7 L150 127.7 L185 116 L220 106.2 L260 97.1 L305 88.8 L350 82.3 L400 76.7 L450 72.4 L500 69.1 L550 66.5 L600 64.5"/>
   <circle class="node-accent" cx="305" cy="88.8" r="4"/>
   <text x="312" y="44" font-size="10.5" class="dim">crossing point</text>
-  <text x="124" y="166" font-size="10" class="dim">statistics wins in this region</text>
+  <text x="124" y="166" font-size="10" class="dim">a few hundred points per series — statistics wins here</text>
   <text class="num" x="44" y="194">few</text>
   <text class="num" x="586" y="194">many</text>
   <text class="lbl dim" x="240" y="194" font-size="9.5">OBSERVATIONS PER SERIES</text>
@@ -367,7 +367,7 @@ Deep learning gains its advantage when there are many related series to learn a 
 The natural reflex when reporting forecast error is mean absolute percentage error. It is intuitive and everyone understands it. But it has a serious failure mode on exactly this kind of data: **it divides by the actual value**, and many environmental parameters sit very close to zero most of the time. That is the normal state, not corrupted data. When the denominator approaches zero, the ratio blows up.
 
 <figure class="diagram">
-<svg viewBox="0 0 640 236" role="img" aria-label="A percentage error curve running to infinity as the actual value approaches zero, while the baseline-scaled measure stays flat">
+<svg viewBox="0 0 640 244" role="img" aria-label="A percentage error curve running to infinity as the actual value approaches zero, while the baseline-scaled measure stays flat">
   <defs><marker id="ts-a4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
     <path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
   <rect class="area-warn" x="60" y="28" width="64" height="172"/>
@@ -388,8 +388,8 @@ The natural reflex when reporting forecast error is mean absolute percentage err
   <text x="444" y="154" font-size="10" class="dim">divides by the actual value</text>
   <text x="444" y="178" font-size="11.5">MASE</text>
   <text x="444" y="192" font-size="10" class="dim">divides by the naive error</text>
-  <text class="lbl dim" x="360" y="218" font-size="9.5">ACTUAL VALUE</text>
-  <text x="0" y="232" font-size="10.5" class="dim">In the danger zone the measure still returns a number. It raises no error.</text>
+  <text class="lbl dim" x="360" y="216" font-size="9.5">ACTUAL VALUE</text>
+  <text x="0" y="238" font-size="10.5" class="dim">In the danger zone the measure still returns a number. It raises no error.</text>
 </svg>
 <figcaption>The shaded band is where most environmental data actually lives, and it is exactly where a percentage measure stops meaning anything.</figcaption>
 </figure>

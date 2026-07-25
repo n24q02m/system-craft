@@ -337,15 +337,15 @@ Mô hình học sâu cần **nhiều điểm quan sát trên mỗi chuỗi** đ�
 <figure class="diagram">
 <svg viewBox="0 0 640 226" role="img" aria-label="Hai đường chất lượng dự báo cắt nhau khi số điểm quan sát trên mỗi chuỗi tăng dần">
   <text class="lbl dim" x="0" y="18" font-size="9.5">CHẤT LƯỢNG DỰ BÁO</text>
-  <text class="lbl dim" x="120" y="18" font-size="9.5">BÀI TOÁN NÀY — VÀI TRĂM ĐIỂM MỖI CHUỖI</text>
   <rect class="area" x="120" y="26" width="120" height="154"/>
+  <text class="lbl dim" x="124" y="40" font-size="9.5">BÀI TOÁN NÀY</text>
   <path class="axis" d="M40 26 V180 H610"/>
   <line class="axis dashed" x1="305" y1="26" x2="305" y2="186"/>
   <path class="curve" d="M60 140 L90 128 L120 118.4 L150 110.6 L185 103.4 L220 97.8 L260 92.9 L305 88.8 L350 85.8 L400 83.5 L450 81.8 L500 80.7 L550 79.9 L600 79.3"/>
   <path class="curve-accent" d="M60 170 L90 153.6 L120 139.7 L150 127.7 L185 116 L220 106.2 L260 97.1 L305 88.8 L350 82.3 L400 76.7 L450 72.4 L500 69.1 L550 66.5 L600 64.5"/>
   <circle class="node-accent" cx="305" cy="88.8" r="4"/>
   <text x="312" y="44" font-size="10.5" class="dim">điểm cắt</text>
-  <text x="124" y="166" font-size="10" class="dim">thống kê thắng ở vùng này</text>
+  <text x="124" y="166" font-size="10" class="dim">vài trăm điểm mỗi chuỗi — thống kê thắng ở đây</text>
   <text class="num" x="44" y="194">ít</text>
   <text class="num" x="586" y="194">nhiều</text>
   <text class="lbl dim" x="240" y="194" font-size="9.5">SỐ ĐIỂM TRÊN MỖI CHUỖI</text>
@@ -367,7 +367,7 @@ Lợi thế của học sâu xuất hiện khi có nhiều chuỗi liên quan đ
 Phản xạ tự nhiên khi báo cáo sai số dự báo là dùng sai số phần trăm tuyệt đối trung bình. Nó trực quan và ai cũng hiểu. Nhưng nó có một chỗ hỏng nghiêm trọng với đúng loại dữ liệu này: **nó chia cho giá trị thật**, mà nhiều thông số môi trường có giá trị rất gần 0 trong phần lớn thời gian — đó chính là trạng thái bình thường, không phải dữ liệu lỗi. Khi mẫu số gần 0, tỷ số nổ tung.
 
 <figure class="diagram">
-<svg viewBox="0 0 640 236" role="img" aria-label="Đường sai số phần trăm vọt lên vô cực khi giá trị thật tiến về 0, trong khi đường chỉ số chuẩn hoá theo baseline nằm ngang">
+<svg viewBox="0 0 640 244" role="img" aria-label="Đường sai số phần trăm vọt lên vô cực khi giá trị thật tiến về 0, trong khi đường chỉ số chuẩn hoá theo baseline nằm ngang">
   <defs><marker id="ts-a4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
     <path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>
   <rect class="area-warn" x="60" y="28" width="64" height="172"/>
@@ -388,8 +388,8 @@ Phản xạ tự nhiên khi báo cáo sai số dự báo là dùng sai số ph�
   <text x="444" y="154" font-size="10" class="dim">chia cho giá trị thật</text>
   <text x="444" y="178" font-size="11.5">MASE</text>
   <text x="444" y="192" font-size="10" class="dim">chia cho sai số ngây thơ</text>
-  <text class="lbl dim" x="360" y="218" font-size="9.5">GIÁ TRỊ THẬT</text>
-  <text x="0" y="232" font-size="10.5" class="dim">Ở vùng nguy hiểm chỉ số vẫn cho ra một con số — nó không báo lỗi, chỉ vô nghĩa.</text>
+  <text class="lbl dim" x="360" y="216" font-size="9.5">GIÁ TRỊ THẬT</text>
+  <text x="0" y="238" font-size="10.5" class="dim">Ở vùng nguy hiểm chỉ số vẫn cho ra một con số — nó không báo lỗi, chỉ vô nghĩa.</text>
 </svg>
 <figcaption>Vùng tô là nơi phần lớn dữ liệu môi trường thực sự nằm — cũng chính là nơi chỉ số phần trăm mất hết ý nghĩa.</figcaption>
 </figure>

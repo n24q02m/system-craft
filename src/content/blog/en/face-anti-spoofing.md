@@ -313,7 +313,7 @@ Keeping the four separate rather than reporting one number makes the gap between
   <rect class="box" x="160" y="160" width="160" height="12"/>
   <rect class="box-soft" x="0" y="196" width="160" height="12"/>
   <g class="edge"><path d="M160 196 V172"/><path d="M320 160 V136"/><path d="M480 124 V100"/></g>
-  <g class="flow" marker-end="url(#pad-a7)"><path d="M120 222 H630"/></g>
+  <g class="flow" marker-end="url(#pad-a7)"><path d="M164 222 H630"/></g>
   <text class="lbl dim" x="0" y="226" font-size="9.5">DIFFICULTY INCREASES</text>
   <text x="0" y="250" font-size="10.5" class="dim">The information is in the gap between levels, not in the result at the easiest one.</text>
 </svg>
@@ -388,7 +388,7 @@ The system can be wrong in two ways: it can let an attack through, or it can rej
   <path class="curve-accent" d="M60 190 C 145 190 180 78 250 78 C 320 78 355 190 440 190"/>
   <path class="curve-warn" d="M200 190 C 285 190 320 86 390 86 C 460 86 495 190 580 190"/>
   <path class="axis" d="M40 190 H620"/>
-  <path class="edge dashed" d="M320 56 V190"/>
+  <path class="edge dashed" d="M320 76 V190"/>
   <path class="flow" d="M270 50 H370" marker-start="url(#pad-c)" marker-end="url(#pad-b)"/>
   <text text-anchor="middle" x="320" y="30" font-size="10.5" class="dim">decision threshold</text>
   <text text-anchor="middle" x="320" y="68" font-size="10" class="dim">moving it trades one area for the other</text>
