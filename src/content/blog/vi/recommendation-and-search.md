@@ -1,139 +1,192 @@
 ---
 title: "Hệ gợi ý và tìm kiếm ngữ nghĩa cho ứng dụng nội dung"
-description: "Bốn tầng của một hệ gợi ý hiện đại, vì sao dữ liệu tương tác quyết định tất cả, và vì sao một chỉ số xếp hạng cao có thể là dấu hiệu xấu."
+description: "Bốn tầng của một hệ gợi ý đa phương thức: từ phân tích nội dung thô, sinh biểu diễn vector, tới tìm kiếm lai và xếp hạng nhiều nguồn."
 lang: "vi"
 order: 1
 field: "REC"
-topics:
-  ["hệ gợi ý", "tìm kiếm ngữ nghĩa", "embedding", "lọc cộng tác", "rò rỉ dữ liệu"]
+topics: ["hệ gợi ý", "tìm kiếm ngữ nghĩa", "embedding", "lọc cộng tác", "ANN"]
 ---
 
-Bài toán nghe đơn giản: người dùng mở ứng dụng, hệ thống phải biết nên đưa nội dung nào lên trước.
-Nhưng đằng sau một danh sách mười mục ấy là bốn hệ thống con tách bạch, và chỉ cần một trong bốn
-có vấn đề là cả chuỗi phía sau trở nên vô nghĩa mà không hề báo lỗi.
+Một ứng dụng nghe nhạc cần trả lời hai câu hỏi liên tục: người này nên nghe gì tiếp theo, và khi họ
+gõ vào ô tìm kiếm thì trả về cái gì. Nghe như hai tính năng, nhưng chúng dùng chung phần lớn hạ tầng
+bên dưới — và chính phần hạ tầng ấy là nội dung chủ yếu của bài này.
 
-## Bốn tầng của một hệ gợi ý
+## Hệ thống đã dựng
 
-Cách tổ chức đã dùng gồm bốn module xếp thành chuỗi phụ thuộc một chiều.
+Kiến trúc gồm bốn module xếp thành chuỗi phụ thuộc một chiều, chạy như một dịch vụ riêng bên cạnh
+backend nghiệp vụ.
 
-**Tầng phân tích nội dung** nhận vào chính nội dung thô — với âm thanh thì là dạng sóng — rồi sinh ra
-các nhãn mô tả: thể loại, tâm trạng, nhạc cụ, đặc điểm giọng, ngôn ngữ. Đây là bước biến thứ mà máy
-không so sánh được thành thứ có thể so sánh.
+### Tầng một: phân tích nội dung
 
-**Tầng sinh biểu diễn** biến mỗi mục nội dung thành nhiều vector trong các không gian khác nhau: một
-vector từ chính tín hiệu âm thanh, một vector từ phần văn bản mô tả, một vector từ lời, và một vector
-học được từ hành vi người dùng. Mỗi vector được lập chỉ mục riêng để tìm kiếm lân cận gần đúng.
+Đầu vào là tệp âm thanh thô. Đầu ra là các nhãn mô tả, chia thành năm nhóm: thể loại, tâm trạng,
+nhạc cụ, đặc điểm giọng hát, và ngôn ngữ.
 
-**Tầng tìm kiếm** nhận truy vấn, đưa nó vào cùng không gian với nội dung, rồi hợp kết quả từ nhánh
-vector với nhánh khớp từ khoá truyền thống.
+Điểm đáng nói ở tầng này là **bộ nhãn không được bịa ra**. Mỗi nhóm neo vào một hệ phân loại có sẵn:
+tâm trạng theo mô hình vòng tròn cảm xúc của Russell, chia mặt phẳng thành bốn góc phần tư theo hai
+trục mức độ kích thích và sắc thái tích cực hay tiêu cực; nhạc cụ theo hệ Hornbostel–Sachs, phân theo
+cơ chế phát âm thành dây, hơi, màng rung, tự thân vang và điện tử; ngôn ngữ lấy tập con của một bộ
+nhận dạng ngôn ngữ có sẵn để khớp với mô hình dùng ở bước sau.
 
-**Tầng gợi ý** chạy song song ba nguồn ứng viên — dựa trên nội dung tương tự, dựa trên hành vi của
-những người dùng giống nhau, và dựa trên trình tự nghe gần đây — rồi hợp điểm thành một bảng xếp hạng.
+Việc neo vào hệ phân loại có sẵn nghe như chi tiết nhỏ, nhưng nó quyết định khả năng mở rộng: khi cần
+thêm nhãn, có một cấu trúc để đặt nhãn mới vào đúng chỗ, thay vì một danh sách phẳng mà ai cũng có thể
+thêm bừa.
 
-Trật tự phụ thuộc này quan trọng: tầng hai là nút thắt. Không có chỉ mục vector thì tầng ba và tầng
-bốn không có gì để đọc. Khi dựng lại, đây là thứ tự bắt buộc.
+Về mô hình, tầng này dùng hai mạng chạy song song. Một mạng phân loại đa nhãn dựa trên kiến trúc
+transformer cho phổ âm thanh, với bốn đầu ra riêng cho bốn nhóm nhãn đầu. Một mạng riêng chuyên cho
+nhận dạng ngôn ngữ, dựa trên kiến trúc thường dùng trong xử lý tiếng nói. Tách hai việc thay vì gộp
+vào một mạng nhiều đầu là có chủ ý: nhận dạng ngôn ngữ dựa vào đặc trưng ngữ âm, còn phân loại thể
+loại dựa vào đặc trưng hoà âm và nhịp điệu — ép chúng dùng chung phần thân dễ khiến hai tác vụ cản nhau.
 
-## Vì sao dữ liệu tương tác quyết định tất cả
+### Tầng hai: sinh biểu diễn và lập chỉ mục
 
-Lọc cộng tác hoạt động dựa trên một giả định duy nhất: nếu hai người cùng thích một tập nội dung,
-thì thứ người này thích mà người kia chưa biết là ứng viên tốt. Toàn bộ sức mạnh của phương pháp nằm
-ở **cấu trúc đồng xuất hiện** giữa người dùng và nội dung.
+Đây là nút thắt của toàn hệ thống. Mỗi bài hát được biến thành bốn vector nằm trong bốn không gian
+khác nhau:
 
-Điều đó dẫn tới một hệ quả mà lúc mới làm rất dễ bỏ qua: nếu quá trình chuẩn bị dữ liệu vô tình phá
-vỡ cấu trúc ấy, mô hình sẽ không còn gì để học, dù kiến trúc và siêu tham số đều đúng.
+- **Vector âm thanh**, lấy từ trạng thái ẩn của mạng phân tích phổ, tính trung bình theo trục thời gian.
+- **Vector thẻ mô tả**, sinh bằng một mô hình nhúng văn bản đa ngữ. Điểm thú vị ở đây: thay vì mã hoá
+  các nhãn thành vector nhị phân, hệ thống **ghép chúng thành một câu tiếng Việt tự nhiên** — đại ý
+  "Tiêu đề X. Nghệ sĩ Y. Thể loại A. Tâm trạng B. Nhạc cụ C" — rồi mới đưa vào mô hình nhúng. Nhờ vậy
+  một truy vấn kiểu "bài buồn có tiếng guitar" khớp được với nội dung mà không cần từ điển ánh xạ thủ
+  công giữa từ khoá và nhãn.
+- **Vector lời bài hát**, cũng từ mô hình nhúng văn bản, chạy trên phần lời.
+- **Vector hành vi**, lấy từ ma trận thừa số của mô hình lọc cộng tác.
 
-Có hai cách phá vỡ nó mà bề ngoài trông hoàn toàn vô hại.
+Bốn vector này được lập chỉ mục riêng bằng một thư viện tìm kiếm lân cận gần đúng, dùng cấu trúc đồ
+thị phân tầng. Ý tưởng của cấu trúc này là xây đồ thị nhiều lớp, lớp trên thưa để nhảy xa, lớp dưới
+dày để tinh chỉnh — nhờ đó thời gian tìm kiếm tăng theo hàm lô-ga-rít thay vì tuyến tính với số lượng mục.
 
-Cách thứ nhất là **gán ghép ngẫu nhiên khi mượn dữ liệu từ nguồn khác**. Khi hệ thống chưa có người
-dùng thật, việc mượn một tập tương tác công khai là hợp lý. Nhưng nếu trong lúc ánh xạ, mỗi sự kiện
-được gán cho một người dùng bất kỳ trong hệ mới, thì các sự kiện vốn thuộc về cùng một người đã bị
-rải ra khắp nơi. Ma trận thu được vẫn có đúng số dòng, đúng phân bố biên, và vẫn nạp vào mô hình
-bình thường — nhưng nó là nhiễu.
+### Tầng ba: tìm kiếm lai
 
-Cách thứ hai tinh vi hơn: **ánh xạ định danh bằng phép chia dư**. Khi tập nguồn có nhiều mục hơn tập
-đích, lấy phần dư là cách nhanh nhất để mọi thứ khớp. Nhưng phép này gộp những mục hoàn toàn không
-liên quan vào chung một định danh, tạo ra các mục có lịch sử tương tác lai tạp.
+Một truy vấn đi song song qua hai nhánh. Nhánh vector đưa truy vấn vào cùng không gian với nội dung
+rồi tìm lân cận. Nhánh từ khoá khớp chuỗi trên tiêu đề, tên nghệ sĩ và các nhãn. Hai nhánh cho ra hai
+danh sách, và một bước hợp điểm gộp lại cùng hai yếu tố phụ là độ phổ biến và độ mới.
 
-Cách làm đúng trong cả hai trường hợp là giữ nguyên cặp người dùng–nội dung của nguồn, chỉ đổi tên
-định danh bằng một ánh xạ song ánh; nếu cần thu hẹp danh mục thì lọc bỏ sự kiện nằm ngoài tập đã chọn,
-chứ không nén định danh lại.
+Hệ thống hỗ trợ cả truy vấn bằng văn bản lẫn truy vấn bằng một đoạn âm thanh — trường hợp sau đi thẳng
+vào chỉ mục vector âm thanh.
 
-## Rò rỉ thời gian: cái bẫy tinh vi hơn
+### Tầng bốn: gợi ý nhiều nguồn
 
-Có một lỗi nữa cùng họ nhưng khó thấy hơn nhiều, và nó chỉ hại các mô hình có trục thời gian.
+Ba nguồn ứng viên chạy độc lập rồi hợp lại.
 
-Khi sinh dữ liệu tương tác, mỗi sự kiện cần một dấu thời gian. Nếu dấu thời gian ấy được suy ra từ
-thuộc tính của **nội dung** — chẳng hạn ngày đăng của mục đó cộng thêm một khoảng ngẫu nhiên — thì
-mọi chuỗi hành vi trong hệ thống đều bị ép về cùng một hình dạng: phần đuôi của chuỗi, với bất kỳ
-người dùng nào, cũng chỉ có thể chứa các mục mới đăng nhất.
+**Dựa trên nội dung.** Lấy trung bình vector của những bài người dùng đã thích để tạo hồ sơ sở thích,
+rồi tìm lân cận của hồ sơ đó. Với người dùng mới chưa thích bài nào, hồ sơ được dựng từ các bài phổ
+biến nhất — một cách xử lý khởi đầu nguội đơn giản và rẻ.
 
-Mô hình dự đoán mục tiếp theo khi đó không cần học sở thích cá nhân. Nó chỉ cần học rằng "phần cuối
-chuỗi luôn là nội dung mới" là đã đạt chỉ số rất cao. Danh sách gợi ý trả về gần như giống hệt nhau
-cho mọi người dùng, nhưng chỉ số đánh giá lại đẹp.
+**Lọc cộng tác.** Dùng thuật toán bình phương tối thiểu luân phiên trên ma trận tương tác. Ý tưởng:
+phân rã ma trận người dùng nhân nội dung thành tích của hai ma trận thừa số nhỏ hơn, rồi luân phiên
+cố định một bên để giải bên còn lại — mỗi bước là một bài bình phương tối thiểu có nghiệm đóng, nên
+hội tụ nhanh và song song hoá được.
 
-Dấu thời gian phải sinh từ **phiên sử dụng của người dùng** — giờ trong ngày, ngày trong tuần, độ dài
-phiên — rồi mới lọc bỏ những tương tác xảy ra trước khi nội dung tồn tại. Đây là chiều ngược lại
-hoàn toàn so với cách làm sai ở trên.
+**Theo trình tự.** Một mạng transformer nhận chuỗi nội dung người dùng vừa tiêu thụ và dự đoán mục
+tiếp theo, có mặt nạ nhân quả để mỗi vị trí chỉ nhìn được về quá khứ.
 
-## Nghịch lý: chỉ số cao có thể là dấu hiệu xấu
+Điểm chung của cả ba: chúng trả về ứng viên kèm điểm số, và một hàm hợp điểm tuyến tính gộp lại thành
+bảng xếp hạng cuối, cộng thêm độ phổ biến và độ mới.
 
-Điều đáng nhớ nhất từ hệ thống này là quan sát sau: khi dữ liệu bị hỏng theo kiểu vừa mô tả, các mô
-hình khác nhau phản ứng rất khác nhau.
+### Tín hiệu ngầm: biến hành vi thành con số
 
-Mô hình lọc cộng tác cổ điển chỉ nhìn ma trận người dùng nhân nội dung, không có khái niệm thứ tự
-thời gian. Nó không có cách nào khai thác tín hiệu rò rỉ, nên nó rơi thẳng về mức của phép đoán ngẫu
-nhiên. Nó **báo cáo trung thực** rằng dữ liệu vô nghĩa.
+Có một chi tiết thiết kế đáng mang đi nơi khác. Dữ liệu tương tác thô chỉ có các sự kiện rời rạc —
+phát, thích, bỏ thích. Trước khi đưa vào mô hình, mỗi sự kiện được quy về một trọng số thực theo vài
+quy tắc:
 
-Mô hình chuỗi dựa trên attention thì có trục thời gian. Nó tìm thấy tín hiệu rò rỉ, học tín hiệu đó,
-và cho ra chỉ số rất cao. Nó **bị đánh lừa**, và nếu chỉ nhìn vào nó thì kết luận sẽ là hệ thống đang
-hoạt động tốt.
+- Bỏ qua sớm, tức nghe chưa được bao nhiêu đã chuyển bài, mang **giá trị âm** — nó là tín hiệu không
+  thích, chứ không phải trung tính.
+- Nghe gần trọn được nhân thêm hệ số: tín hiệu tích cực mạnh hơn nghe nửa chừng.
+- Tương tác tự tìm đến được đánh giá cao hơn tương tác đến từ gợi ý, vì nó phản ánh ý định chủ động.
+- Tương tác gần đây có trọng số cao hơn tương tác cũ, giảm dần theo thời gian.
 
-Bài học rút ra không phải "đừng dùng mô hình chuỗi", mà là: **khi hai mô hình trên cùng một tập dữ
-liệu cho kết luận trái ngược nhau, đó là thông tin về dữ liệu, không phải về mô hình.** Mô hình đơn
-giản hơn thường là cảm biến trung thực hơn, vì nó có ít cách để gian lận.
+Bốn quy tắc này mã hoá được những thứ mà một bảng "đã thích hay chưa" không có. Đây là phần chuyển từ
+dữ liệu sự kiện sang tín hiệu học được, và nó thường quyết định chất lượng nhiều hơn việc chọn mô hình.
 
-Có một phép kiểm tra rẻ tiền phát hiện được toàn bộ lớp lỗi này: đo xem bao nhiêu phần trăm người
-dùng nhận được cùng một danh sách gợi ý. Nếu con số đó cao, hệ thống đang không cá nhân hoá gì cả,
-bất kể chỉ số xếp hạng đẹp đến đâu.
+### Hạ tầng
+
+Dịch vụ AI viết bằng Python với FastAPI, phơi ra bốn điểm cuối tương ứng bốn module. Backend nghiệp vụ
+viết bằng Java gọi sang. Dữ liệu nằm trên một cơ sở dữ liệu tài liệu, kèm một lớp bộ nhớ đệm cho kết
+quả gợi ý và tìm kiếm. Trọng số mô hình được tải sẵn vào ảnh máy ảo lúc dựng thay vì tải lúc chạy.
+
+Một chi tiết vận hành đáng ghi: tác vụ nặng được tách ra chạy như tiến trình con riêng thay vì chạy
+trong tiến trình web. Lý do là mô hình chiếm nhiều bộ nhớ, và nếu chạy chung thì một yêu cầu nặng có
+thể làm chết worker đang phục vụ mọi người dùng khác.
+
+## Kiến thức nền: vì sao bài toán này khó
+
+### Không gian tìm kiếm quá lớn để chấm điểm trực tiếp
+
+Với danh mục cỡ vài nghìn mục, có thể chấm điểm mọi mục cho mọi người dùng. Với vài triệu thì không.
+Đây là ràng buộc định hình toàn bộ kiến trúc của các hệ thống lớn, và là lý do tồn tại của tìm kiếm
+lân cận gần đúng: chấp nhận bỏ sót một phần nhỏ kết quả đúng để đổi lấy tốc độ tăng theo bậc.
+
+### Ba họ phương pháp, ba điểm mạnh khác nhau
+
+**Dựa trên nội dung** hoạt động ngay cả với mục hoàn toàn mới, vì nó chỉ cần đặc trưng của chính mục
+đó. Nhược điểm là nó có xu hướng gợi ý quanh quẩn những thứ giống cái đã biết, khó đưa người dùng tới
+sở thích mới.
+
+**Lọc cộng tác** phát hiện được những liên hệ mà không đặc trưng nội dung nào giải thích nổi — hai bài
+hát chẳng liên quan gì về âm nhạc nhưng cùng được một nhóm người yêu thích. Đổi lại, nó cần lịch sử
+tương tác, nên thất bại với mục mới và người dùng mới.
+
+**Theo trình tự** nắm bắt ý định trong phiên hiện tại, thứ mà hai họ trên bỏ qua: người vừa nghe ba
+bài ru con có ngữ cảnh khác hẳn người vừa nghe ba bài tập gym, dù hồ sơ dài hạn giống nhau.
+
+Không họ nào thay thế được họ nào, và đó là lý do các hệ thống thực tế đều lai.
+
+### Khởi đầu nguội là bài toán riêng
+
+Một mục mới chưa ai nghe thì lọc cộng tác không có gì để nói về nó. Một người dùng mới cũng vậy. Các
+hướng xử lý phổ biến: dựa vào đặc trưng nội dung cho mục mới, dựa vào nhân khẩu học cho người dùng
+mới, hoặc chủ động đưa mục mới vào một phần nhỏ lưu lượng để thu thập tín hiệu ban đầu.
 
 ## Ngành công nghiệp làm việc này ra sao
 
-Đối chiếu với cách các hệ thống quy mô lớn được thiết kế, có bốn khác biệt đáng chú ý.
+Đối chiếu với các tài liệu thiết kế hệ thống quy mô lớn, có bốn điểm đáng học.
 
-**Kiến trúc nhiều tầng lọc dần.** Không hệ thống lớn nào chấm điểm toàn bộ danh mục trong một lượt.
-Chuẩn phổ biến là hai đến ba tầng: tầng sinh ứng viên rẻ và thiên về độ phủ, thu từ hàng triệu mục
-xuống vài trăm; tầng chấm điểm đắt hơn, giàu đặc trưng, thu tiếp xuống vài chục; rồi tầng sắp xếp lại
-áp các quy tắc nghiệp vụ như đa dạng nguồn, lọc nội dung đã xem, chèn yếu tố khám phá. Gộp tất cả vào
-một tầng vừa chậm vừa khó cải thiện từng phần.
+**Kiến trúc nhiều tầng lọc dần.** Chuẩn phổ biến là hai đến ba tầng. Tầng sinh ứng viên rẻ và thiên về
+độ phủ, thường chạy nhiều bộ sinh song song với tiêu chí khác nhau — độ liên quan, độ phổ biến, độ mới
+— rồi gộp lại, thu từ hàng triệu mục xuống vài trăm. Tầng chấm điểm đắt hơn và giàu đặc trưng hơn, thu
+tiếp xuống vài chục. Tầng sắp xếp lại áp các quy tắc nghiệp vụ: đa dạng nguồn, lọc nội dung đã xem,
+chèn yếu tố khám phá, cân bằng lợi ích các bên trong một thị trường hai chiều.
 
-**Luôn có baseline trước.** Mọi tài liệu thiết kế hệ gợi ý đều bắt đầu bằng một mô hình tầm thường —
-gợi ý theo độ phổ biến, theo cùng tác giả, hoặc đơn giản là ngẫu nhiên — và báo cáo nó cạnh mọi mô
-hình phức tạp về sau. Không phải vì baseline tốt, mà vì nếu không có nó thì không ai biết một con số
-là cao hay thấp. Phần lớn ngộ nhận trong bài này đã có thể tránh được chỉ bằng bước đó.
+Việc chia tầng không chỉ để nhanh. Nó còn cho phép cải thiện từng phần độc lập, và cho phép đo xem
+tầng nào đang là nút thắt.
 
-**Chỉ số ngoại tuyến phải nối được với chỉ số trực tuyến.** Các chỉ số như nDCG hay entropy chéo chuẩn
-hoá tồn tại vì chúng dự báo được hành vi thật, chứ không phải vì chúng dễ tính. Một biến thể đáng chú
-ý là entropy chéo chuẩn hoá: nó so trực tiếp mô hình với baseline "luôn đoán tỷ lệ trung bình", nên
-tự phơi bày thất bại — nếu mô hình tệ hơn baseline thì chỉ số vượt ngưỡng một cách rõ ràng, không cần
-diễn giải.
+**Hai họ mô hình cho hai tầng.** Phân rã ma trận nhanh và rẻ nhưng không dùng được đặc trưng ngoài
+định danh. Mạng hai tháp — một tháp mã hoá người dùng, một tháp mã hoá nội dung, cùng chiếu vào một
+không gian — nhận được đặc trưng phong phú và xử lý người dùng mới tốt hơn, đổi lại tốn kém hơn. Cách
+ghép thường thấy là dùng mô hình nhẹ ở tầng sinh ứng viên và mô hình nặng ở tầng chấm điểm.
 
-**Tìm kiếm xuyên phương thức cần không gian chung.** Muốn truy vấn bằng văn bản chạm được tới nội dung
-âm thanh, hai bên phải nằm trong cùng một không gian vector, và điều đó chỉ có được khi mô hình được
+**Chỉ số ngoại tuyến phải nối được với hành vi thật.** Các chỉ số xếp hạng như nDCG tính đến vị trí:
+một kết quả đúng ở hạng nhất giá trị hơn cùng kết quả đó ở hạng mười. Bên cạnh đó là các chỉ số trực
+tuyến — tỷ lệ nhấp, thời gian xem, tỷ lệ hoàn thành. Điều quan trọng là chọn chỉ số ngoại tuyến nào
+dự báo tốt cho chỉ số trực tuyến mà tổ chức thực sự quan tâm.
+
+Một biến thể đáng chú ý là entropy chéo chuẩn hoá: nó chia hiệu năng mô hình cho hiệu năng của baseline
+luôn dự đoán tỷ lệ trung bình. Giá trị lớn hơn một nghĩa là mô hình tệ hơn baseline — chỉ số này tự
+phơi bày thất bại thay vì để người đọc phải suy ra.
+
+**Tìm kiếm xuyên phương thức cần không gian chung.** Muốn truy vấn bằng văn bản chạm tới nội dung âm
+thanh, hai bên phải nằm trong cùng một không gian vector, và điều đó chỉ có được khi mô hình được
 huấn luyện tương phản trên các cặp văn bản–âm thanh. Đặt cạnh nhau hai bộ mã hoá riêng biệt rồi cộng
-điểm không tạo ra khả năng đó; nó chỉ cho phép so văn bản với phần văn bản mô tả nội dung.
+điểm không tạo ra khả năng đó — nó chỉ cho phép so văn bản với phần văn bản mô tả nội dung, đúng như
+cách hệ thống ở trên hoạt động.
 
-## Điều còn đọng lại
+## Vài điều rút ra
 
-Phần hạ tầng của hệ thống này — đường ống dữ liệu, cách sinh biểu diễn, cách lập chỉ mục, cách hợp
-điểm nhiều nguồn, cách phục vụ — vẫn dùng lại được nguyên vẹn. Phần hỏng nằm ở một chỗ duy nhất và
-rất nhỏ: đoạn mã chuẩn bị dữ liệu tương tác.
+**Bước biến sự kiện thành tín hiệu quan trọng hơn vẻ ngoài của nó.** Công thức quy đổi tương tác thành
+trọng số — phân biệt bỏ qua với nghe trọn, tự tìm với được gợi ý, gần đây với đã lâu — là phần mang
+lại nhiều giá trị nhất trên mỗi dòng mã trong toàn hệ thống.
 
-Điều đó tóm gọn bài học chính. Trong một hệ học máy, công sức thường dồn vào phần mô hình vì đó là
-phần thú vị, nhưng rủi ro lại tập trung ở phần dữ liệu vì đó là phần không ai kiểm tra. Và loại lỗi
-nguy hiểm nhất không phải loại làm hệ thống sập — mà là loại khiến hệ thống vẫn chạy, vẫn trả kết quả,
-vẫn có chỉ số đẹp, trong khi bên trong đã không còn học được gì.
+**Ghép nhiều nguồn điểm cần chuẩn hoá trước khi cộng.** Điểm từ ba nguồn thường có thang đo hoàn toàn
+khác nhau: một bên là tương đồng nằm trong khoảng đơn vị, một bên là tích vô hướng không chặn, một bên
+là xác suất trên hàng nghìn lớp nên luôn rất nhỏ. Cộng thẳng có trọng số sẽ khiến nguồn có thang nhỏ
+gần như không đóng góp gì, dù trọng số danh nghĩa không nhỏ. Chuẩn hoá về cùng thang, hoặc hợp nhất
+theo thứ hạng, là bước bắt buộc.
 
-Trước khi viết dòng huấn luyện đầu tiên, đáng bỏ ra một buổi để chứng minh rằng tín hiệu cần học thực
-sự tồn tại trong dữ liệu: bằng thống kê đồng xuất hiện, bằng việc kiểm tra thủ công vài chục mẫu,
-bằng một baseline ngớ ngẩn. Buổi đó rẻ hơn nhiều so với vài tuần huấn luyện những mô hình không có gì
-để học.
+**Thước đo khoảng cách phải khớp với cách vector được tạo ra.** Chỉ mục lân cận mặc định thường dùng
+khoảng cách Euclid, trong khi phần lớn biểu diễn ngữ nghĩa được thiết kế để so bằng cosin. Nếu không
+chuẩn hoá độ dài vector trước khi lập chỉ mục, thứ hạng sẽ bị chi phối bởi độ dài chứ không chỉ bởi
+hướng.
+
+**Sinh biểu diễn nên đi trước mọi thứ khác.** Trong chuỗi bốn tầng, ba tầng sau đều đọc chỉ mục do
+tầng hai tạo ra. Khi dựng lại một hệ thống tương tự, đây là thứ tự bắt buộc — và cũng là chỗ đáng đầu
+tư nhất, vì chất lượng biểu diễn đặt trần cho mọi thứ phía sau.

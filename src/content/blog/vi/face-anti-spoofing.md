@@ -1,126 +1,240 @@
 ---
-title: "Chống giả mạo khuôn mặt: khi độ chính xác cao là thứ đáng nghi nhất"
-description: "Vì sao một mô hình nhận diện tấn công gần như hoàn hảo trong phòng thí nghiệm lại sụp đổ ngoài đời, và vì sao con số dưới mức đoán ngẫu nhiên đôi khi chỉ là lỗi một dòng mã."
+title: "Chống giả mạo khuôn mặt: nhận ra người thật trước ống kính"
+description: "Bốn hướng kiến trúc cho bài toán phát hiện tấn công giả mạo khuôn mặt, cơ chế tách phong cách khỏi nội dung, và cách ngành chuẩn hoá việc đo lường."
 lang: "vi"
 order: 2
 field: "PAD"
-topics:
-  ["chống giả mạo", "domain generalization", "hiệu chỉnh ngưỡng", "mất cân bằng lớp", "ISO/IEC 30107-3"]
+topics: ["chống giả mạo", "domain generalization", "hiệu chỉnh ngưỡng", "ISO/IEC 30107-3", "biometrics"]
 ---
 
-Bài toán: cho một ảnh khuôn mặt, quyết định xem đó là người thật đang ngồi trước camera, hay là một
-bức ảnh in, một màn hình đang phát video, một chiếc mặt nạ. Trong tiếng Anh nó có tên chuẩn là
-*presentation attack detection*. Nghe như một bài phân loại nhị phân bình thường, và đó chính là chỗ
-mọi thứ bắt đầu sai.
+Một hệ thống nhận diện khuôn mặt trả lời câu hỏi "người này là ai". Nó không trả lời câu hỏi đứng
+trước đó: thứ đang ở trước ống kính có phải một con người thật hay không. Chỉ cần giơ một tấm ảnh in,
+một chiếc điện thoại đang phát video quay sẵn, hoặc một chiếc mặt nạ ra trước camera là phần nhận diện
+phía sau vẫn làm việc bình thường — nó vốn không được thiết kế để nghi ngờ. Lĩnh vực lấp chỗ trống đó
+có tên chuẩn trong tài liệu quốc tế: *presentation attack detection*, viết tắt là PAD.
 
-## Vì sao đây không phải bài phân loại nhị phân bình thường
+Nhìn từ xa, đây là một bài phân loại nhị phân: đưa ảnh vào, trả lời live hay spoof. Nhưng nó khác mọi
+bài phân loại nhị phân thông thường ở một điểm quyết định: phía bên kia là người, và người đó chủ động
+tìm cách vượt qua. Không có gì buộc kẻ tấn công phải dùng đúng loại tấn công đã có trong tập huấn
+luyện, đúng chiếc máy in ấy, đúng chiếc màn hình ấy. Cũng không có gì bảo đảm camera nơi triển khai
+giống camera đã dùng để thu dữ liệu.
 
-Với một bài phân loại thông thường, tập huấn luyện và tập kiểm tra được lấy từ cùng một phân phối,
-và giả định đó hợp lý. Với chống giả mạo, giả định đó sai về bản chất.
+Bài này mô tả một hệ thống đã dựng cho bài toán đó: các hướng kiến trúc được thử song song, cơ chế
+được thiết kế riêng để mô hình không bám vào thiết bị cụ thể, và cách lĩnh vực này đã chuẩn hoá việc
+đo lường.
 
-Kẻ tấn công không bị ràng buộc phải dùng đúng loại tấn công có trong tập huấn luyện. Camera triển khai
-thực tế không phải camera đã quay tập dữ liệu. Ánh sáng nơi triển khai không phải ánh sáng phòng lab.
-Nói cách khác, đây là bài toán mà **phân phối lúc chạy thật chắc chắn khác phân phối lúc huấn luyện**,
-và độ khó thật nằm ở chỗ đó chứ không nằm ở việc phân biệt thật–giả trên dữ liệu đã thấy.
+## Hệ thống đã dựng
 
-Điều này dẫn tới hệ quả trực tiếp về cách đánh giá: một con số đo trên phần dữ liệu giữ lại của
-cùng bộ dữ liệu gần như không nói gì về khả năng dùng được. Mô hình có thể đã học đặc điểm của chiếc
-máy in cụ thể dùng để tạo ảnh giả, hoặc đặc điểm nén của màn hình cụ thể dùng để phát lại — những
-thứ hoàn toàn vô dụng khi gặp thiết bị khác.
+Đầu vào chung cho mọi hướng là ảnh khuôn mặt đã được cắt ra bằng một face detector và chuẩn hoá về
+kích thước cố định. Đầu ra là một quyết định nhị phân: live hay spoof. Vì chưa rõ trước họ kiến trúc
+nào phù hợp với bài toán, hệ thống được dựng thành bốn hướng tiếp cận chạy song song, dùng chung
+pipeline dữ liệu và chung protocol đánh giá để kết quả giữa chúng so được với nhau.
 
-## Ngành công nghiệp đã chuẩn hoá việc này
+### Hướng một: mạng tích chập kèm cơ chế chú ý
 
-Có một tiêu chuẩn quốc tế riêng cho việc đo lường: **ISO/IEC 30107-3** — *Information technology,
-Biometric presentation attack detection, Part 3: Testing and reporting*, bản hiện hành ban hành năm
-2023. Tiêu chuẩn này quy định cách đánh giá và cách báo cáo kết quả, chứ không quy định phải dùng
-thuật toán nào.
+Backbone là một mạng tích chập đã huấn luyện sẵn trên tập ảnh lớn, dùng cả biến thể nặng cho trường
+hợp không giới hạn tài nguyên lẫn biến thể nhẹ hướng tới thiết bị di động.
 
-Bộ chỉ số nó chuẩn hoá gồm ba đại lượng:
+Điểm bổ sung là khối chú ý CBAM chèn sau mỗi nhóm khối của backbone. CBAM gồm hai phần nối tiếp. Phần
+chú ý theo kênh gộp bản đồ đặc trưng theo trục không gian bằng cả trung bình lẫn cực đại, đưa hai
+vector thu được qua một MLP dùng chung, cộng lại rồi qua sigmoid để ra trọng số cho từng kênh. Phần
+chú ý theo không gian gộp theo trục kênh, đưa qua một lớp tích chập 7x7 rồi sigmoid để ra trọng số cho
+từng vị trí. Ý tưởng là để mạng tự học xem kênh nào và vùng ảnh nào đáng chú ý, thay vì đối xử đồng
+đều với toàn bộ bản đồ đặc trưng.
 
-- **APCER** — tỷ lệ tấn công giả mạo bị phân loại nhầm thành hợp lệ. Đây là chỉ số bảo mật: nó đo
-  xem bao nhiêu kẻ tấn công lọt qua.
-- **BPCER** — tỷ lệ người dùng thật bị từ chối nhầm. Đây là chỉ số trải nghiệm: nó đo xem hệ thống
-  gây phiền toái đến đâu.
-- **ACER** — trung bình cộng của hai đại lượng trên.
+Đầu phân loại đặt sau backbone gồm: gộp trung bình toàn cục, dropout, một lớp tuyến tính trung gian,
+chuẩn hoá batch, ReLU, rồi một lớp tuyến tính cuối trả về một logit duy nhất.
 
-Việc tách bạch hai loại lỗi này quan trọng hơn nhiều so với một con số độ chính xác gộp chung, vì
-hai loại lỗi có hậu quả hoàn toàn khác nhau. Một hệ thống mở khoá điện thoại và một hệ thống xác thực
-giao dịch ngân hàng cần hai điểm cân bằng khác nhau trên cùng một đường cong đánh đổi.
+### Hướng hai: Vision Transformer
 
-Về protocol đánh giá, bộ dữ liệu **OULU-NPU** đưa ra một thiết kế đáng học: bốn protocol, mỗi protocol
-cố tình đặt vào tập kiểm tra ít nhất một điều kiện chưa từng xuất hiện trong tập huấn luyện — thiết bị
-chụp mới, môi trường mới, hoặc kiểu tấn công mới. Mục đích là ép mô hình phải khái quát hoá thay vì
-học thuộc. Các bộ khác như SiW hay CASIA-SURF đi theo cùng tinh thần, và các paper nghiêm túc trong
-lĩnh vực đều báo cáo cả kết quả trong cùng bộ dữ liệu lẫn kết quả chéo bộ dữ liệu.
+Hướng này thay backbone tích chập bằng một Vision Transformer đã huấn luyện sẵn, có cả bản đầy đủ và
+bản rất nhẹ. Ảnh được chia thành các patch, và biểu diễn dùng cho phân loại lấy từ token CLS, gắn vào
+một đầu phân loại tương tự hướng một.
 
-## Cái bẫy: một ngưỡng cứng đặt lên đại lượng chưa được chuyển đổi
+Hướng này có thêm một chế độ đóng băng toàn bộ backbone và chỉ huấn luyện phần đầu. Cách làm đó rẻ và
+hợp lý khi dữ liệu ít, nhưng đi kèm một đánh đổi được bàn ở phần kiến thức nền phía dưới.
 
-Có một lỗi kỹ thuật nhỏ nhưng hậu quả rất lớn, và nó phổ biến hơn nhiều người nghĩ.
+### Hướng ba: GAN với nhánh phân loại phụ
 
-Trong PyTorch, cách viết chuẩn cho bài phân loại nhị phân là để lớp cuối của mạng trả về **logit thô**
-— một số thực không giới hạn — rồi dùng hàm mất mát `BCEWithLogitsLoss`. Hàm này tự áp sigmoid bên
-trong, vừa đúng về mặt số học vừa ổn định hơn khi tính gradient. Đây là cách làm được khuyến nghị.
+Hướng này dùng một mạng đối sinh. Bộ sinh theo kiểu DCGAN: từ một vector ẩn đi qua chuỗi lớp upsample
+và tích chập để dựng ra ảnh. Bộ phân biệt có bốn khối tích chập stride 2, có chèn CBAM, rồi tách thành
+hai nhánh — một nhánh phán đoán ảnh thật hay do bộ sinh tạo ra, phục vụ phần đối kháng; một nhánh phụ
+phân loại live/spoof.
 
-Vấn đề nảy sinh ở bước đánh giá. Nếu đoạn mã đánh giá lấy thẳng đầu ra của mô hình rồi so với ngưỡng
-0,5, nó đang so **một logit** với một ngưỡng vốn chỉ có ý nghĩa với **xác suất**. Logit bằng 0 tương
-ứng xác suất 0,5; ngưỡng 0,5 trên thang logit thực chất tương ứng xác suất khoảng 0,62. Ranh giới
-quyết định bị dịch đi một cách âm thầm.
+Chi tiết đáng chú ý là chính nhánh phụ mới là bộ phân loại dùng thật. Phần đối kháng ở đây đóng vai
+trò tín hiệu huấn luyện bổ trợ, buộc bộ phân biệt học biểu diễn giàu thông tin về ảnh khuôn mặt, chứ
+bản thân ảnh sinh ra không phải mục tiêu. Phần đối kháng được huấn luyện theo Wasserstein GAN có phạt
+gradient, một biến thể chọn vì ổn định hơn so với công thức đối kháng nguyên bản.
 
-Điều làm lỗi này nguy hiểm là nó không gây ra lỗi chạy. Mã vẫn chạy, vẫn ra số, và số đó vẫn nằm
-trong khoảng hợp lệ. Nó chỉ sai.
+### Hướng bốn: tách phong cách khỏi nội dung
 
-Có một cách phát hiện rất gọn: so con số độ chính xác tại ngưỡng cố định với **EER** — mức lỗi tại
-điểm mà hai loại lỗi bằng nhau, tính từ đường cong ROC nên không phụ thuộc vào việc đầu ra đang ở
-thang nào. Nếu độ chính xác tại ngưỡng cố định tệ hơn hẳn so với mức EER cho thấy là khả thi, thì
-vấn đề nằm ở ngưỡng chứ không nằm ở mô hình. Mô hình vẫn xếp hạng đúng; chỉ có vạch cắt là sai chỗ.
+Ba hướng trên đều bắt đầu từ một kiến trúc có sẵn. Hướng thứ tư đi ngược lại: cài lại từ đầu một mạng
+được thiết kế riêng cho mục tiêu domain generalization, tức khả năng hoạt động trên nguồn dữ liệu chưa
+từng thấy.
 
-Đây cũng chính là lý do ngành đo bằng **đường cong** chứ không bằng một điểm. Ngoài ROC còn có
-**đường cong DET**, được đề xuất từ năm 1997 cho đúng lớp bài toán có đánh đổi hai loại lỗi: nó vẽ
-trên thang log nên phần quan trọng — vùng quanh điểm cân bằng — được giãn ra và dễ so sánh hơn.
-Báo cáo một con số tại một ngưỡng là báo cáo đúng một điểm trên đường cong ấy, và điểm đó có thể
-được chọn có lợi hoặc chọn nhầm.
+Ý tưởng nền là tách trong ảnh hai thành phần: "nội dung" — thứ nói lên ảnh này là người thật hay bản
+sao chép; và "phong cách" — thứ phản ánh camera nào, ánh sáng nào, hậu kỳ nào. Mục tiêu là buộc biểu
+diễn nội dung độc lập với phong cách.
 
-## Khi tập kiểm tra lệch lớp, độ chính xác kể chuyện sai
+Cấu trúc gồm các phần sau:
 
-Còn một tầng nữa làm con số méo thêm. Các bộ dữ liệu chống giả mạo thường lệch lớp mạnh, vì tạo mẫu
-tấn công dễ hơn nhiều so với thu thập mẫu thật: một khuôn mặt thật có thể sinh ra hàng chục biến thể
-tấn công khác nhau.
+- Một bộ trích đặc trưng nhiều tầng tự thiết kế, không dùng backbone pretrained.
+- Một nhánh trích nội dung và một nhánh trích phong cách. Nhánh phong cách đi qua chuẩn hoá theo thực
+  thể rồi vài lớp fully-connected để sinh ra hai tham số: hệ số tỷ lệ và hệ số dịch chuyển.
+- Một bước ghép lại bằng AdaIN, tức chuẩn hoá thực thể thích ứng: chuẩn hoá đặc trưng nội dung về
+  trung bình không và phương sai đơn vị, rồi áp hai tham số phong cách vào.
 
-Khi tập kiểm tra có phần lớn là mẫu tấn công, một mô hình thiên về việc đoán "thật" sẽ sai trên đa số
-mẫu, và độ chính xác tụt xuống dưới mức của phép đoán ngẫu nhiên. Nhìn con số đó, phản xạ tự nhiên là
-kết luận mô hình vô dụng. Nhưng nếu diện tích dưới đường cong ROC vẫn cao rõ rệt so với mức 0,5, thì
-kết luận đó sai: mô hình vẫn phân biệt được, chỉ là vạch cắt đặt sai và tập kiểm tra khuếch đại hậu
-quả lên.
+Cơ chế cốt lõi nằm ở cách sinh cặp dữ liệu để học. Trong mỗi batch, thứ tự mẫu được xáo trộn để ghép
+phong cách của ảnh này với nội dung của ảnh khác. Cặp lai đó mang nhãn dương nếu hai ảnh gốc cùng lớp
+live/spoof, và nhãn âm nếu khác lớp. Hàm mất mát tương phản trên các cặp này ép mạng đưa những ảnh
+cùng lớp lại gần nhau bất kể chúng đến từ thiết bị nào — đúng thứ cần có khi triển khai lên phần cứng
+lạ.
 
-Hai điều rút ra. Thứ nhất, độ chính xác là chỉ số tệ khi lớp không cân bằng — đây là lý do tiêu chuẩn
-ISO tách APCER và BPCER thay vì gộp. Thứ hai, khi các chỉ số mâu thuẫn nhau, chỉ số **không phụ thuộc
-ngưỡng** đáng tin hơn: nó nói về chất lượng của mô hình, còn chỉ số phụ thuộc ngưỡng nói về chất lượng
-của một quyết định vận hành.
+Hai chi tiết nữa. Đầu ra không phải một logit đơn mà là một bản đồ độ sâu dựng qua các lớp upsample:
+mặt người thật có cấu trúc ba chiều, còn ảnh in hay màn hình phát lại về bản chất là mặt phẳng, nên độ
+sâu là tín hiệu giám sát giàu thông tin hơn một nhãn nhị phân. Và có thêm một nhánh phân biệt miền nối
+qua lớp đảo gradient: nhánh này cố đoán mẫu đến từ nguồn dữ liệu nào, còn lớp đảo gradient khiến phần
+trích đặc trưng bị đẩy theo hướng ngược lại, tức học biểu diễn mà nhánh kia không đoán nổi nguồn.
 
-## Về việc đóng băng mô hình nền
+Hàm mất mát tổng là tổng có trọng số của ba thành phần: phân loại, tương phản phong cách, và đối kháng
+miền.
 
-Một chi tiết nhỏ nhưng đáng ghi lại: khi dùng một mô hình thị giác lớn đã huấn luyện sẵn và đóng băng
-toàn bộ phần nền, chỉ huấn luyện phần đầu phân loại, số tham số thực sự được cập nhật có thể chỉ còn
-một phần rất nhỏ so với tổng.
+### Dữ liệu và xử lý mất cân bằng
 
-Cách làm này hợp lý khi dữ liệu ít và đặc trưng cần dùng gần với đặc trưng mà mô hình nền đã học.
-Nhưng chống giả mạo phụ thuộc vào **tín hiệu kết cấu bề mặt tần số cao** — vệt moiré của màn hình,
-hạt giấy in, phản xạ không tự nhiên — mà một mô hình huấn luyện cho phân loại vật thể có xu hướng
-loại bỏ, vì với bài toán đó chúng chỉ là nhiễu. Đóng băng phần nền ở đây đồng nghĩa với việc khoá
-mô hình vào một không gian đặc trưng đã bỏ mất đúng thứ cần dùng.
+Hệ thống huấn luyện trên nhiều bộ dữ liệu khác nhau: một bộ tự thu thập, cùng các benchmark công khai
+gồm một bộ quy mô lớn có cả tấn công phát lại video, một bộ tập trung vào ảnh in, và một bộ dạng video
+đến từ một cuộc thi trong lĩnh vực. Có thêm một bộ bổ sung chỉ chứa ảnh người thật, dùng để bù lại
+việc mẫu tấn công thường nhiều hơn mẫu thật — tạo một mẫu tấn công rẻ hơn nhiều so với thu thập một
+khuôn mặt thật mới.
 
-Đây là một dạng lệch giả định thầm lặng: kỹ thuật đúng, áp vào sai bài toán.
+Phần mất cân bằng còn lại được xử lý trong hàm mất mát nhị phân bằng trọng số cho lớp dương, tính động
+từ tỷ lệ lớp thực tế của tập huấn luyện thay vì đặt cứng một con số.
 
-## Điều còn đọng lại
+### Protocol đánh giá
 
-Chống giả mạo là bài toán mà **cách đo quan trọng ngang với cách mô hình hoá**. Ba điều đáng mang theo:
+Hệ thống định nghĩa bốn kịch bản đánh giá, xếp theo mức độ khó tăng dần:
 
-Báo cáo trong cùng bộ dữ liệu gần như vô nghĩa. Nếu chỉ được chọn một con số để báo cáo, hãy chọn con
-số đo trên bộ dữ liệu mà mô hình chưa từng thấy khi huấn luyện.
+1. Huấn luyện và kiểm tra trong cùng một bộ dữ liệu.
+2. Huấn luyện trên hỗn hợp nhiều bộ, kiểm tra trên phần giữ lại của hỗn hợp đó.
+3. Huấn luyện trên vài bộ, kiểm tra trên một bộ hoàn toàn khác.
+4. Kịch bản domain generalization: huấn luyện trên nhiều nguồn, kiểm tra trên nguồn chưa từng thấy.
 
-Tách hai loại lỗi ra, đừng gộp. Tiêu chuẩn quốc tế tách chúng vì hậu quả của chúng khác nhau, và điểm
-vận hành phù hợp phụ thuộc vào việc hệ thống bảo vệ cái gì.
+Việc tách bốn kịch bản thay vì báo cáo một con số cho phép nhìn thấy khoảng cách giữa chúng, và chính
+khoảng cách đó mới là thông tin về khả năng dùng được ngoài thực tế.
 
-Và trước khi kết luận một mô hình đã hỏng, hãy kiểm tra xem đại lượng đang so với ngưỡng có đúng là
-đại lượng mà ngưỡng ấy được định nghĩa cho hay không. Khoảng cách giữa "mô hình vô dụng" và "mô hình
-dùng được" đôi khi chỉ là một lời gọi hàm bị thiếu.
+## Kiến thức nền
+
+### Vì sao đây không phải bài phân loại nhị phân thường
+
+Một bài phân loại thông thường dựa trên giả định tập huấn luyện và tập kiểm tra đến từ cùng một phân
+phối. Với chống giả mạo, giả định đó sai theo thiết kế. Camera nơi triển khai không phải camera đã
+quay dữ liệu, ánh sáng không phải ánh sáng phòng thu, và kiểu tấn công có thể hoàn toàn mới. Độ khó
+thật của bài toán nằm ở khoảng cách giữa hai phân phối ấy, chứ không nằm ở việc phân biệt thật với giả
+trên dữ liệu đã thấy.
+
+Có một điểm bất đối xứng nữa. Lớp "live" tuy đa dạng về người và điều kiện chụp nhưng vẫn là một khái
+niệm đóng: đó luôn là một khuôn mặt người thật trước ống kính. Lớp "spoof" thì mở — nó gồm mọi cách
+làm giả đã biết và cả những cách chưa ai nghĩ ra. Huấn luyện một bộ phân loại nhị phân trên một tập
+hữu hạn kiểu tấn công về bản chất là dạy nó nhận ra vài điểm trong một không gian không có biên. Đó là
+lý do các chỉ số đo trên phần dữ liệu giữ lại của cùng một bộ gần như không nói gì về khả năng dùng
+được: mô hình rất có thể đã học đặc điểm của chiếc máy in cụ thể hoặc đặc trưng nén của chiếc màn hình
+cụ thể dùng để tạo dữ liệu.
+
+### Domain shift và domain generalization
+
+Hiện tượng phân phối lúc chạy khác phân phối lúc huấn luyện gọi là domain shift. Trong bài toán này,
+một "miền" thường tương ứng với một tổ hợp thiết bị thu, điều kiện ánh sáng và quy trình tạo mẫu tấn
+công — trên thực tế mỗi bộ dữ liệu công khai là một miền riêng, vì nó được thu bằng một dàn thiết bị
+và một kịch bản cố định.
+
+Có hai hướng ứng phó, khác nhau ở giả định. Domain adaptation giả định ta có sẵn một ít dữ liệu từ
+miền đích, dù không nhãn, để tinh chỉnh trước khi triển khai. Domain generalization thì không giả định
+gì cả: mô hình phải chạy được trên miền chưa từng thấy và không có cơ hội làm quen trước. Cách đạt tới
+điều đó là huấn luyện trên nhiều miền nguồn cùng lúc, đồng thời ép biểu diễn không mang dấu vết của
+miền nào — nếu mạng không phân biệt nổi dữ liệu đến từ đâu, nó buộc phải dựa vào đặc trưng chung cho
+mọi miền. Hướng thứ tư ở phần trên là một hiện thực trực tiếp của tư tưởng này, với cơ chế xáo trộn
+phong cách và nhánh đảo gradient đóng đúng vai trò đó.
+
+### Tín hiệu nằm ở kết cấu bề mặt tần số cao
+
+Thứ phân biệt một khuôn mặt thật với ảnh chụp lại nó thường không nằm ở hình dạng mà nằm ở kết cấu bề
+mặt: vệt moiré sinh ra khi camera chụp một màn hình pixel, hạt giấy của ảnh in, phản xạ ánh sáng không
+tự nhiên trên bề mặt phẳng. Đây đều là tín hiệu tần số cao.
+
+Điều đó dẫn tới một cân nhắc thực tế. Các mô hình nền huấn luyện cho phân loại vật thể được tối ưu để
+nhận ra "con mèo" bất kể ảnh mờ hay nét, nên chúng có xu hướng loại bỏ chính lớp tín hiệu tần số cao
+đó như nhiễu. Đóng băng toàn bộ backbone như vậy đồng nghĩa với việc khoá mô hình vào một không gian
+đặc trưng đã bỏ mất thứ cần dùng. Đóng băng vẫn là lựa chọn hợp lý khi dữ liệu rất ít, nhưng nên là
+quyết định có cân nhắc chứ không phải mặc định.
+
+### Hai loại lỗi có hậu quả khác nhau
+
+Hệ thống có thể sai theo hai cách: cho một tấn công lọt qua, hoặc từ chối một người dùng thật. Loại
+lỗi thứ nhất là vấn đề bảo mật, loại thứ hai là vấn đề trải nghiệm. Chúng không quy đổi được về nhau,
+và tỷ lệ đánh đổi phù hợp phụ thuộc vào việc hệ thống bảo vệ cái gì: mở khoá một ứng dụng đọc báo và
+xác thực một giao dịch ngân hàng cần hai điểm vận hành rất khác nhau trên cùng một đường cong.
+
+Điều này có hệ quả trực tiếp lên cách xây và cách công bố. Mô hình sinh ra một điểm số liên tục, còn
+quyết định cuối cùng đến từ việc so điểm số ấy với một ngưỡng. Chất lượng của mô hình nằm ở khả năng
+xếp hạng — mẫu thật có điểm cao hơn mẫu giả đến mức nào — còn ngưỡng chỉ là một tham số vận hành chọn
+sau. Trộn hai thứ đó vào một con số duy nhất làm mất thông tin: nó không cho biết kết quả kém là do mô
+hình phân biệt tồi hay do vạch cắt đặt sai chỗ. Vì vậy hai đại lượng nên được báo cáo tách nhau, và
+ngưỡng nên là thứ cấu hình được ở sản phẩm cuối chứ không phải hằng số nướng vào mã.
+
+## Ngành công nghiệp làm việc này ra sao
+
+Lĩnh vực này có tiêu chuẩn quốc tế riêng cho việc đo lường: **ISO/IEC 30107-3**, tên đầy đủ
+*Information technology — Biometric presentation attack detection — Part 3: Testing and reporting*,
+do ISO/IEC JTC 1/SC 37 phụ trách, bản hiện hành ban hành năm 2023 thay cho bản 2017. Tiêu chuẩn quy
+định cách đánh giá và cách báo cáo, không quy định phải dùng thuật toán nào.
+
+Bộ chỉ số nó chuẩn hoá gồm ba đại lượng. **APCER** là tỷ lệ tấn công bị phân loại nhầm thành hợp lệ.
+**BPCER** là tỷ lệ người dùng thật bị từ chối nhầm — lưu ý bản 2017 gọi đại lượng này là NPCER, nên
+khi đọc tài liệu cũ cần đối chiếu. **ACER** là trung bình cộng của hai đại lượng trên. Việc tiêu chuẩn
+tách bạch hai loại lỗi thay vì gộp thành một con số độ chính xác chính là sự thừa nhận rằng chúng có
+hậu quả khác nhau.
+
+Về protocol, bộ dữ liệu **OULU-NPU** đưa ra một thiết kế đáng học. Đây là bộ video quay bằng camera
+trước của nhiều dòng smartphone, trong nhiều môi trường, với tấn công in ảnh và phát lại video. Nó
+định nghĩa bốn protocol, và điểm mấu chốt là mỗi protocol cố tình đặt vào tập kiểm tra ít nhất một
+điều kiện chưa xuất hiện khi huấn luyện: thiết bị mới, môi trường mới, hoặc loại tấn công mới. Cấu
+trúc đó ép mô hình phải khái quát hoá thay vì học thuộc.
+
+Các benchmark khác đi cùng tinh thần. **SiW** (Liu, Jourabloo, Liu, CVPR 2018) đưa ra hướng giám sát
+bổ trợ: thay vì chỉ dùng nhãn nhị phân, mô hình học thêm bản đồ độ sâu và tín hiệu rPPG — dấu vết mạch
+đập nhìn thấy được qua thay đổi màu da rất nhỏ, thứ mà ảnh in không có; paper báo cáo cả kết quả trong
+cùng bộ dữ liệu lẫn kết quả chéo bộ. **CASIA-SURF** (CVPR 2019) là benchmark đa phương thức quy mô
+lớn với ba modality RGB, Depth và IR, kèm protocol chuẩn đi cùng.
+
+Về cách trình bày kết quả, **đường cong DET** (Martin và cộng sự, Eurospeech 1997, *The DET curve in
+assessment of detection task performance*) được đề xuất đúng cho lớp bài toán có đánh đổi hai loại
+lỗi. Nó vẽ trên trục log, nhờ đó vùng quanh điểm cân bằng — vùng thực sự quan trọng khi chọn ngưỡng
+vận hành — được giãn ra và dễ so sánh hơn so với ROC thông thường.
+
+Các cuộc thi PAD quốc tế lấy ACER làm tiêu chí xếp hạng, và xác định ngưỡng quyết định bằng EER trên
+tập validation thay vì chọn một con số tuỳ ý. Chi tiết nhỏ này có ý nghĩa lớn: nó biến việc chọn ngưỡng
+thành một quy trình lặp lại được, thay vì một lựa chọn có thể vô tình hoặc cố ý làm đẹp kết quả.
+
+Từ đó rút ra hai nguyên tắc báo cáo. Thứ nhất, một con số tại một ngưỡng cố định chỉ là một điểm trên
+đường cong, nên cần công bố cả đường cong ROC hoặc DET cùng EER để người đọc thấy toàn cảnh. Thứ hai,
+khi tập kiểm tra lệch lớp — mà trong lĩnh vực này thì gần như luôn lệch, vì mẫu tấn công dễ tạo hơn
+mẫu thật — một con số độ chính xác gộp chung sẽ phản ánh tỷ lệ lớp nhiều hơn phản ánh chất lượng mô
+hình.
+
+## Vài điều rút ra
+
+**Ưu tiên chỉ số không phụ thuộc ngưỡng khi đánh giá mô hình.** Diện tích dưới đường cong ROC hay EER
+nói về khả năng xếp hạng của mô hình; độ chính xác tại một ngưỡng nói về chất lượng của một quyết định
+vận hành. Hai thứ đó tách rời nhau, và nhầm lẫn giữa chúng dẫn tới kết luận sai về cả hai.
+
+**Thiết kế protocol đánh giá để nó có thể thất bại.** Cách OULU-NPU đặt điều kiện chưa từng thấy vào
+tập kiểm tra là một mẫu đáng sao chép cho mọi bài toán có domain shift. Một protocol không bao giờ báo
+lỗi thì không cung cấp thông tin.
+
+**Đưa bất biến vào kiến trúc thay vì trông chờ dữ liệu dạy nó.** Cơ chế xáo trộn phong cách trong
+batch và nhánh đảo gradient là hai cách nói với mạng rằng thiết bị và ánh sáng không phải thứ cần học.
+Khi biết trước chiều biến thiên nào là nhiễu, mã hoá nó vào hàm mất mát hiệu quả hơn thu thêm dữ liệu.
+
+**Chọn điểm vận hành theo hậu quả của từng loại lỗi.** Vì hai loại lỗi có giá khác nhau tuỳ ứng dụng,
+sản phẩm cuối nên phơi ra một ngưỡng cấu hình được kèm đường cong đánh đổi, để bên triển khai chọn
+điểm phù hợp với ngữ cảnh của họ thay vì nhận một con số cố định.

@@ -33,8 +33,7 @@ export const T: Record<Lang, Record<Key, string>> = {
     inThisPost: "Trong bài",
     prevPost: "Bài trước",
     nextPost: "Bài sau",
-    footer:
-      "Ghi chép kỹ thuật về những hệ thống đã từng xây. Nội dung tiếng Việt; bản tiếng Anh sẽ bổ sung sau.",
+    footer: "Ghi chép kỹ thuật về những hệ thống đã từng xây.",
   },
   en: {
     siteTitle: "Engineering Lessons — notes on systems I have built",
