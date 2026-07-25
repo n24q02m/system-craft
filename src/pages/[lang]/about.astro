@@ -1,0 +1,102 @@
+---
+import Base from "../../layouts/Base.astro";
+import { ACTIVE_LANGS, type Lang } from "../../i18n";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+---
+
+<Base
+  title={lang === "vi" ? "Giới thiệu — Engineering Lessons" : "About — Engineering Lessons"}
+  description={lang === "vi"
+    ? "Vì sao có loạt bài này, viết cho ai, và cách đọc."
+    : "Why these notes exist, who they are for, and how to read them."}
+  lang={lang}
+  altPath="about/"
+>
+  <div class="wrap">
+    <div class="post-head">
+      <div class="eyebrow">{lang === "vi" ? "Giới thiệu" : "About"}</div>
+      <h1>{lang === "vi" ? "Vì sao có loạt bài này" : "Why these notes exist"}</h1>
+      <p class="lede">
+        {
+          lang === "vi"
+            ? "Một hệ thống chạy xong rồi thường để lại nhiều thứ hơn là mã nguồn. Loạt bài này cố giữ lại phần đó."
+            : "A system that has shipped leaves behind more than source code. These notes try to keep that part."
+        }
+      </p>
+    </div>
+
+    <div class="post-layout">
+      <article class="prose">
+        {
+          lang === "vi" ? (
+            <Fragment>
+              <p>
+                Khi một dự án kết thúc, thứ còn lại thường là một thư mục mã nguồn và vài con số trong
+                báo cáo. Nhưng phần có giá trị nhất lại nằm ở chỗ khác: những quyết định đã chọn và vì
+                sao, những chỗ tưởng đúng mà hoá ra sai, và khoảng cách giữa cách mình đã làm với cách
+                ngành công nghiệp làm cùng việc đó. Phần ấy không nằm trong mã nguồn, và nếu không viết
+                xuống thì sẽ mất.
+              </p>
+
+              <h2>Loạt bài này viết về cái gì</h2>
+              <p>
+                Mỗi bài lấy một hệ thống học máy đã từng được xây, rồi đi qua bốn lớp: bài toán thực sự
+                là gì, cách tiếp cận đã dùng, ngành công nghiệp giải bài toán đó ra sao theo các chuẩn
+                và protocol đã có, và cuối cùng là điều đọng lại.
+              </p>
+              <p>
+                Trọng tâm là <strong>nguyên lý</strong>, không phải hướng dẫn thực hành. Bài viết không
+                đi kèm số liệu hiệu năng hay bảng kết quả — vì thứ đáng mang sang dự án sau không phải
+                là con số của một lần chạy cụ thể, mà là cách nhận ra một thiết kế sẽ hỏng trước khi
+                kịp chạy nó.
+              </p>
+
+              <h2>Viết cho ai</h2>
+              <p>
+                Cho những người từng cùng làm các hệ thống này, như một bản ghi chép chung. Và cho bất
+                kỳ ai đang xây thứ tương tự — nếu một trong những cái bẫy mô tả ở đây giúp ai đó tiết
+                kiệm được vài tuần, thì loạt bài đã làm xong việc của nó.
+              </p>
+
+              <h2>Một lưu ý về giọng điệu</h2>
+              <p>
+                Các bài viết nói khá thẳng về những chỗ chưa đúng. Điều đó là cố ý, và không nhắm vào
+                ai: phần lớn những sai lầm được mô tả ở đây là loại sai lầm phổ biến, có tên gọi trong
+                tài liệu học thuật, và vẫn xuất hiện đều đặn trong các hệ thống chạy thật ở quy mô lớn.
+                Ghi lại chúng một cách rõ ràng hữu ích hơn nhiều so với việc nói giảm đi.
+              </p>
+
+              <h2>Ngôn ngữ</h2>
+              <p>
+                Nội dung hiện viết bằng tiếng Việt. Thuật ngữ kỹ thuật được giữ nguyên dạng tiếng Anh
+                khi bản dịch làm mờ nghĩa, kèm giải thích ngắn ở lần xuất hiện đầu. Bản tiếng Anh sẽ
+                được bổ sung sau.
+              </p>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p>
+                When a project ends, what usually survives is a source tree and a few numbers in a
+                report. The most valuable part lives somewhere else: the decisions made and why, the
+                places that looked right and were not, and the distance between how it was done here
+                and how the industry does the same thing.
+              </p>
+              <h2>What these notes cover</h2>
+              <p>
+                Each post takes one machine learning system that was actually built and works through
+                four layers: what the problem really was, the approach taken, how the industry solves
+                it, and what remained useful afterwards. The focus is on principles rather than
+                step-by-step instructions.
+              </p>
+            </Fragment>
+          )
+        }
+      </article>
+    </div>
+  </div>
+</Base>

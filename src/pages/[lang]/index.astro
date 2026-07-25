@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../i18n";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const posts = (
+  await getCollection("blog", ({ data, id }) => !data.draft && id.startsWith(`${lang}/`))
+).sort((a, b) => a.data.order - b.data.order);
+const base = import.meta.env.BASE_URL;
+
+const HEAD = {
+  vi: {
+    eyebrow: "Ghi chép kỹ thuật",
+    title: "Những hệ thống đã xây, và những gì chúng dạy lại",
+    lede: "Mỗi bài dưới đây kể về một hệ thống học máy đã từng được xây dựng: bài toán đặt ra thế nào, cách tiếp cận là gì, ngành công nghiệp làm việc đó ra sao, và điều còn đọng lại sau khi mọi thứ đã chạy xong. Trọng tâm là nguyên lý và cách suy nghĩ, không phải hướng dẫn từng bước.",
+  },
+  en: {
+    eyebrow: "Engineering notes",
+    title: "Systems I built, and what they taught back",
+    lede: "Each post below takes one machine learning system that was actually built: what the problem really was, the approach taken, how the industry solves it, and what remained useful once everything had shipped.",
+  },
+}[lang];
+---
+
+<Base title={t.siteTitle} description={t.siteDescription} lang={lang} altPath="">
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">{HEAD.eyebrow}</div>
+      <h1>{HEAD.title}</h1>
+      <p>{HEAD.lede}</p>
+    </div>
+
+    {
+      posts.map((post) => {
+        const slug = post.id.replace(`${lang}/`, "");
+        return (
+          <a class="entry" href={`${base}${lang}/posts/${slug}/`}>
+            <div class="entry-code">{post.data.field}</div>
+            <div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <div class="topics">
+                {post.data.topics.map((x) => (
+                  <span class="topic">{x}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Base>

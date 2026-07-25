@@ -1,0 +1,123 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+
+export async function getStaticPaths() {
+  const all = await getCollection("blog", ({ data }) => !data.draft);
+  const paths = [];
+  for (const lang of ACTIVE_LANGS) {
+    const posts = all
+      .filter((p) => p.id.startsWith(`${lang}/`))
+      .sort((a, b) => a.data.order - b.data.order);
+    posts.forEach((post, i) => {
+      paths.push({
+        params: { lang, slug: post.id.replace(`${lang}/`, "") },
+        props: {
+          post,
+          prev: i > 0 ? posts[i - 1] : null,
+          next: i < posts.length - 1 ? posts[i + 1] : null,
+        },
+      });
+    });
+  }
+  return paths;
+}
+
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as string;
+const { post, prev, next } = Astro.props;
+const { Content, headings } = await render(post);
+const t = T[lang];
+const base = import.meta.env.BASE_URL;
+const toc = headings.filter((h) => h.depth === 2);
+const href = (p: { id: string }) => base + lang + "/posts/" + p.id.replace(lang + "/", "") + "/";
+const pageTitle = post.data.title + " — Engineering Lessons";
+const altPath = "posts/" + slug + "/";
+---
+
+<Base
+  title={pageTitle}
+  description={post.data.description}
+  lang={lang}
+  altPath={altPath}
+>
+  <div class="wrap">
+    <div class="post-head">
+      <div class="eyebrow">{post.data.field}</div>
+      <h1>{post.data.title}</h1>
+      <p class="lede">{post.data.description}</p>
+      <div class="topics">
+        {post.data.topics.map((x) => <span class="topic">{x}</span>)}
+      </div>
+    </div>
+
+    <div class="post-layout">
+      <article class="prose">
+        <Content />
+
+        <nav class="post-nav">
+          {
+            prev ? (
+              <a href={href(prev)}>
+                <span class="dir">{t.prevPost}</span>
+                {prev.data.title}
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            next ? (
+              <a href={href(next)} style="text-align:right">
+                <span class="dir">{t.nextPost}</span>
+                {next.data.title}
+              </a>
+            ) : (
+              <span />
+            )
+          }
+        </nav>
+      </article>
+
+      {
+        toc.length > 1 && (
+          <aside class="toc">
+            <div class="toc-title">{t.inThisPost}</div>
+            {toc.map((h) => (
+              <a href={`#${h.slug}`}>{h.text}</a>
+            ))}
+          </aside>
+        )
+      }
+    </div>
+  </div>
+
+  <script is:inline>
+    document.querySelectorAll(".prose table").forEach((tb) => {
+      if (tb.parentElement?.classList.contains("table-scroll")) return;
+      const box = document.createElement("div");
+      box.className = "table-scroll";
+      tb.replaceWith(box);
+      box.appendChild(tb);
+    });
+
+    const links = [...document.querySelectorAll(".toc a")];
+    if (links.length) {
+      const map = new Map(links.map((a) => [a.getAttribute("href").slice(1), a]));
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            const a = map.get(e.target.id);
+            if (a && e.isIntersecting) {
+              links.forEach((l) => l.classList.remove("active"));
+              a.classList.add("active");
+            }
+          });
+        },
+        { rootMargin: "-80px 0px -70% 0px" }
+      );
+      document.querySelectorAll(".prose h2[id]").forEach((h) => obs.observe(h));
+    }
+  </script>
+</Base>
