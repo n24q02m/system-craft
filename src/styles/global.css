@@ -553,6 +553,131 @@ h3 {
 .diagram svg .dim {
   opacity: 0.62;
 }
+
+/* Hộp có nền, cho nhóm hoặc cho đối lập đúng/sai. */
+.diagram svg .box-soft {
+  fill: var(--surface-2);
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.diagram svg .box-warn {
+  fill: var(--warn-soft);
+  stroke: var(--warn);
+  stroke-width: 1.1;
+}
+.diagram svg .box-ok {
+  fill: var(--ok-soft);
+  stroke: var(--ok);
+  stroke-width: 1.1;
+}
+
+/* Trục và lưới cho biểu đồ. */
+.diagram svg .axis {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.diagram svg .grid {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.diagram svg .dashed {
+  stroke-dasharray: 4 3;
+}
+
+/* Điểm và cạnh, cho đồ thị hoặc biểu đồ phân tán. */
+.diagram svg .node {
+  fill: currentColor;
+  stroke: none;
+}
+.diagram svg .node-open {
+  fill: var(--bg);
+  stroke: currentColor;
+  stroke-width: 1.1;
+}
+.diagram svg .node-accent {
+  fill: var(--accent);
+  stroke: none;
+}
+.diagram svg .edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 0.9;
+}
+
+/* Đường cong và vùng tô dưới đường. */
+.diagram svg .curve {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.diagram svg .curve-accent {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.diagram svg .curve-warn {
+  fill: none;
+  stroke: var(--warn);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.diagram svg .area {
+  fill: var(--accent-soft);
+  stroke: none;
+}
+.diagram svg .area-warn {
+  fill: var(--warn-soft);
+  stroke: none;
+}
+.diagram svg .area-ok {
+  fill: var(--ok-soft);
+  stroke: none;
+}
+
+/* Ô ma trận và cột. */
+.diagram svg .cell {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 0.9;
+}
+.diagram svg .cell-on {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 0.9;
+}
+.diagram svg .cell-off {
+  fill: var(--surface-2);
+  stroke: var(--line);
+  stroke-width: 0.9;
+}
+.diagram svg .bar {
+  fill: var(--line-strong);
+  stroke: none;
+}
+.diagram svg .bar-accent {
+  fill: var(--accent);
+  stroke: none;
+}
+
+/* Số trên trục: chữ đẳng khoảng, nhỏ hơn nhãn thường. */
+.diagram svg text.num {
+  font-family: var(--mono);
+  font-size: 9px;
+  opacity: 0.7;
+}
+
+/* Nhiều hình liền nhau trong một mục thì thu khoảng cách lại. */
+.diagram + .diagram {
+  margin-top: 22px;
+}
+
 .diagram figcaption {
   font-size: 14px;
   color: var(--muted);
