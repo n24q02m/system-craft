@@ -2,6 +2,9 @@
 
 Technical engineering notes, bilingual essays, and static build tooling.
 
+- Web: <https://n24q02m.github.io/system-craft/>
+- Guide: [docs/00-CACH-DUNG-GOI.md](docs/00-CACH-DUNG-GOI.md)
+
 ## Layout
 
 - `content/book/` — markdown source chapters
