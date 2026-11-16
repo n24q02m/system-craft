@@ -23,6 +23,8 @@ SYSTEMS-ATLAS-*.html
 kit/SA-*.pdf
 kit/SA-*.docx
 kit/SA-*.html
+kit/slides/*.html
+kit/slides/*.pdf
 
 # Compiled local lab scratch binaries
 labs/b1/*

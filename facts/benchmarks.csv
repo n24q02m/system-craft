@@ -1,0 +1,51 @@
+id,chapter,metric,value,unit,source_kind,primary_source,verified_date,notes
+F4-001,0.2,PQC NIST primary standards count,3,standards,nist_fips,NIST FIPS 203 / FIPS 204 / FIPS 205 (2024-08),2026-11-16,ML-KEM ML-DSA SLH-DSA
+F4-002,0.2,Foundational system axioms in Atlas,10,axioms,math_law,Content P0-00-2 §3,2026-11-16,Bounded physical and network boundary rules A1-A10
+F4-003,1.1,L1 data cache hit latency order,~1,ns,vendor_spec,Intel 64 & IA-32 Architectures Optimization Reference Manual,2026-11-16,Order of 4 cycles at ~4 GHz
+F4-004,1.1,DRAM access latency order,~100,ns,vendor_spec,JEDEC JESD79-5 DDR5 + NUMA memory hierarchy,2026-11-16,Cache miss floor (~100x L1)
+F4-005,1.2,x86-64 / server cache line size,64,bytes,vendor_spec,Intel & AMD x86-64 Architecture Manuals / Linux L1_CACHE_BYTES,2026-11-16,False sharing granularity boundary
+F4-006,1.2,AVX-512 SIMD register width,512,bits,vendor_spec,Intel Architecture Instruction Set Extensions Manual,2026-11-16,64 bytes per vector op
+F4-007,1.4,Single-mode optical / NVMe Gen4-Gen5 x4 sequential bandwidth,7 / 14,GB/s,vendor_spec,PCI-SIG PCIe 4.0 & 5.0 Base Specification (NVMe x4),2026-11-16,Raw sequential ceiling prior to FTL GC
+F4-008,1.4,Disk Unrecoverable Read Error (URE) rate order,1e-14 to 1e-15,bit^-1,vendor_spec,SNIA Solid State Storage & Enterprise HDD Reliability Specs,2026-11-16,Drives RAID5 multi-TB rebuild risk
+F4-009,1.7,Light propagation delay in single-mode silica fiber,~5,us/km,physics,ITU-T G.652 Fiber Refractive Index n~1.468 (c/n),2026-11-16,Hard physical floor: Hanoi-SG >= ~11 ms one-way
+F4-010,1.7,Bandwidth-Delay Product at 10 Gbps and 30 ms RTT,37.5,MB,math_law,BDP = Bandwidth x RTT (10e9 bps x 0.03s / 8),2026-11-16,Minimum TCP window to fill pipe
+F4-011,2.1,x86-64 standard vs HugePage virtual memory page sizes,4 KiB / 2 MiB / 1 GiB,bytes,vendor_spec,AMD64 Architecture Programmers Manual Vol 2 + Linux mm docs,2026-11-16,4-level/5-level page walk on TLB miss
+F4-012,2.3,Linux cgroup v2 CPU bandwidth default period,100,ms,kernel_doc,Linux Kernel Documentation admin-guide/cgroup-v2.rst (cpu.max),2026-11-16,100000 us window causing CFS throttling spikes
+F4-013,2.4,Linux VM dirty background vs dirty ratio defaults,10 / 20,percent,kernel_doc,Linux Kernel Documentation admin-guide/sysctl/vm.rst,2026-11-16,Default vm.dirty_background_ratio / vm.dirty_ratio
+F4-014,2.4,PLP enterprise NVMe vs non-PLP fsync latency order,~10 us / 1-10 ms,time,vendor_spec,NVM Express Base Spec + Power-Loss Protection datasheets,2026-11-16,Non-volatile capacitor commits write immediately
+F4-015,3.1,Amdahl speedup ceiling s=10% sequential at 64 cores,< 10 (real ~7),ratio,math_law,Amdahl (AFIPS 1967): 1 / (s + (1-s)/P),2026-11-16,Ideal 8.77x before coherency overhead
+F4-016,3.1,ZGC / Go concurrent collector target pause order,< 1,ms,vendor_spec,OpenJDK JEP 439 (Generational ZGC) & Go Runtime GC Guide,2026-11-16,Sub-ms STW ceiling with normal headroom
+F4-017,3.10,Little's Law concurrency identity,L = lambda x W,requests,math_law,"Little (Operations Research 9(3), 1961)",2026-11-16,Queueing identity independent of arrival distribution
+F4-018,3.10,Serving-tier nonlinear tail knee utilization order,70-80,percent,math_law,M/M/k queueing theory (W ~ 1/(1-rho)),2026-11-16,Headroom boundary for tail latency stability
+F4-019,4.1,TLS 1.3 handshake round-trips,1 (0 resume),RTT,ietf_rfc,IETF RFC 8446 (Transport Layer Security 1.3),2026-11-16,Down from 2-RTT in TLS 1.2 (RFC 5246)
+F4-020,4.1,QUIC v1 + TLS 1.3 transport handshake,1,RTT,ietf_rfc,IETF RFC 9000 & RFC 9001 (QUIC + TLS),2026-11-16,Combines transport and cryptographic handshake
+F4-021,5.2,PostgreSQL baseline connection pool sizing rule,cores x 2-4,connections,sre_ref,PostgreSQL Docs + HikariCP Pool Sizing Analysis,2026-11-16,Transaction pooler (PgBouncer) decouples clients
+F4-022,5.2,PostgreSQL default autovacuum vacuum scale factor,20,percent,vendor_spec,PostgreSQL Documentation Routine Vacuuming (autovacuum_vacuum_scale_factor),2026-11-16,20% dead tuples + threshold triggers vacuum
+F4-023,5.7,Kafka partition ordering guarantee scope,within-partition,order,vendor_spec,Apache Kafka Design & KRaft Architecture Docs (KIP-500),2026-11-16,Strict total order only per single partition
+F4-024,5.7,Kafka KRaft metadata consensus replaces ZooKeeper,>= 4.0,release,vendor_spec,Apache Kafka 4.0 Release Notes (KIP-833),2026-11-16,ZooKeeper removed completely in Kafka 4.x
+F4-025,5.12,Apache Flink unaligned/aligned checkpoint interval norm,30-300,s,vendor_spec,Apache Flink Fault Tolerance & Checkpointing Docs,2026-11-16,Trades recovery replay time for state snapshotting
+F4-026,5.14,Multi-tenant DB isolation Pool -> Bridge -> Silo boundaries,10k+ / ~1k / 1 per cluster,tenants,vendor_spec,PostgreSQL Row-Level Security Docs + System Catalogue Limits,2026-11-16,Catalogue bloat hits schema-per-tenant beyond few thousands
+F4-027,6.5,Immutable hashed asset Cache-Control max-age,31536000 (1 year),s,ietf_rfc,IETF RFC 9111 (HTTP Caching) & RFC 8246 (immutable),2026-11-16,Max standard cache lifetime without revalidation
+F4-028,6.5,V8 Isolate edge worker cold start order,~ms,time,vendor_spec,Cloudflare Workers / V8 Isolate Architecture Reference,2026-11-16,Milliseconds vs seconds for VM cold boot
+F4-029,8.2,Raft majority fault-tolerance quorum formula,floor(N/2)+1,nodes,paper,Ongaro & Ousterhout (USENIX ATC 2014): In Search of an Understandable Consensus Algorithm,2026-11-16,N=3 tolerates 1 failure; N=5 tolerates 2
+F4-030,8.2,Raft election timeout vs broadcast/RTT ratio,>= 10x,ratio,paper,Ongaro & Ousterhout (USENIX ATC 2014) §5.6 Timing Requirement,2026-11-16,Prevents split-vote flapping across healthy clusters
+F4-031,8.3,Transactional Outbox atomic boundary,single DB commit,invariant,paper,Kleppmann (DDIA) + Transactional Outbox Pattern,2026-11-16,Eliminates dual-write divergence between DB and broker
+F4-032,8.4,Quorum read/write strict overlap condition,W + R > N,nodes,paper,Vogels (CACM 2009) / Dynamo NWR Quorum Arithmetic,2026-11-16,Example N=3 W=2 R=2 ensures read-after-write overlap
+F4-033,8.4,Consistent hashing rebalance fraction on ±1 node,~1/N,keys,paper,Karger et al. (STOC 1997) Consistent Hashing,2026-11-16,Virtual nodes reduce variance around 1/N data movement
+F4-034,8.5,Exponential backoff with full jitter retry budget,<= 10,percent traffic,sre_ref,AWS Architecture Blog (Timeouts/Retries/Backoff) & Google SRE Retry Budgets,2026-11-16,Prevents retry amplification cascades (I-050)
+F4-035,8.7,Low-TTL DNS failover cache window,30-60,s,ietf_rfc,IETF RFC 1035 / RFC 2181 DNS TTL Semantics,2026-11-16,Recursive resolver minimum honored TTL tradeoff
+F4-036,8.7,Single-cell failure blast radius target,1-10,percent users,sre_ref,AWS Builders Library Cell-Based Architectures,2026-11-16,Isolates fault domain to bounded partition cell
+F4-037,9.1,Kubernetes Pod default terminationGracePeriodSeconds,30,s,vendor_spec,Kubernetes API Reference PodSpec v1,2026-11-16,Window between SIGTERM and SIGKILL
+F4-038,9.1,Kubernetes PodDisruptionBudget safe eviction baseline,>= 3 rep / maxUnavailable 1,rule,vendor_spec,Kubernetes Docs: Disruptions & PodDisruptionBudget,2026-11-16,Prevents cluster drain deadlock during node upgrades (I-058)
+F4-039,9.7,DORA four key software delivery metrics,DF / LT / CFR / MTTR,metrics,paper,Forsgren Humble Kim (Accelerate 2018) / DORA Research Program,2026-11-16,Measures speed and stability concurrently
+F4-040,10.3,OAuth 2.1 mandatory PKCE for public clients,required (S256),protocol,ietf_rfc,IETF OAuth 2.1 Draft + RFC 7636 (PKCE),2026-11-16,Eliminates authorization code interception
+F4-041,10.3,SCIM 2.0 automated user provisioning/offboarding protocol,RFC 7644,protocol,ietf_rfc,IETF RFC 7643 & RFC 7644 (SCIM),2026-11-16,Closes offboarding account orphan gap
+F4-042,11.1,99.9% monthly availability error budget (30 days),43.2,minutes,math_law,(1 - 0.999) x 30 x 24 x 60 = 43.2 min (43.8m / 30.4d),2026-11-16,Arithmetic budget foundation for error-budget policy
+F4-043,11.1,Multi-window multi-burn-rate SLO page thresholds,14.4x (1h+5m) / 6x (6h+30m),burn_rate,sre_ref,Google SRE Workbook Chapter 5 (Alerting on SLOs),2026-11-16,2% / 5% budget consumed before paging
+F4-044,11.5,Cloud spot/preemptible vs committed discount range,60-90 / 30-70,percent,vendor_spec,FinOps Foundation Framework & Cloud Provider Pricing Models,2026-11-16,Workload interruption tolerance determines discount band
+F4-045,12.2,PagedAttention eliminates contiguous KV-cache waste,near-zero internal fragmentation,memory,paper,Kwon et al. (SOSP 2023): PagedAttention (vLLM),2026-11-16,2-4x throughput gain via block-level KV sharing
+F4-046,12.2,Chat streaming smooth inter-token latency (ITL) band,30-80,ms/token,sre_ref,Human reading speed ceiling (~12-30 tok/s) & Serving SLOs,2026-11-16,Above ~150 ms/tok degrades perceived fluency
+F4-047,12.5,OpenTelemetry GenAI telemetry conventions,gen_ai.*,schema,vendor_spec,OpenTelemetry Semantic Conventions for Generative AI,2026-11-16,Standardized model/token/cost span attributes
+F4-048,13.1,Double-entry ledger invariant,SUM(debits - credits) == 0,invariant,math_law,Pacioli Double-Entry Accounting Invariant,2026-11-16,Zero-sum journal integrity across idempotent retries
+F4-049,14.10.2,NIST ML-KEM hybrid TLS key exchange standard,FIPS 203 (ML-KEM-768),standard,nist_fips,"NIST FIPS 203 (Module-Lattice-Based KEM, 2024-08)",2026-11-16,Combined with X25519 against harvest-now-decrypt-later
+F4-050,14.10.2,NIST post-quantum signature standards,FIPS 204 / FIPS 205,standards,nist_fips,NIST FIPS 204 (ML-DSA) & FIPS 205 (SLH-DSA),2026-11-16,Lattice and stateless hash-based signatures
