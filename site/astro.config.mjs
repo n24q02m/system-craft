@@ -1,9 +1,9 @@
 import { defineConfig } from "astro/config";
 
-// Site chạy trên GitHub Pages tại https://n24q02m.github.io/engineering-lessons
+// GitHub Pages URL: https://n24q02m.github.io/system-craft
 export default defineConfig({
   site: "https://n24q02m.github.io",
-  base: "/engineering-lessons",
+  base: "/system-craft",
   trailingSlash: "always",
   markdown: {
     shikiConfig: {

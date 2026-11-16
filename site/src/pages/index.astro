@@ -9,14 +9,16 @@ const target = `${base}${DEFAULT_LANG}/`;
 <html lang={DEFAULT_LANG}>
   <head>
     <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
     <meta http-equiv="refresh" content={`0; url=${target}`} />
     <link rel="canonical" href={target} />
-    <title>Engineering Lessons</title>
+    <title>System Craft</title>
     <script is:inline define:vars={{ target }}>
       window.location.replace(target);
     </script>
   </head>
   <body>
-    <p><a href={target}>Engineering Lessons</a></p>
+    <p><a href={target}>System Craft</a></p>
   </body>
 </html>

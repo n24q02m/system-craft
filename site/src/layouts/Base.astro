@@ -20,11 +20,10 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate" />
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     {
       ACTIVE_LANGS.map((l) => (
@@ -43,7 +42,7 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
   <body>
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href={`${base}${lang}/`}>Engineering<span>·</span>Lessons</a>
+        <a class="brand" href={`${base}${lang}/`}>System<span>·</span>Craft</a>
         <nav class="nav">
           <a href={`${base}${lang}/`}>{t.navPosts}</a>
           <a href={`${base}${lang}/about/`}>{t.navAbout}</a>

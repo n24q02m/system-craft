@@ -80,6 +80,7 @@ def build_slides():
 
     html_doc = (
         "<!doctype html>\n<html lang=\"vi\">\n<head>\n<meta charset=\"utf-8\">\n"
+        "<meta name=\"robots\" content=\"noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate\">\n"
         "<title>SYS101 — Bộ Slide 11 Chương Xương Sống (★)</title>\n"
         f"<style>{SLIDE_CSS}</style>\n</head>\n<body><div class=\"deck\">\n"
         + "\n".join(blocks)

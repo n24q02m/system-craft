@@ -354,6 +354,7 @@ def render_html_doc(parts, stats, title_override=None):
     return f'''<!DOCTYPE html>
 <html lang="vi"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
 <title>{cover_title} ({today})</title>
 <style>{CSS}</style></head>
 <body><div class="page">

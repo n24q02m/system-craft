@@ -24,7 +24,7 @@ type Key =
 
 export const T: Record<Lang, Record<Key, string>> = {
   vi: {
-    siteTitle: "Engineering Lessons — ghi chép kỹ thuật về những hệ thống đã xây",
+    siteTitle: "System Craft — ghi chép kỹ thuật và sổ tay kiến trúc hệ thống",
     siteDescription:
       "Loạt bài về các hệ thống học máy đã từng xây: cách tiếp cận, đối chiếu với chuẩn ngành, và những bài học rút ra.",
     navPosts: "Bài viết",
@@ -33,10 +33,10 @@ export const T: Record<Lang, Record<Key, string>> = {
     inThisPost: "Trong bài",
     prevPost: "Bài trước",
     nextPost: "Bài sau",
-    footer: "Ghi chép kỹ thuật về những hệ thống đã từng xây.",
+    footer: "Ghi chép kỹ thuật và sổ tay kiến trúc hệ thống.",
   },
   en: {
-    siteTitle: "Engineering Lessons — notes on systems that were built",
+    siteTitle: "System Craft — engineering notes and architecture fieldbook",
     siteDescription:
       "Notes on machine learning systems that were actually built: how they were put together, how the industry solves the same problems, and what stayed useful afterwards.",
     navPosts: "Posts",

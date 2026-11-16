@@ -68,6 +68,7 @@ def build_html(md):
     head = ('<h1 class="title">%s</h1>\n<p class="sub">%s</p>\n<p class="meta">%s · %d tệp · build %s</p>\n<hr/>\n'
             % (TITLE, SUB, DATE, len(files()), datetime.date.today().isoformat()))
     return ('<!doctype html><html lang="vi"><head><meta charset="utf-8">'
+            '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">'
             '<title>%s</title><style>%s</style></head><body>%s%s</body></html>'
             % (TITLE, CSS.replace('@page', '/*@page*/'), head, body)), head, body
 
