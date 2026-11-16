@@ -1,0 +1,29 @@
+<svg viewBox="0 0 640 168" role="img" aria-label="Kiến trúc connection pool trước RDBMS và ba mức isolation từ Read Committed tới Serializable" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-5-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">RDBMS POOL EXHAUSTION &amp; ĐÁNH ĐỔI ISOLATION LEVEL (POSTGRES / MYSQL)</text>
+  <rect class="box" x="10" y="32" width="128" height="46"/>
+  <text x="74.0" y="50" text-anchor="middle" font-size="11" font-weight="600">App Instances</text>
+  <text x="74.0" y="65" text-anchor="middle" font-size="9.5" class="dim">hàng trăm goroutine</text>
+  <rect class="box-accent" x="168" y="32" width="152" height="46"/>
+  <text x="244.0" y="50" text-anchor="middle" font-size="11" font-weight="600">PgBouncer / Pool</text>
+  <text x="244.0" y="65" text-anchor="middle" font-size="9.5" class="dim">transaction-mode</text>
+  <rect class="box-ok" x="350" y="32" width="134" height="46"/>
+  <text x="417.0" y="50" text-anchor="middle" font-size="11" font-weight="600">DB Backend Worker</text>
+  <text x="417.0" y="65" text-anchor="middle" font-size="9.5" class="dim">số ≈ lõi CPU × 2</text>
+  <rect class="box" x="510" y="32" width="120" height="46"/>
+  <text x="570.0" y="50" text-anchor="middle" font-size="11" font-weight="600">WAL + fsync</text>
+  <text x="570.0" y="65" text-anchor="middle" font-size="9.5" class="dim">NVMe PLP</text>
+  <path class="flow" d="M138 55 H164" marker-end="url(#arr-5-2)"/>
+  <path class="flow" d="M320 55 H346" marker-end="url(#arr-5-2)"/>
+  <path class="flow" d="M484 55 H506" marker-end="url(#arr-5-2)"/>
+  <rect class="box-soft" x="10" y="98" width="200" height="56"/>
+  <text x="20" y="116" font-size="11.5" font-weight="600">READ COMMITTED</text>
+  <text x="20" y="131" font-size="9.5" class="dim">Đọc bản commit mới nhất · Nền web</text>
+  <rect class="box-soft" x="220" y="98" width="200" height="56"/>
+  <text x="230" y="116" font-size="11.5" font-weight="600">REPEATABLE READ</text>
+  <text x="230" y="131" font-size="9.5" class="dim">Snapshot · PG skip, MySQL gap lock</text>
+  <rect class="box-warn" x="430" y="98" width="200" height="56"/>
+  <text x="440" y="116" font-size="11.5" font-weight="600">SERIALIZABLE (SSI)</text>
+  <text x="440" y="131" font-size="9.5" class="dim">Tiền/kho · App bắt lỗi 40001 retry</text>
+</svg>

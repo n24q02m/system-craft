@@ -1,0 +1,30 @@
+<svg viewBox="0 0 640 194" role="img" aria-label="Mười tiên đề A1 đến A10 và các điểm rà soát khi điều kiện biên đổi" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-0-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">MƯỜI TIÊN ĐỀ NỀN (A1–A10) &amp; ĐIỀU KIỆN ĐỔI THIẾT KẾ</text>
+  <rect class="box" x="10" y="28" width="198" height="52"/>
+  <text x="20" y="46" font-size="11.5" font-weight="600">Vật lý &amp; Phần cứng</text>
+  <text x="20" y="61" font-size="9.5" class="dim">A1 Nhị phân · A4 Hỏng âm thầm</text>
+  <text x="20" y="74" font-size="9.5" class="dim">A6 CMOS · A7 Điện &amp; tản nhiệt</text>
+  <rect class="box" x="220" y="28" width="198" height="52"/>
+  <text x="230" y="46" font-size="11.5" font-weight="600">Mạng &amp; Thời gian</text>
+  <text x="230" y="61" font-size="9.5" class="dim">A2 Đồng hồ lệch (ms–s)</text>
+  <text x="230" y="74" font-size="9.5" class="dim">A3 Gói mất · trùng · đảo thứ tự</text>
+  <rect class="box-warn" x="430" y="28" width="200" height="52"/>
+  <text x="440" y="46" font-size="11.5" font-weight="600">Mật mã, Mã &amp; Pháp lý</text>
+  <text x="440" y="61" font-size="9.5" class="dim">A5 PQC · A8 Tất định (AI)</text>
+  <text x="440" y="74" font-size="9.5" class="dim">A9 Conway · A10 GDPR/CRA/PDPD</text>
+  <path class="flow" d="M109 80 V106" marker-end="url(#arr-0-2)"/>
+  <path class="flow" d="M319 80 V106" marker-end="url(#arr-0-2)"/>
+  <path class="flow" d="M530 80 V106" marker-end="url(#arr-0-2)"/>
+  <rect class="box-soft" x="10" y="110" width="198" height="48"/>
+  <text x="20" y="128" font-size="11.5" font-weight="600">Bắt mạch: 1.4 · 1.10 · 14.1</text>
+  <text x="20" y="143" font-size="9.5" class="dim">ECC không bắt 100%; hết điện trước rack</text>
+  <rect class="box-soft" x="220" y="110" width="198" height="48"/>
+  <text x="230" y="128" font-size="11.5" font-weight="600">Bắt mạch: 4.1 · 8.1 · 8.5</text>
+  <text x="230" y="143" font-size="9.5" class="dim">Logical clock · Lease · Fencing token</text>
+  <rect class="box-accent" x="430" y="110" width="200" height="48"/>
+  <text x="440" y="128" font-size="11.5" font-weight="600">Bắt mạch: 12.5 · 14.10.2</text>
+  <text x="440" y="143" font-size="9.5" class="dim">Eval harness · Hybrid X25519+ML-KEM</text>
+  <text x="320" y="180" text-anchor="middle" font-size="10" class="dim">Chu kỳ rà soát: mỗi ấn bản kiểm 10 điều kiện gãy trước khi tin số benchmark</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 640 162" role="img" aria-label="Kiến trúc Guardrails 3 lớp bảo vệ Input Process Output kèm cổng Eval golden set trên từng PR" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-12-5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">CỔNG EVAL CI/CD (D-130) &amp; BA LỚP GUARDRAILS QUANH LLM</text>
+  <rect class="box-warn" x="10" y="32" width="134" height="48"/>
+  <text x="77.0" y="50" text-anchor="middle" font-size="11" font-weight="600">1. Input Wall</text>
+  <text x="77.0" y="65" text-anchor="middle" font-size="9.5" class="dim">PII redact · Injection</text>
+  <rect class="box-accent" x="168" y="32" width="140" height="48"/>
+  <text x="238.0" y="50" text-anchor="middle" font-size="11" font-weight="600">2. Process Wall</text>
+  <text x="238.0" y="65" text-anchor="middle" font-size="9.5" class="dim">Tool schema · Allowlist</text>
+  <rect class="box-ok" x="332" y="32" width="136" height="48"/>
+  <text x="400.0" y="50" text-anchor="middle" font-size="11" font-weight="600">3. Output Wall</text>
+  <text x="400.0" y="65" text-anchor="middle" font-size="9.5" class="dim">Schema · Grounding check</text>
+  <rect class="box" x="492" y="32" width="138" height="48"/>
+  <text x="561.0" y="50" text-anchor="middle" font-size="11" font-weight="600">4. gen_ai Telemetry</text>
+  <text x="561.0" y="65" text-anchor="middle" font-size="9.5" class="dim">Trace + token + eval/PR</text>
+  <path class="flow" d="M144 56 H164" marker-end="url(#arr-12-5)"/>
+  <path class="flow" d="M308 56 H328" marker-end="url(#arr-12-5)"/>
+  <path class="flow" d="M468 56 H488" marker-end="url(#arr-12-5)"/>
+  <rect class="box-soft" x="10" y="102" width="620" height="46"/>
+  <text x="20" y="120" font-size="11.5" font-weight="600">Golden Set (50–500 ca mỗi PR) + LLM-Judge chấm mù hai chiều đã đối chuẩn với nhãn người</text>
+  <text x="20" y="135" font-size="9.5" class="dim">Chữa bias thiên vị câu dài/giọng quen trước khi chặn merge tự động</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg viewBox="0 0 640 168" role="img" aria-label="Vòng consistent hashing và công thức quorum W + R &gt; N chống đọc dữ liệu cũ" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-8-4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">CONSISTENT HASHING RING &amp; QUORUM ĐỌC-GHI (W + R &gt; N)</text>
+  <circle class="axis" cx="110" cy="98" r="56"/>
+  <circle class="node-accent" cx="110" cy="42" r="5"/>
+  <circle class="node" cx="164" cy="112" r="5"/>
+  <circle class="node" cx="56" cy="112" r="5"/>
+  <text x="110" y="32" text-anchor="middle" font-size="9.2" class="dim">vnode A</text>
+  <text x="182" y="116" text-anchor="start" font-size="9.2" class="dim">B</text>
+  <text x="40" y="116" text-anchor="end" font-size="9.2" class="dim">C</text>
+  <text x="110" y="102" text-anchor="middle" font-size="9.5">Di dời ~1/N</text>
+  <rect class="box-accent" x="226" y="32" width="190" height="52"/>
+  <text x="236" y="50" font-size="11.5" font-weight="600">Chọn Shard Key theo truy vấn</text>
+  <text x="236" y="65" font-size="9.5" class="dim">Đi thẳng 1 shard = nhanh</text>
+  <text x="236" y="78" font-size="9.5" class="dim">Tránh scatter-gather cả cụm</text>
+  <rect class="box-ok" x="430" y="32" width="200" height="52"/>
+  <text x="440" y="50" font-size="11.5" font-weight="600">Quorum: W + R &gt; N</text>
+  <text x="440" y="65" font-size="9.5" class="dim">Vd N=3, W=2, R=2 → giao nhau ≥1</text>
+  <text x="440" y="78" font-size="9.5" class="dim">Đọc thấy bản ghi mới nhất</text>
+  <rect class="box-soft" x="226" y="98" width="404" height="52"/>
+  <text x="236" y="116" font-size="11.5" font-weight="600">Replica Lag &amp; Resharding</text>
+  <text x="236" y="131" font-size="9.5" class="dim">Async replication → RPO &gt; 0 · Reshard nóng bằng dual-write + backfill hoặc CDC</text>
+</svg>

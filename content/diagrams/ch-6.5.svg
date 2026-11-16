@@ -1,0 +1,26 @@
+<svg viewBox="0 0 640 168" role="img" aria-label="Luồng 4 tầng cache từ Browser tới Origin qua CDN PoP và Origin Shield" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-6-5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">BỐN TẦNG LƯU WEB &amp; HỢP ĐỒNG CACHE-CONTROL</text>
+  <rect class="box" x="10" y="32" width="124" height="46"/>
+  <text x="72.0" y="50" text-anchor="middle" font-size="11" font-weight="600">Browser Cache</text>
+  <text x="72.0" y="65" text-anchor="middle" font-size="9.5" class="dim">private · max-age</text>
+  <rect class="box-accent" x="162" y="32" width="136" height="46"/>
+  <text x="230.0" y="50" text-anchor="middle" font-size="11" font-weight="600">CDN Edge PoP</text>
+  <text x="230.0" y="65" text-anchor="middle" font-size="9.5" class="dim">public · s-maxage</text>
+  <rect class="box-ok" x="326" y="32" width="144" height="46"/>
+  <text x="398.0" y="50" text-anchor="middle" font-size="11" font-weight="600">Origin Shield</text>
+  <text x="398.0" y="65" text-anchor="middle" font-size="9.5" class="dim">gom cache miss (SW)</text>
+  <rect class="box" x="498" y="32" width="132" height="46"/>
+  <text x="564.0" y="50" text-anchor="middle" font-size="11" font-weight="600">Origin App/DB</text>
+  <text x="564.0" y="65" text-anchor="middle" font-size="9.5" class="dim">nguồn chân lý</text>
+  <path class="flow" d="M134 55 H158" marker-end="url(#arr-6-5)"/>
+  <path class="flow" d="M298 55 H322" marker-end="url(#arr-6-5)"/>
+  <path class="flow" d="M470 55 H494" marker-end="url(#arr-6-5)"/>
+  <rect class="box-soft" x="10" y="98" width="302" height="54"/>
+  <text x="20" y="116" font-size="11.5" font-weight="600">stale-while-revalidate=60</text>
+  <text x="20" y="131" font-size="9.5" class="dim">Trả ngay bản cũ cho khách; CDN cập nhật nền</text>
+  <rect class="box-warn" x="328" y="98" width="302" height="54"/>
+  <text x="338" y="116" font-size="11.5" font-weight="600">Bẫy Vary &amp; Stampede</text>
+  <text x="338" y="131" font-size="9.5" class="dim">Thiếu Vary = lộ nhầm · Vary Cookie = 0% hit</text>
+</svg>

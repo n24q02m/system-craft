@@ -1,0 +1,22 @@
+<svg viewBox="0 0 640 160" role="img" aria-label="Vòng phản hồi FinOps gắn unit economics và các khoản ẩn egress NAT cross-region" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-11-5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">VÒNG QUẢN TRỊ FINOPS &amp; CHI PHÍ ẨN KIẾN TRÚC</text>
+  <rect class="box-accent" x="10" y="32" width="142" height="48"/>
+  <text x="81.0" y="50" text-anchor="middle" font-size="11" font-weight="600">1. Tag &amp; Unit Cost</text>
+  <text x="81.0" y="65" text-anchor="middle" font-size="9.5" class="dim">$ / 1k req hay $/đơn</text>
+  <rect class="box-warn" x="172" y="32" width="142" height="48"/>
+  <text x="243.0" y="50" text-anchor="middle" font-size="11" font-weight="600">2. Bắt khoản ẩn</text>
+  <text x="243.0" y="65" text-anchor="middle" font-size="9.5" class="dim">Egress · NAT · Cross-AZ</text>
+  <rect class="box-ok" x="334" y="32" width="142" height="48"/>
+  <text x="405.0" y="50" text-anchor="middle" font-size="11" font-weight="600">3. Mua đúng loại</text>
+  <text x="405.0" y="65" text-anchor="middle" font-size="9.5" class="dim">RI/SP nền + Spot batch</text>
+  <rect class="box" x="496" y="32" width="134" height="48"/>
+  <text x="563.0" y="50" text-anchor="middle" font-size="11" font-weight="600">4. Showback Team</text>
+  <text x="563.0" y="65" text-anchor="middle" font-size="9.5" class="dim">Tiền = phản hồi kỹ thuật</text>
+  <path class="flow" d="M152 56 H168" marker-end="url(#arr-11-5)"/>
+  <path class="flow" d="M314 56 H330" marker-end="url(#arr-11-5)"/>
+  <path class="flow" d="M476 56 H492" marker-end="url(#arr-11-5)"/>
+  <rect class="box-soft" x="10" y="102" width="620" height="44"/>
+  <text x="20" y="128.0" font-size="11.5" font-weight="600">Không tag = không đo được · Tiết kiệm nhất là tắt idle và đặt dữ liệu gần compute (bỏ NAT/Egress)</text>
+</svg>

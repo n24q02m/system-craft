@@ -1,0 +1,84 @@
+/* Hệ diagram System Craft — bản vẽ kỹ thuật neutral + 1 accent, dùng chung cho Astro web & standalone HTML/PDF */
+
+.diagram {
+  margin: 28px 0 24px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  color: var(--ink);
+  overflow: visible;
+}
+.diagram svg text {
+  font-family: var(--body, "DejaVu Sans", "Segoe UI", Arial, sans-serif);
+  fill: currentColor;
+}
+.diagram svg text.lbl {
+  font-family: var(--mono, "DejaVu Sans Mono", Consolas, monospace);
+  letter-spacing: 0.08em;
+}
+.diagram svg text.num {
+  font-family: var(--mono, "DejaVu Sans Mono", Consolas, monospace);
+  font-size: 9px;
+  opacity: 0.72;
+}
+.diagram svg .box {
+  fill: none;
+  stroke: var(--line-strong, #b2c1c9);
+  stroke-width: 1.1;
+}
+.diagram svg .box-accent {
+  fill: var(--accent-soft, #e4edf5);
+  stroke: var(--accent, #1b4d7a);
+  stroke-width: 1.2;
+}
+.diagram svg .box-soft {
+  fill: var(--surface-2, #eef2f5);
+  stroke: var(--line, #d3dde3);
+  stroke-width: 1;
+}
+.diagram svg .box-warn {
+  fill: var(--warn-soft, #f8f0df);
+  stroke: var(--warn, #8a5b12);
+  stroke-width: 1.1;
+}
+.diagram svg .box-ok {
+  fill: var(--ok-soft, #e2efe9);
+  stroke: var(--ok, #1f5f45);
+  stroke-width: 1.1;
+}
+.diagram svg .flow {
+  fill: none;
+  stroke: var(--muted, #5c6f78);
+  stroke-width: 1.2;
+}
+.diagram svg .dim { opacity: 0.62; }
+.diagram svg .axis { fill: none; stroke: var(--line-strong, #b2c1c9); stroke-width: 1; }
+.diagram svg .grid { fill: none; stroke: var(--line, #d3dde3); stroke-width: 1; }
+.diagram svg .dashed { stroke-dasharray: 4 3; }
+.diagram svg .node { fill: currentColor; stroke: none; }
+.diagram svg .node-open { fill: var(--bg, #ffffff); stroke: currentColor; stroke-width: 1.1; }
+.diagram svg .node-accent { fill: var(--accent, #1b4d7a); stroke: none; }
+.diagram svg .edge { fill: none; stroke: var(--line-strong, #b2c1c9); stroke-width: 0.9; }
+.diagram svg .curve { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.diagram svg .curve-accent { fill: none; stroke: var(--accent, #1b4d7a); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.diagram svg .curve-warn { fill: none; stroke: var(--warn, #8a5b12); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.diagram svg .area { fill: var(--accent-soft, #e4edf5); stroke: none; }
+.diagram svg .area-warn { fill: var(--warn-soft, #f8f0df); stroke: none; }
+.diagram svg .area-ok { fill: var(--ok-soft, #e2efe9); stroke: none; }
+.diagram svg .cell { fill: none; stroke: var(--line, #d3dde3); stroke-width: 0.9; }
+.diagram svg .cell-on { fill: var(--accent-soft, #e4edf5); stroke: var(--accent, #1b4d7a); stroke-width: 0.9; }
+.diagram svg .cell-off { fill: var(--surface-2, #eef2f5); stroke: var(--line, #d3dde3); stroke-width: 0.9; }
+.diagram svg .bar { fill: var(--line-strong, #b2c1c9); stroke: none; }
+.diagram svg .bar-accent { fill: var(--accent, #1b4d7a); stroke: none; }
+.diagram + .diagram { margin-top: 22px; }
+.diagram figcaption {
+  font-size: 13.5px;
+  color: var(--muted, #5c6f78);
+  margin-top: 10px;
+  line-height: 1.5;
+}

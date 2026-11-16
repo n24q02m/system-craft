@@ -1,0 +1,25 @@
+<svg viewBox="0 0 640 168" role="img" aria-label="So sánh Queue xóa sau xử lý và Distributed Log giữ offset replay nhiều consumer group" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-5-7" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">QUEUE (XÓA SAU ACK) VS APPEND-ONLY LOG (REPLAY THEO PARTITION)</text>
+  <rect class="box" x="10" y="30" width="298" height="124"/>
+  <text x="20" y="48" font-size="11.5" font-weight="600">Queue Truyền thống (vd RabbitMQ)</text>
+  <text x="20" y="63" font-size="9.5" class="dim">Đẩy tới worker → xong là XOÁ</text>
+  <rect class="box-soft" x="24" y="78" width="122" height="34"/>
+  <text x="85.0" y="96" text-anchor="middle" font-size="11" font-weight="600">Routing phức tạp</text>
+  <text x="85.0" y="111" text-anchor="middle" font-size="9.5" class="dim">priority / topic</text>
+  <rect class="box-warn" x="164" y="78" width="130" height="34"/>
+  <text x="229.0" y="96" text-anchor="middle" font-size="11" font-weight="600">Poison Message</text>
+  <text x="229.0" y="111" text-anchor="middle" font-size="9.5" class="dim">→ DLQ + đếm retry</text>
+  <text x="24" y="138" text-anchor="start" font-size="9.5" class="dim">Không giữ lịch sử để nhiều service tự đọc lại</text>
+  <rect class="box-accent" x="324" y="30" width="306" height="124"/>
+  <text x="334" y="48" font-size="11.5" font-weight="600">Distributed Log (Kafka / KRaft)</text>
+  <text x="334" y="63" font-size="9.5" class="dim">Ghi nối đuôi · Giữ retention theo ngày/S3</text>
+  <rect class="box-ok" x="338" y="78" width="134" height="34"/>
+  <text x="405.0" y="96" text-anchor="middle" font-size="11" font-weight="600">hash(key) % N</text>
+  <text x="405.0" y="111" text-anchor="middle" font-size="9.5" class="dim">Thứ tự trong Partition</text>
+  <rect class="box-soft" x="484" y="78" width="132" height="34"/>
+  <text x="550.0" y="96" text-anchor="middle" font-size="11" font-weight="600">Nhóm A &amp; Nhóm B</text>
+  <text x="550.0" y="111" text-anchor="middle" font-size="9.5" class="dim">Đọc cùng log, riêng offset</text>
+  <text x="338" y="138" text-anchor="start" font-size="9.5" class="dim">Dùng salt/tách topic khi gặp hot partition</text>
+</svg>

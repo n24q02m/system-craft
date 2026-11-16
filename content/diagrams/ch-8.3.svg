@@ -1,0 +1,34 @@
+<svg viewBox="0 0 640 166" role="img" aria-label="Mẫu Transactional Outbox và chuỗi Saga kèm phản đề compensation khi một bước thất bại" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-8-3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">TRANSACTIONAL OUTBOX + SAGA COMPENSATION (THAY THẾ 2PC)</text>
+  <rect class="box-accent" x="10" y="32" width="188" height="52"/>
+  <text x="20" y="50" font-size="11.5" font-weight="600">1. Giao dịch DB cục bộ</text>
+  <text x="20" y="65" font-size="9.5" class="dim">INSERT order + outbox</text>
+  <text x="20" y="78" font-size="9.5" class="dim">1 transaction → không đứt đôi</text>
+  <rect class="box" x="226" y="32" width="188" height="52"/>
+  <text x="236" y="50" font-size="11.5" font-weight="600">2. Relay / Debezium CDC</text>
+  <text x="236" y="65" font-size="9.5" class="dim">Đọc outbox → gửi Kafka</text>
+  <text x="236" y="78" font-size="9.5" class="dim">At-least-once an toàn</text>
+  <rect class="box-ok" x="442" y="32" width="188" height="52"/>
+  <text x="452" y="50" font-size="11.5" font-weight="600">3. Idempotent Consumer</text>
+  <text x="452" y="65" font-size="9.5" class="dim">Khử trùng theo event_id</text>
+  <text x="452" y="78" font-size="9.5" class="dim">= Hiệu ứng Exactly-Once</text>
+  <path class="flow" d="M198 58 H222" marker-end="url(#arr-8-3)"/>
+  <path class="flow" d="M414 58 H438" marker-end="url(#arr-8-3)"/>
+  <rect class="box-soft" x="10" y="108" width="138" height="42"/>
+  <text x="79.0" y="126" text-anchor="middle" font-size="11" font-weight="600">Bước S1: Đặt chỗ</text>
+  <text x="79.0" y="141" text-anchor="middle" font-size="9.5" class="dim">OK</text>
+  <rect class="box-soft" x="174" y="108" width="138" height="42"/>
+  <text x="243.0" y="126" text-anchor="middle" font-size="11" font-weight="600">Bước S2: Trừ kho</text>
+  <text x="243.0" y="141" text-anchor="middle" font-size="9.5" class="dim">OK</text>
+  <rect class="box-warn" x="338" y="108" width="138" height="42"/>
+  <text x="407.0" y="126" text-anchor="middle" font-size="11" font-weight="600">Bước S3: Thu tiền</text>
+  <text x="407.0" y="141" text-anchor="middle" font-size="9.5" class="dim">FAIL → kích hoàn</text>
+  <rect class="box-ok" x="502" y="108" width="128" height="42"/>
+  <text x="566.0" y="126" text-anchor="middle" font-size="11" font-weight="600">Phản đề S2⁻¹·S1⁻¹</text>
+  <text x="566.0" y="141" text-anchor="middle" font-size="9.5" class="dim">Cộng trả kho · Huỷ</text>
+  <path class="flow" d="M148 129 H170" marker-end="url(#arr-8-3)"/>
+  <path class="flow" d="M312 129 H334" marker-end="url(#arr-8-3)"/>
+  <path class="flow" d="M476 129 H498" marker-end="url(#arr-8-3)"/>
+</svg>

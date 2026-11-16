@@ -1,0 +1,31 @@
+<svg viewBox="0 0 640 164" role="img" aria-label="Control plane Kubernetes theo vòng reconcile cùng chuỗi Startup, Readiness, Liveness và PDB" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-9-1" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">KUBERNETES RECONCILE LOOP · VÒNG ĐỜI PROBE &amp; DRAIN CÓ PDB</text>
+  <rect class="box-accent" x="10" y="30" width="176" height="54"/>
+  <text x="20" y="48" font-size="11.5" font-weight="600">kube-apiserver</text>
+  <text x="20" y="63" font-size="9.5" class="dim">Cổng đọc/ghi + watch duy nhất</text>
+  <rect class="box" x="214" y="30" width="196" height="54"/>
+  <text x="224" y="48" font-size="11.5" font-weight="600">etcd (Raft Quorum)</text>
+  <text x="224" y="63" font-size="9.5" class="dim">Lưu trạng thái khai báo thật</text>
+  <rect class="box" x="438" y="30" width="192" height="54"/>
+  <text x="448" y="48" font-size="11.5" font-weight="600">Scheduler + Controllers</text>
+  <text x="448" y="63" font-size="9.5" class="dim">So Spec vs Thực → Reconcile</text>
+  <path class="flow" d="M186 57 H210" marker-end="url(#arr-9-1)"/>
+  <path class="flow" d="M410 57 H434" marker-end="url(#arr-9-1)"/>
+  <rect class="box-soft" x="10" y="104" width="140" height="44"/>
+  <text x="80.0" y="122" text-anchor="middle" font-size="11" font-weight="600">startupProbe</text>
+  <text x="80.0" y="137" text-anchor="middle" font-size="9.5" class="dim">Chờ app khởi động</text>
+  <rect class="box-accent" x="170" y="104" width="142" height="44"/>
+  <text x="241.0" y="122" text-anchor="middle" font-size="11" font-weight="600">readinessProbe</text>
+  <text x="241.0" y="137" text-anchor="middle" font-size="9.5" class="dim">Mới vào Endpoints LB</text>
+  <rect class="box-warn" x="332" y="104" width="140" height="44"/>
+  <text x="402.0" y="122" text-anchor="middle" font-size="11" font-weight="600">livenessProbe</text>
+  <text x="402.0" y="137" text-anchor="middle" font-size="9.5" class="dim">Kẹt thì restart container</text>
+  <rect class="box-ok" x="492" y="104" width="138" height="44"/>
+  <text x="561.0" y="122" text-anchor="middle" font-size="11" font-weight="600">preStop + PDB</text>
+  <text x="561.0" y="137" text-anchor="middle" font-size="9.5" class="dim">Drain graceful không rớt</text>
+  <path class="flow" d="M150 126 H166" marker-end="url(#arr-9-1)"/>
+  <path class="flow" d="M312 126 H328" marker-end="url(#arr-9-1)"/>
+  <path class="flow" d="M472 126 H488" marker-end="url(#arr-9-1)"/>
+</svg>

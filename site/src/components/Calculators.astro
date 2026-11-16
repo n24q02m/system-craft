@@ -1,0 +1,253 @@
+---
+import type { Lang } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const vi = lang === "vi";
+---
+
+<div class="calc-stack">
+  <section id="calc-latency" class="status-card" style="margin-bottom:22px;">
+    <div class="eyebrow">01 · §1.1 & §5.2</div>
+    <h2>{vi ? "Bậc thang Độ trễ & Bẫy Query N+1" : "Latency Staircase & N+1 Query Multiplier"}</h2>
+    <p>{vi
+      ? "Tính tổng độ trễ khi 1 request thực hiện N truy vấn tuần tự qua các tầng (L1 / DRAM / NVMe / Same-AZ / Cross-Region)."
+      : "Estimate cumulative request latency when running N sequential hops across memory, disk, and network tiers."}</p>
+    <div class="calc-inputs">
+      <label>{vi ? "Tầng truy cập" : "Tier"}
+        <select id="lat-tier">
+          <option value="0.0001">DRAM (~100 ns)</option>
+          <option value="0.1">NVMe SSD (~100 µs)</option>
+          <option value="0.5" selected>Same-AZ DB Query (~0.5 ms)</option>
+          <option value="2.0">Cross-AZ Query (~2 ms)</option>
+          <option value="40.0">Cross-Region (~40 ms)</option>
+        </select>
+      </label>
+      <label>{vi ? "Số vòng lặp tuần tự N" : "Sequential Calls (N)"}
+        <input id="lat-n" type="number" min="1" max="10000" value="120" />
+      </label>
+      <label>{vi ? "Ngân sách SLA endpoint (ms)" : "Endpoint SLA (ms)"}
+        <input id="lat-sla" type="number" min="1" max="60000" value="100" />
+      </label>
+    </div>
+    <pre id="lat-out" class="calc-out"></pre>
+  </section>
+
+  <section id="calc-raid" class="status-card" style="margin-bottom:22px;">
+    <div class="eyebrow">02 · §1.4</div>
+    <h2>{vi ? "Xác suất Mất Dữ liệu Do Lỗi URE Khi Rebuild RAID" : "RAID URE Rebuild Failure Probability"}</h2>
+    <p>{vi
+      ? "Khi 1 ổ hỏng, RAID5 đọc toàn bộ dung lượng còn lại. Đặt URE = 10⁻¹⁴ hoặc 10⁻¹⁵ để kiểm rủi ro gặp lỗi không đọc được giữa rebuild."
+      : "A RAID5 rebuild reads every remaining block on healthy drives. Compute unrecoverable read error risk across TB-scale arrays."}</p>
+    <div class="calc-inputs">
+      <label>{vi ? "Số đĩa" : "Disks"}
+        <input id="raid-n" type="number" min="3" max="48" value="12" />
+      </label>
+      <label>{vi ? "Dung lượng / đĩa (TB)" : "TB / Disk"}
+        <input id="raid-tb" type="number" min="1" max="64" step="1" value="12" />
+      </label>
+      <label>{vi ? "Tỉ lệ URE (10⁻ˣ bit)" : "URE Exponent (10⁻ˣ)"}
+        <input id="raid-ure" type="number" min="12" max="17" step="1" value="14" />
+      </label>
+    </div>
+    <pre id="raid-out" class="calc-out"></pre>
+  </section>
+
+  <section id="calc-bdp" class="status-card" style="margin-bottom:22px;">
+    <div class="eyebrow">03 · §1.7 & §4.1</div>
+    <h2>{vi ? "BDP = Bandwidth × RTT & Trần 1 Luồng TCP" : "Bandwidth-Delay Product (BDP) & Single-Flow Ceiling"}</h2>
+    <p>{vi
+      ? "So sánh dung lượng đường ống vật lý với kích thước cửa sổ TCP (rwin) trên một kết nối."
+      : "Compare physical pipe capacity against TCP receive window limits for a single flow."}</p>
+    <div class="calc-inputs">
+      <label>{vi ? "Băng thông đường truyền (Gbps)" : "Bandwidth (Gbps)"}
+        <input id="bdp-gbps" type="number" min="0.1" max="800" step="0.5" value="10" />
+      </label>
+      <label>{vi ? "RTT khứ hồi (ms)" : "Round-Trip Time (ms)"}
+        <input id="bdp-rtt" type="number" min="0.1" max="1000" step="1" value="40" />
+      </label>
+      <label>{vi ? "Cửa sổ TCP tối đa (MB)" : "TCP Window Limit (MB)"}
+        <input id="bdp-win" type="number" min="0.06" max="512" step="0.5" value="4" />
+      </label>
+    </div>
+    <pre id="bdp-out" class="calc-out"></pre>
+  </section>
+
+  <section id="calc-little" class="status-card" style="margin-bottom:22px;">
+    <div class="eyebrow">04 · §3.1, §3.10 & §11.1</div>
+    <h2>{vi ? "Định luật Little (L = λW), Sizing Pool & Error Budget SLO" : "Little's Law, Connection Pool Sizing & SLO Error Budget"}</h2>
+    <p>{vi
+      ? "Tính đồng thời trung bình L, cỡ pool an toàn ở tải đỉnh (60% headroom) và ngân sách downtime hằng tháng."
+      : "Estimate in-flight concurrency, worker/pool sizing at target headroom, and monthly downtime budget."}</p>
+    <div class="calc-inputs">
+      <label>{vi ? "Thông lượng λ (req/s)" : "Throughput λ (req/s)"}
+        <input id="lit-lam" type="number" min="1" max="500000" value="2000" />
+      </label>
+      <label>{vi ? "Độ trễ trung bình W (ms)" : "Mean Residence W (ms)"}
+        <input id="lit-w" type="number" min="1" max="10000" value="80" />
+      </label>
+      <label>{vi ? "SLO hàng tháng (%)" : "Monthly SLO (%)"}
+        <input id="lit-slo" type="number" min="90" max="99.999" step="0.01" value="99.9" />
+      </label>
+    </div>
+    <pre id="lit-out" class="calc-out"></pre>
+  </section>
+
+  <section id="calc-llm" class="status-card" style="margin-bottom:22px;">
+    <div class="eyebrow">05 · §12.2 & §12.6</div>
+    <h2>{vi ? "Ước lượng VRAM Trọng số, KV Cache & Trần Decode LLM" : "LLM Weight + KV-Cache VRAM & HBM Decode Ceiling"}</h2>
+    <p>{vi
+      ? "Áp công thức roofline: mỗi bước decode đọc toàn bộ trọng số quantize từ HBM plus KV cache chia theo ngữ cảnh."
+      : "Apply hardware roofline sizing across quantized weight bytes, KV-cache footprint, and GPU memory bandwidth."}</p>
+    <div class="calc-inputs">
+      <label>{vi ? "Tham số mô hình (B)" : "Model Params (B)"}
+        <input id="llm-p" type="number" min="1" max="1000" step="1" value="8" />
+      </label>
+      <label>{vi ? "Quantization" : "Precision"}
+        <select id="llm-bits">
+          <option value="2">BF16 / FP16 (2 B/param)</option>
+          <option value="1">FP8 / INT8 (1 B/param)</option>
+          <option value="0.5" selected>INT4 / AWQ (0.5 B/param)</option>
+        </select>
+      </label>
+      <label>{vi ? "Độ dài ngữ cảnh (tokens)" : "Context Length"}
+        <input id="llm-seq" type="number" min="512" max="262144" step="512" value="32768" />
+      </label>
+      <label>{vi ? "Băng thông HBM GPU (TB/s)" : "GPU HBM BW (TB/s)"}
+        <input id="llm-hbm" type="number" min="0.1" max="20" step="0.1" value="3.35" />
+      </label>
+    </div>
+    <pre id="llm-out" class="calc-out"></pre>
+  </section>
+</div>
+
+<style>
+  .calc-inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    gap: 12px;
+    margin: 12px 0;
+  }
+  .calc-inputs label {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: var(--muted);
+    gap: 4px;
+  }
+  .calc-inputs input, .calc-inputs select {
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13.5px;
+  }
+  .calc-out {
+    margin: 10px 0 0;
+    padding: 12px 14px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    font-family: var(--mono);
+    font-size: 13px;
+    white-space: pre-wrap;
+  }
+</style>
+
+<script is:inline define:vars={{ vi }}>
+  (() => {
+    const val = (id) => Number(document.getElementById(id)?.value || 0);
+    const setOut = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+
+    function updateLatency() {
+      const perHop = val("lat-tier");
+      const n = Math.max(1, val("lat-n"));
+      const sla = Math.max(1, val("lat-sla"));
+      const total = perHop * n;
+      const batchSavings = total / Math.max(1, perHop);
+      const status = total > sla ? (vi ? "VƯỢT SLA — bắt buộc batch / join / cache" : "OVER SLA — must batch / cache") : (vi ? "Đạt SLA" : "Within SLA");
+      setOut("lat-out",
+        `Total sequential = ${total.toFixed(2)} ms (${n} × ${perHop} ms) · 1 batch = ${perHop.toFixed(4)} ms (${batchSavings.toFixed(0)}× ít call)\n` +
+        `SLA (${sla} ms): ${status}`
+      );
+    }
+
+    function updateRaid() {
+      const n = Math.max(3, val("raid-n"));
+      const tb = Math.max(1, val("raid-tb"));
+      const exp = Math.max(10, val("raid-ure"));
+      const rebuildTb = (n - 1) * tb;
+      const bitsRead = rebuildTb * 8e12;
+      const ureRate = Math.pow(10, -exp);
+      const pFail = (1 - Math.exp(-bitsRead * ureRate)) * 100;
+      const note = pFail > 10
+        ? (vi ? "KHÔNG AN TOÀN cho RAID5 — dùng RAID10 / RAID6 / 3× Replication" : "UNSAFE for RAID5 — move to RAID10/RAID6/Replication")
+        : (vi ? "Rủi ro URE ở mức thấp" : "Low URE collision risk");
+      setOut("raid-out",
+        `RAID5 rebuild reads: ${rebuildTb} TB = ${bitsRead.toExponential(2)} bits\n` +
+        `P(>=1 URE during RAID5 rebuild) ≈ ${pFail.toFixed(1)}% · ${note}`
+      );
+    }
+
+    function updateBdp() {
+      const gbps = Math.max(0.01, val("bdp-gbps"));
+      const rtt = Math.max(0.1, val("bdp-rtt")) / 1000;
+      const winMb = Math.max(0.01, val("bdp-win"));
+      const bdpMb = (gbps * 1e9 * rtt) / (8 * 1024 * 1024);
+      const maxSingleGbps = ((winMb * 1024 * 1024 * 8) / rtt) / 1e9;
+      const utilPct = Math.min(100, (maxSingleGbps / gbps) * 100);
+      setOut("bdp-out",
+        `Pipe BDP = ${bdpMb.toFixed(1)} MiB (${gbps} Gbps × ${(rtt*1000).toFixed(0)} ms)\n` +
+        `1-flow ceiling with ${winMb} MiB window = ${Math.min(gbps, maxSingleGbps).toFixed(2)} Gbps (${utilPct.toFixed(1)}% link utilization)`
+      );
+    }
+
+    function updateLittle() {
+      const lam = Math.max(1, val("lit-lam"));
+      const wMs = Math.max(1, val("lit-w"));
+      const slo = Math.min(99.9999, Math.max(50, val("lit-slo")));
+      const L = lam * (wMs / 1000);
+      const poolDesign = Math.ceil(L / 0.6);
+      const budgetMin = ((100 - slo) / 100) * 30 * 24 * 60;
+      setOut("lit-out",
+        `In-flight concurrency L = ${L.toFixed(1)} req · Recommended pool (60% headroom) ≈ ${poolDesign} slots\n` +
+        `30-day error budget @ ${slo}% SLO = ${budgetMin.toFixed(2)} minutes (${(budgetMin * 60).toFixed(0)} seconds)`
+      );
+    }
+
+    function updateLlm() {
+      const p = Math.max(1, val("llm-p"));
+      const bpw = Math.max(0.25, val("llm-bits"));
+      const seq = Math.max(128, val("llm-seq"));
+      const hbm = Math.max(0.1, val("llm-hbm"));
+      const weightGb = (p * 1e9 * bpw) / (1024 ** 3);
+      // Standard GQA Llama-8B-like scaling: ~128 KiB/token in FP16 proportionally scaled by params/8
+      const kvPerTokKb = 128 * (p / 8);
+      const kvGb = (kvPerTokKb * seq) / (1024 * 1024);
+      const totalGb = weightGb + kvGb;
+      const decodeRoofline = (hbm * 1e12) / (p * 1e9 * bpw);
+      setOut("llm-out",
+        `Weights = ${weightGb.toFixed(1)} GiB · KV Cache (1 req @ ${seq} tok) ≈ ${kvGb.toFixed(2)} GiB · Total ≈ ${totalGb.toFixed(1)} GiB\n` +
+        `HBM decode ceiling (batch=1, 100% bw) ≈ ${decodeRoofline.toFixed(0)} tok/s (effective ~70%: ${(decodeRoofline*0.7).toFixed(0)} tok/s)`
+      );
+    }
+
+    ["lat-tier", "lat-n", "lat-sla"].forEach((id) => document.getElementById(id)?.addEventListener("input", updateLatency));
+    ["raid-n", "raid-tb", "raid-ure"].forEach((id) => document.getElementById(id)?.addEventListener("input", updateRaid));
+    ["bdp-gbps", "bdp-rtt", "bdp-win"].forEach((id) => document.getElementById(id)?.addEventListener("input", updateBdp));
+    ["lit-lam", "lit-w", "lit-slo"].forEach((id) => document.getElementById(id)?.addEventListener("input", updateLittle));
+    ["llm-p", "llm-bits", "llm-seq", "llm-hbm"].forEach((id) => document.getElementById(id)?.addEventListener("input", updateLlm));
+
+    updateLatency();
+    updateRaid();
+    updateBdp();
+    updateLittle();
+    updateLlm();
+  })();
+</script>

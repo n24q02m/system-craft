@@ -1,0 +1,22 @@
+<svg viewBox="0 0 640 176" role="img" aria-label="Băng thông tích độ trễ BDP làm nghẽn kết nối khi cửa sổ TCP nhỏ hơn dung lượng đường ống" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-1-7" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">ĐƯỜNG ỐNG BDP = BANDWIDTH × RTT (TRẦN CHO 1 KẾT NỐI)</text>
+  <rect class="box-warn" x="10" y="32" width="136" height="48"/>
+  <text x="20" y="50" font-size="11.5" font-weight="600">Bên gửi</text>
+  <text x="20" y="65" font-size="9.5" class="dim">Window mặc định: 4 MB</text>
+  <rect class="box-accent" x="200" y="32" width="240" height="48"/>
+  <text x="210" y="50" font-size="11.5" font-weight="600">Sợi quang (~5 µs/km · 40 ms RTT)</text>
+  <text x="210" y="65" font-size="9.5" class="dim">10 Gbps × 40 ms ⇒ BDP = 50 MB bay</text>
+  <rect class="box" x="494" y="32" width="136" height="48"/>
+  <text x="504" y="50" font-size="11.5" font-weight="600">Bên nhận</text>
+  <text x="504" y="65" font-size="9.5" class="dim">Cần RCVBUF ≥ BDP</text>
+  <path class="flow" d="M146 56 H196" marker-end="url(#arr-1-7)"/>
+  <path class="flow" d="M440 56 H490" marker-end="url(#arr-1-7)"/>
+  <rect class="box-warn" x="10" y="104" width="300" height="56"/>
+  <text x="20" y="122" font-size="11.5" font-weight="600">Nếu Window &lt; BDP (4 MB &lt; 50 MB)</text>
+  <text x="20" y="137" font-size="9.5" class="dim">Thông lượng tối đa = Window/RTT ≈ 100 MB/s (8% tải)</text>
+  <rect class="box-ok" x="330" y="104" width="300" height="56"/>
+  <text x="340" y="122" font-size="11.5" font-weight="600">Giải pháp theo thứ tự</text>
+  <text x="340" y="137" font-size="9.5" class="dim">1) Tăng tcp_rmem/wmem  2) N streams  3) QUIC / Batch</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 640 186" role="img" aria-label="Hai pha Prefill compute-bound và Decode memory-bound cùng PagedAttention trong LLM serving" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-12-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">HAI PHA ĐỐI NGHỊCH CỦA LLM INFERENCE SERVING &amp; PAGED KV-CACHE</text>
+  <rect class="box-accent" x="10" y="32" width="200" height="74"/>
+  <text x="20" y="50" font-size="11.5" font-weight="600">Pha PREFILL (đọc prompt)</text>
+  <text x="20" y="65" font-size="9.5" class="dim">Compute-bound (FLOPs)</text>
+  <text x="20" y="78" font-size="9.5" class="dim">Quyết định TTFT (chữ đầu tiên)</text>
+  <rect class="box-warn" x="224" y="32" width="206" height="74"/>
+  <text x="234" y="50" font-size="11.5" font-weight="600">Pha DECODE (sinh từng token)</text>
+  <text x="234" y="65" font-size="9.5" class="dim">HBM Bandwidth-bound</text>
+  <text x="234" y="78" font-size="9.5" class="dim">Quyết định ITL / TPOT (tốc độ tuôn)</text>
+  <rect class="box-ok" x="444" y="32" width="186" height="74"/>
+  <text x="454" y="50" font-size="11.5" font-weight="600">PagedAttention + Prefix</text>
+  <text x="454" y="65" font-size="9.5" class="dim">Chia trang KV-cache (ko phân mảnh)</text>
+  <text x="454" y="78" font-size="9.5" class="dim">System prompt đặt ĐẦU</text>
+  <rect class="box-soft" x="10" y="124" width="302" height="48"/>
+  <text x="20" y="142" font-size="11.5" font-weight="600">Continuous Batching vs Disaggregation</text>
+  <text x="20" y="157" font-size="9.5" class="dim">Gom liên tục tăng throughput; cụm lớn tách P/D riêng GPU</text>
+  <rect class="box-soft" x="328" y="124" width="302" height="48"/>
+  <text x="338" y="142" font-size="11.5" font-weight="600">Quantization: BF16 → FP8 → INT4</text>
+  <text x="338" y="157" font-size="9.5" class="dim">Cắt đôi bytes đọc mỗi bước decode · Luôn đo eval riêng</text>
+</svg>

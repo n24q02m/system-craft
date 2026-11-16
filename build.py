@@ -9,10 +9,13 @@ if BASE not in sys.path:
 
 from tools.paths import (
     CONTENT_BOOK as SRC,
+    CONTENT_DIAGRAMS,
     FACTS,
+    SITE,
     chapter_files,
     edu_files,
     fname_to_chap,
+    read_csv_dicts,
     read_csv_rows,
     sort_key,
 )
@@ -20,7 +23,7 @@ from tools.pdf_render import render_pdf_with_fallback
 
 EDITION_VER = 'SA-2028.1'
 
-# Một nguồn, nhiều đầu ra — kể cả hai ấn phẩm (DRAFT tra cứu / EDU tuyến học) cùng sinh từ src/
+# Một nguồn, nhiều đầu ra — kể cả hai ấn phẩm (DRAFT tra cứu / EDU tuyến học) cùng sinh từ content/book/
 OUTS = {
     'draft': dict(md='SYSTEMS-ATLAS-DRAFT.md', html='SYSTEMS-ATLAS-DRAFT.html',
                   docx='SYSTEMS-ATLAS-DRAFT.docx', pdf='SYSTEMS-ATLAS-DRAFT.pdf'),
@@ -263,8 +266,41 @@ def assemble(profile='draft'):
     return files, parts, done, todo, total_words
 
 # ---------- HTML ----------
+def load_diagrams():
+    """Đọc facts/diagrams.csv + content/diagrams/*.svg -> {chapter: [(file, sec, svg_raw, cap_vi), ...]}."""
+    d_csv = os.path.join(FACTS, 'diagrams.csv')
+    out = {}
+    for r in read_csv_dicts(d_csv):
+        chap = (r.get('chapter') or '').strip()
+        svg_file = (r.get('svg_file') or '').strip()
+        sec = (r.get('anchor_section') or '2').strip()
+        cap = (r.get('caption_vi') or '').strip()
+        svg_path = os.path.join(CONTENT_DIAGRAMS, svg_file)
+        if chap and svg_file and os.path.exists(svg_path):
+            svg_raw = open(svg_path, encoding='utf-8').read().strip()
+            out.setdefault(chap, []).append((svg_file, sec, svg_raw, cap))
+    return out
+
+def inject_chapter_diagrams_html(chap, html_frag, diagrams=None):
+    """Chèn <figure class='diagram'> SVG vào section § tương ứng của chương HTML."""
+    diags = (load_diagrams() if diagrams is None else diagrams).get(chap) or []
+    if not diags:
+        return html_frag
+    for svg_file, sec, svg_raw, cap in diags:
+        fig = f'\n<figure class="diagram" data-diag="{svg_file}">\n{svg_raw}\n<figcaption>{cap}</figcaption>\n</figure>\n'
+        pat = re.compile(rf'(<h2>\s*{re.escape(str(sec))}\.[^<]*</h2>)', re.I)
+        if pat.search(html_frag):
+            html_frag = pat.sub(lambda m: m.group(1) + fig, html_frag, count=1)
+        else:
+            html_frag = html_frag + fig
+    return html_frag
+
+def _load_shared_diagram_css():
+    p = os.path.join(SITE, 'src', 'styles', 'diagram.css')
+    return open(p, encoding='utf-8').read() if os.path.exists(p) else ''
+
 CSS = '''
-:root { --ink:#1a1c1f; --muted:#5b6470; --line:#d8dde3; --accent:#0b5fff; --bg:#fbfbfd; --card:#ffffff; --code:#f4f6f9; }
+:root { --ink:#1a1c1f; --muted:#5b6470; --line:#d8dde3; --line-strong:#b2c1c9; --accent:#0b5fff; --accent-soft:#e4edf5; --surface-2:#eef2f5; --warn:#8a5b12; --warn-soft:#f8f0df; --ok:#1f5f45; --ok-soft:#e2efe9; --bg:#fbfbfd; --card:#ffffff; --code:#f4f6f9; }
 * { box-sizing:border-box; }
 body { font-family:"Noto Serif","DejaVu Serif","Times New Roman",serif; color:var(--ink);
        background:var(--bg); margin:0; line-height:1.65; font-size:16px; }
@@ -307,12 +343,17 @@ nav.toc li a.part { font-weight:700; letter-spacing:.3px; }
 def render_html_doc(parts, stats, title_override=None):
     import markdown as _md
     md = _md.Markdown(extensions=['tables', 'fenced_code'])
+    diagrams = load_diagrams()
+    diag_css = _load_shared_diagram_css()
     body = []
     toc = []
     idx = 0
     for f, txt, words, written in parts:
         idx += 1
         html = md.reset().convert(txt)
+        bn = os.path.basename(f)
+        if bn.startswith('P') and not bn.startswith('P15'):
+            html = inject_chapter_diagrams_html(fname_to_chap(bn), html, diagrams)
         lines = txt.split('\n')
         title = next((l[2:].strip() for l in lines if l.startswith('# ')), os.path.basename(f))
         cid = f'ch-{idx:03d}'
@@ -356,7 +397,7 @@ def render_html_doc(parts, stats, title_override=None):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
 <title>{cover_title} ({today})</title>
-<style>{CSS}</style></head>
+<style>{CSS}\n{diag_css}</style></head>
 <body><div class="page">
 <header class="cover">
 <h1>{cover_title}</h1>

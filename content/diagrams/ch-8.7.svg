@@ -1,0 +1,26 @@
+<svg viewBox="0 0 640 170" role="img" aria-label="Bốn cấp độ sẵn sàng đa vùng cùng kiến trúc Cell cô lập blast radius" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-8-7" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">BẬC THANG ĐA VÙNG (RTO · RPO) &amp; CÔ LẬP CELL-BASED</text>
+  <rect class="box-soft" x="10" y="32" width="144" height="56"/>
+  <text x="20" y="50" font-size="11.5" font-weight="600">1. Một vùng</text>
+  <text x="20" y="65" font-size="9.5" class="dim">RTO: dựng lại từ đầu</text>
+  <rect class="box" x="168" y="32" width="144" height="56"/>
+  <text x="178" y="50" font-size="11.5" font-weight="600">2. Backup chéo vùng</text>
+  <text x="178" y="65" font-size="9.5" class="dim">RTO giờ · RPO chu kỳ</text>
+  <rect class="box-accent" x="326" y="32" width="144" height="56"/>
+  <text x="336" y="50" font-size="11.5" font-weight="600">3. Active-Passive</text>
+  <text x="336" y="65" font-size="9.5" class="dim">Standby · RPO giây/phút</text>
+  <rect class="box-warn" x="484" y="32" width="146" height="56"/>
+  <text x="494" y="50" font-size="11.5" font-weight="600">4. Active-Active</text>
+  <text x="494" y="65" font-size="9.5" class="dim">RTO ≈ 0 · Phải giải xung đột</text>
+  <path class="flow" d="M154 60 H164" marker-end="url(#arr-8-7)"/>
+  <path class="flow" d="M312 60 H322" marker-end="url(#arr-8-7)"/>
+  <path class="flow" d="M470 60 H480" marker-end="url(#arr-8-7)"/>
+  <rect class="box-ok" x="10" y="108" width="298" height="48"/>
+  <text x="20" y="126" font-size="11.5" font-weight="600">Cell-Based Isolation</text>
+  <text x="20" y="141" font-size="9.5" class="dim">C khách vào C cell → 1 lỗi khoanh tối đa 1/C user</text>
+  <rect class="box-soft" x="326" y="108" width="304" height="48"/>
+  <text x="336" y="126" font-size="11.5" font-weight="600">Hợp đồng DR không có drill = giả định</text>
+  <text x="336" y="141" font-size="9.5" class="dim">DNS TTL · RHO % công suất standby sau failover</text>
+</svg>

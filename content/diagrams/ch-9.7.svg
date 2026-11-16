@@ -1,0 +1,23 @@
+<svg viewBox="0 0 640 164" role="img" aria-label="Chuỗi phát hành an toàn bằng artifact SHA-256 duy nhất đi qua các bậc canary có auto-rollback" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-9-7" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">ARTIFACT BẤT BIẾN THEO DIGEST &amp; PROGRESSIVE CANARY CÓ PHANH</text>
+  <rect class="box-accent" x="10" y="34" width="136" height="48"/>
+  <text x="78.0" y="52" text-anchor="middle" font-size="11" font-weight="600">1. Hermetic Build</text>
+  <text x="78.0" y="67" text-anchor="middle" font-size="9.5" class="dim">Artifact @sha256:...</text>
+  <rect class="box" x="166" y="34" width="126" height="48"/>
+  <text x="229.0" y="52" text-anchor="middle" font-size="11" font-weight="600">2. Canary 1% → 5%</text>
+  <text x="229.0" y="67" text-anchor="middle" font-size="9.5" class="dim">Đo SLO tự động</text>
+  <rect class="box-ok" x="312" y="34" width="146" height="48"/>
+  <text x="385.0" y="52" text-anchor="middle" font-size="11" font-weight="600">3. Canary 25% → 100%</text>
+  <text x="385.0" y="67" text-anchor="middle" font-size="9.5" class="dim">Giữ xanh các DORA KPI</text>
+  <rect class="box-warn" x="478" y="34" width="152" height="48"/>
+  <text x="554.0" y="52" text-anchor="middle" font-size="11" font-weight="600">Auto-Rollback</text>
+  <text x="554.0" y="67" text-anchor="middle" font-size="9.5" class="dim">Lỗi vượt ngưỡng → lùi tức thì</text>
+  <path class="flow" d="M146 58 H162" marker-end="url(#arr-9-7)"/>
+  <path class="flow" d="M292 58 H308" marker-end="url(#arr-9-7)"/>
+  <path class="flow" d="M458 58 H474" marker-end="url(#arr-9-7)"/>
+  <rect class="box-soft" x="10" y="106" width="620" height="44"/>
+  <text x="20" y="124" font-size="11.5" font-weight="600">Trunk-based + Feature Flag ngắn hạn + SBOM</text>
+  <text x="20" y="139" font-size="9.5" class="dim">Cấm build lại per-environment: bản lên prod chính là bản vừa vượt qua kiểm định</text>
+</svg>

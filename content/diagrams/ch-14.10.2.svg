@@ -1,0 +1,19 @@
+<svg viewBox="0 0 640 176" role="img" aria-label="Lộ trình di chuyển PQC hybrid FIPS 203/204/205 đối phó Harvest-Now-Decrypt-Later và yêu cầu constant-time" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-14-10-2" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">CHUYỂN DỊCH HẬU LƯỢNG TỬ (PQC FIPS 203/204/205) &amp; BẪY HARVEST-NOW</text>
+  <rect class="box-warn" x="10" y="32" width="298" height="60"/>
+  <text x="20" y="50" font-size="11.5" font-weight="600">Harvest Now, Decrypt Later (HNDL)</text>
+  <text x="20" y="65" font-size="9.5" class="dim">Thời hạn bí mật (10–20y) + Thời gian di dời</text>
+  <text x="20" y="78" font-size="9.5" class="dim">Nếu &gt; Q-day ⇒ phải bắt đầu chuyển NGAY hôm nay</text>
+  <rect class="box-accent" x="326" y="32" width="304" height="60"/>
+  <text x="336" y="50" font-size="11.5" font-weight="600">Hybrid Bước Chuyển An Toàn</text>
+  <text x="336" y="65" font-size="9.5" class="dim">Trao khoá: X25519 + ML-KEM (FIPS 203)</text>
+  <text x="336" y="78" font-size="9.5" class="dim">Chữ ký: ML-DSA (204) / SLH-DSA (205) · AES-256 giữ</text>
+  <rect class="box-soft" x="10" y="110" width="298" height="52"/>
+  <text x="20" y="128" font-size="11.5" font-weight="600">Chi phí kích thước chữ ký (KB vs 64B)</text>
+  <text x="20" y="143" font-size="9.5" class="dim">Ảnh hưởng packet TLS handshake, cert chain &amp; IoT</text>
+  <rect class="box-ok" x="326" y="110" width="304" height="52"/>
+  <text x="336" y="128" font-size="11.5" font-weight="600">Constant-Time + Crypto-Agility</text>
+  <text x="336" y="143" font-size="9.5" class="dim">Không nhánh/index/log theo secret; đổi chuẩn qua cấu hình</text>
+</svg>

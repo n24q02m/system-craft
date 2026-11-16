@@ -1,0 +1,20 @@
+<svg viewBox="0 0 640 168" role="img" aria-label="Cơ chế cgroup CPU quota 500m gây throttle 50ms mỗi chu kỳ 100ms làm p99 nhảy bậc" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-2-3" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">CGROUP v2 CPU QUOTA 500m (50 ms MỖI CHU KỲ 100 ms) GÂY VỌT p99</text>
+  <line class="axis" x1="30" y1="128" x2="610" y2="128"/>
+  <line class="axis" x1="30" y1="36" x2="30" y2="128"/>
+  <rect class="area-ok" x="30" y="54" width="140" height="74"/>
+  <rect class="area-warn" x="170" y="54" width="140" height="74"/>
+  <rect class="area-ok" x="310" y="54" width="140" height="74"/>
+  <rect class="area-warn" x="450" y="54" width="140" height="74"/>
+  <text x="100" y="92" text-anchor="middle" font-size="10.5" font-weight="600">0–50 ms: Chạy</text>
+  <text x="240" y="86" text-anchor="middle" font-size="10.5" font-weight="600">50–100 ms:</text>
+  <text x="240" y="102" text-anchor="middle" font-size="10" class="dim">BỊ THROTTLE</text>
+  <text x="380" y="92" text-anchor="middle" font-size="10.5" font-weight="600">100–150 ms: Chạy</text>
+  <text x="520" y="86" text-anchor="middle" font-size="10.5" font-weight="600">150–200 ms:</text>
+  <text x="520" y="102" text-anchor="middle" font-size="10" class="dim">BỊ THROTTLE</text>
+  <line class="dashed axis" x1="310" y1="36" x2="310" y2="138"/>
+  <text x="170" y="148" text-anchor="middle" font-size="9.8" class="dim">1 chu kỳ CFS = 100 ms · Request tới lúc ms 51 chờ đứng ~49 ms dù CPU trung bình thấp</text>
+  <text x="490" y="44" text-anchor="middle" font-size="9.5" class="dim">PSI / nr_throttled báo nghẽn</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg viewBox="0 0 640 174" role="img" aria-label="Biểu đồ Event Time và Processing Time với đường Watermark xử lý sự kiện đến trễ" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-5-12" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">EVENT TIME VS PROCESSING TIME · WATERMARK &amp; TRẠNG THÁI FLINK</text>
+  <line class="axis" x1="48" y1="146" x2="352" y2="146"/>
+  <line class="axis" x1="48" y1="30" x2="48" y2="146"/>
+  <line class="dashed axis" x1="48" y1="146" x2="340" y2="42"/>
+  <line class="curve-accent" x1="48" y1="132" x2="340" y2="62"/>
+  <circle class="node" cx="140" cy="108" r="3.5"/>
+  <circle class="node-accent" cx="230" cy="96" r="3.5"/>
+  <circle class="node-open" cx="282" cy="112" r="4"/>
+  <text x="292" y="116" text-anchor="start" font-size="9.5">Đến muộn → Side output</text>
+  <text x="200" y="162" text-anchor="middle" font-size="9.8" class="dim">Event Time (trên thiết bị)</text>
+  <text x="18" y="90" text-anchor="start" font-size="9.5" class="dim">Proc</text>
+  <rect class="box-accent" x="374" y="32" width="256" height="38"/>
+  <text x="384" y="50" font-size="11.5" font-weight="600">Watermark: đã đủ dữ liệu ≤ t</text>
+  <text x="384" y="65" font-size="9.5" class="dim">Đóng cửa sổ trước khi chốt kết quả</text>
+  <rect class="box-ok" x="374" y="80" width="256" height="38"/>
+  <text x="384" y="98" font-size="11.5" font-weight="600">RocksDB State + Checkpoint</text>
+  <text x="384" y="113" font-size="9.5" class="dim">Crash → hồi state + offset nguồn</text>
+  <rect class="box-soft" x="374" y="128" width="256" height="32"/>
+  <text x="384" y="148.0" font-size="11.5" font-weight="600">Batch khi cần chờ ≥ phút (rẻ 10×)</text>
+</svg>

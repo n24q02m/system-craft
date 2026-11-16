@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import "../styles/diagram.css";
 import { T, LABEL, ACTIVE_LANGS, type Lang } from "../i18n";
 
 interface Props {
@@ -46,6 +47,7 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
           <a href={`${base}vi/book/`}>{t.navBook}</a>
           <a href={`${base}${lang}/cases/`}>{t.navCases}</a>
           <a href={`${base}vi/paths/`}>{t.navPaths}</a>
+          <a href={`${base}${lang}/tools/`}>{t.navTools}</a>
           <a href={`${base}${lang}/search/`}>{t.navSearch}</a>
           <a href={`${base}${lang}/status/`}>{t.navStatus}</a>
           <a href={`${base}${lang}/about/`}>{t.navAbout}</a>

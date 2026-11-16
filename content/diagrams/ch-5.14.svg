@@ -1,0 +1,22 @@
+<svg viewBox="0 0 640 194" role="img" aria-label="Lộ trình từ Pool Shared RLS lên Bridge và Silo cùng ràng buộc composite index tenant_id" xmlns="http://www.w3.org/2000/svg">
+  <defs><marker id="arr-5-14" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+    <path d="M0,0.5 L6.5,3.5 L0,6.5 z" fill="currentColor"/></marker></defs>
+  <text class="lbl dim" x="10" y="16" text-anchor="start" font-size="9.5">BA MÔ HÌNH ĐA THUÊ BAO (MULTI-TENANCY): POOL · BRIDGE · SILO</text>
+  <rect class="box-accent" x="10" y="30" width="198" height="92"/>
+  <text x="20" y="48" font-size="11.5" font-weight="600">1. Pool (Shared + RLS)</text>
+  <text x="20" y="63" font-size="9.5" class="dim">1 Schema · cột tenant_id</text>
+  <text x="20" y="76" font-size="9.5" class="dim">80% tenant nhỏ · rẻ nhất</text>
+  <rect class="box" x="220" y="30" width="198" height="92"/>
+  <text x="230" y="48" font-size="11.5" font-weight="600">2. Bridge (Schema/Tenant)</text>
+  <text x="230" y="63" font-size="9.5" class="dim">1 Cụm · tối đa vài nghìn schema</text>
+  <text x="230" y="76" font-size="9.5" class="dim">Cô lập tầm trung</text>
+  <rect class="box-ok" x="430" y="30" width="200" height="92"/>
+  <text x="440" y="48" font-size="11.5" font-weight="600">3. Silo (DB riêng/Tenant)</text>
+  <text x="440" y="63" font-size="9.5" class="dim">Hạ tầng tách hẳn · compliance</text>
+  <text x="440" y="76" font-size="9.5" class="dim">Enterprise, không ồn chéo</text>
+  <path class="flow" d="M208 76 H216" marker-end="url(#arr-5-14)"/>
+  <path class="flow" d="M418 76 H426" marker-end="url(#arr-5-14)"/>
+  <rect class="box-warn" x="10" y="138" width="620" height="44"/>
+  <text x="20" y="156" font-size="11.5" font-weight="600">Bất biến sống còn: Index đặt (tenant_id, ...) đầu tiên &amp; RLS policy ở DB (không dùng superuser)</text>
+  <text x="20" y="171" font-size="9.5" class="dim">Tránh tenant A quét dữ liệu tenant B và ngăn lỗi WHERE bị quên ở code ứng dụng</text>
+</svg>

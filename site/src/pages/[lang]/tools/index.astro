@@ -1,0 +1,33 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Calculators from "../../../components/Calculators.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+---
+
+<Base
+  title={`${t.navTools} — System Craft`}
+  description={lang === "vi"
+    ? "Năm công cụ tính nhanh kiến trúc hệ thống (client-side, không gửi dữ liệu ra ngoài)."
+    : "Five client-side systems architecture sizing calculators matching fieldbook formulas."}
+  lang={lang}
+  altPath="tools/"
+>
+  <div class="wrap" data-pagefind-body>
+    <div class="index-head">
+      <div class="eyebrow">5 Client-Side Calculators · Zero Telemetry</div>
+      <h1>{lang === "vi" ? "Công cụ Tính Nhanh Hệ thống" : "Interactive Systems Calculators"}</h1>
+      <p>{lang === "vi"
+        ? "Áp trực tiếp các công thức từ §1.1, §1.4, §1.7, §3.1, §11.1 và §12.2."
+        : "Plug in real numbers from §1.1, §1.4, §1.7, §3.1, §11.1, and §12.2 locally in your browser."}</p>
+    </div>
+
+    <Calculators lang={lang} />
+  </div>
+</Base>
