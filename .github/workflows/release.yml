@@ -1,0 +1,74 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Release channel (use beta before stable)
+        type: choice
+        required: true
+        default: beta
+        options:
+          - beta
+          - stable
+      force:
+        description: Optional prerelease bump override
+        type: choice
+        required: false
+        default: none
+        options:
+          - none
+          - prerelease
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install system libs for PDF & labs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc libc6-dev libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0 \
+            libharfbuzz0b libffi8 fonts-dejavu-core
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies & build distributions
+        run: |
+          uv sync --dev
+          bun install --cwd site --frozen-lockfile
+          bun run --cwd site build
+          uv run python tools/package_release.py
+          uv run python kit/make_kit.py
+          uv run python kit/slides/build_slides.py
+          uv run python tools/build_trial_pack.py
+          uv run pytest -v
+
+      - name: Run better-semantic-release
+        id: rel
+        uses: n24q02m/better-semantic-release@v1.13.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: ${{ inputs.release_type == 'beta' }}
+          prerelease_token: beta
+          force: ${{ inputs.release_type == 'beta' && inputs.force == 'prerelease' && 'prerelease' || '' }}

@@ -7,9 +7,15 @@ import os
 import re
 import sys
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+
 from bs4 import BeautifulSoup
 import docx
 import pymupdf
+
+from tools.paths import DIST  # noqa: E402
 
 def _h1s_outside_code(md_text):
     out = []
@@ -196,9 +202,6 @@ def verify_release_dir(dist_dir):
             )
         },
     }
-
-
-from tools.paths import DIST  # noqa: E402
 
 
 def main():

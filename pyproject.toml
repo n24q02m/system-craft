@@ -16,3 +16,28 @@ dependencies = [
 dev = [
     "pytest>=8.0",
 ]
+
+[tool.semantic_release]
+allow_zero_version = true
+tag_format = "v{version}"
+version_toml = ["pyproject.toml:project.version"]
+
+[tool.semantic_release.branches.main]
+match = "^main$"
+prerelease = false
+prerelease_token = "rc"
+
+[tool.semantic_release.remote]
+type = "github"
+token = { env = "GH_TOKEN" }
+
+[tool.semantic_release.publish]
+upload_to_vcs_release = true
+dist_glob_patterns = [
+    "dist/SA-2028.1-LEARNER/SYSTEMS-ATLAS-LEARNER-SA-2028.1.*",
+    "dist/SA-2028.1-LEARNER/volumes/*.pdf",
+    "dist/SA-2028.1-LEARNER/cases/SYSTEMS-ATLAS-VOLUME-5-CASES.*",
+    "dist/SA-2028.1-KIT/SA-2028.1-KIT.*",
+    "kit/slides/SYS10*-*.pdf",
+    "trial-00c/GOI-THU-NGHIEM-3-CHUONG.pdf",
+]
