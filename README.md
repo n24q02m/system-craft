@@ -1,32 +1,22 @@
-# Engineering Lessons
+# system-craft
 
-Ghi chép kỹ thuật về những hệ thống học máy đã từng xây: cách tiếp cận, đối chiếu với chuẩn ngành,
-và những bài học còn lại sau khi mọi thứ đã chạy xong.
+Technical engineering notes, bilingual essays, and static build tooling.
 
-Song ngữ Việt — Anh. Chuyển ngôn ngữ bằng liên kết trên thanh điều hướng; mỗi bài giữ nguyên vị trí
-khi đổi ngôn ngữ.
+## Layout
 
-## Chạy tại máy
+- `content/book/` — markdown source chapters
+- `content/cases/` — bilingual engineering notes (`vi/`, `en/`)
+- `facts/` — reference tables and verification metadata
+- `kit/` — syllabus notes and slide sources
+- `labs/` — local measurement scripts and Docker verification
+- `site/` — Astro static site
+- `tools/` — verification and multi-format exporters (`.md`, `.html`, `.docx`, `.pdf`)
+- `docs/` — usage and maintenance notes
 
-```bash
-bun install
-bun run dev      # http://localhost:4321/engineering-lessons/
-bun run build    # xuất tĩnh ra dist/
+## Build
+
+```sh
+uv sync --dev
+uv run pytest -v
+bun run --cwd site build
 ```
-
-## Cấu trúc
-
-```
-src/
-  content/blog/vi/   bài viết tiếng Việt (tên tệp tiếng Anh)
-  content/blog/en/   bản tiếng Anh, cùng tên tệp
-  pages/[lang]/      trang chỉ mục, trang bài, trang giới thiệu theo ngôn ngữ
-  i18n.ts            danh sách ngôn ngữ đang bật và chuỗi giao diện
-```
-
-Thêm một ngôn ngữ: đặt tệp Markdown cùng tên vào `src/content/blog/<lang>/`, rồi thêm mã ngôn ngữ đó
-vào `ACTIVE_LANGS` trong `src/i18n.ts`.
-
-## Triển khai
-
-Đẩy lên nhánh `main`; GitHub Actions build và xuất bản lên GitHub Pages.

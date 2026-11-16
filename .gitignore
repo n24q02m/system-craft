@@ -1,6 +1,34 @@
+# Python & virtualenvs
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node / Astro
 node_modules/
-dist/
+site/node_modules/
+site/.astro/
+site/dist/
 .astro/
-.DS_Store
 *.log
 .env
+.DS_Store
+
+# Generated distributions & large binary baselines
+dist/
+trial-00c/*.pdf
+SYSTEMS-ATLAS-*.pdf
+SYSTEMS-ATLAS-*.docx
+SYSTEMS-ATLAS-*.html
+kit/SA-*.pdf
+kit/SA-*.docx
+kit/SA-*.html
+
+# Compiled local lab scratch binaries
+labs/b1/*
+labs/b2/*
+labs/d1/*
+labs/d2/*
+!labs/*/*.c
+labs/fs
+labs/fs2

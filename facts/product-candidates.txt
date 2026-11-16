@@ -1,0 +1,83 @@
+# DANH MỤC ỨNG VIÊN (F2) — <tên như viết trong chương>|<tên chuẩn trong ledger>
+# Dòng bắt đầu bằng '!' = miễn trừ có tuyên bố (không cần dòng trong ledger).
+PostgreSQL|PostgreSQL
+Postgres|PostgreSQL
+MySQL|MySQL
+MongoDB|MongoDB
+Redis|Redis
+Valkey|Valkey
+Cassandra|Apache Cassandra
+ScyllaDB|ScyllaDB
+Elasticsearch|Elasticsearch
+ClickHouse|ClickHouse
+DuckDB|DuckDB
+SQLite|SQLite
+Kafka|Apache Kafka
+RabbitMQ|RabbitMQ
+Iceberg|Apache Iceberg
+Arrow|Apache Arrow
+Kubernetes|Kubernetes
+K8s|Kubernetes
+Docker|Docker Engine
+Envoy|Envoy
+HAProxy|HAProxy
+NGINX|NGINX
+Cilium|Cilium
+Gateway API|Gateway API
+Istio|Istio
+Prometheus|Prometheus
+Grafana|Grafana
+OpenTelemetry|OpenTelemetry
+Terraform|Terraform
+OpenTofu|OpenTofu
+Argo CD|Argo CD
+Flux|Flux
+Vault|HashiCorp Vault
+Keycloak|Keycloak
+OpenSSL|OpenSSL
+gRPC|gRPC
+GraphQL|GraphQL
+OpenAPI|OpenAPI
+WebTransport|WebTransport
+React|React / Next / Vite
+Next.js|React / Next / Vite
+Vite|React / Next / Vite
+Node.js|Node.js
+Deno|Deno
+Bun|Bun
+Python|Python
+Golang|Go
+Rust|Rust
+Java|Java (Temurin)
+Wasmtime|WASI
+WASI|WASI
+vLLM|vLLM
+SGLang|SGLang
+llama.cpp|llama.cpp
+Ollama|Ollama
+Dynamo|NVIDIA Dynamo
+Milvus|Milvus
+Qdrant|Qdrant
+Weaviate|Weaviate
+MCP|MCP (Model Context Protocol)
+Linux|Linux Kernel
+Vera Rubin|NVIDIA Vera Rubin
+CUDA|CUDA
+ROCm|ROCm
+NATS|NATS
+Pulsar|Apache Pulsar
+!QUIC
+!HTTP/3
+!io_uring
+!eBPF
+!S3
+!pgvector
+!Parquet
+!BoringSSL
+!Blackwell
+!Jaeger
+!containerd
+!MariaDB
+!OpenSearch
+!Kernel
+!Linux Kernel LTS

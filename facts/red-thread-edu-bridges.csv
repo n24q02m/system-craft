@@ -1,0 +1,12 @@
+# NHỊP NỐI — sợi chỉ đỏ trên TUYẾN HỌC (F1 · SA-2028.1)
+tu_chuong,den_chuong,van_ban_noi,ly_do
+14.2.1,14.3.1,"Kết nối đã tới được thiết bị ở mọi nơi — nhưng mọi gói tin đó cuối cùng đều đáp xuống một toà nhà có ngân sách điện và nhiệt hữu hạn; toà nhà ấy giới hạn gì?","nhảy 14.2.2–14.2.4 (phụ lục)"
+14.3.1,14.4.1,"Đã biết một datacenter đắt và bền tới đâu — nhưng thứ ngốn phần lớn điện trong đó lại là model AI; cấu trúc attention/MoE đổi gì cho hệ thống?","nhảy 14.3.2 (phụ lục)"
+14.5.2,14.8.2,"Frame budget dạy cách cắt mọi thứ tới từng mili-giây — nhưng có một thứ không cắt được: lời hứa với người đã dùng phiên bản cũ; chuẩn sống giữ lời hứa đó thế nào?","nhảy 14.6.x–14.8.1 (phụ lục)"
+14.8.2,14.10.1,"Type system chặn được lớp bug ngay khi biên dịch — nhưng kẻ tấn công không đọc mã, họ đọc bit; lớp dưới cùng bảo vệ bit đó bằng gì?","nhảy 14.9.x (phụ lục)"
+14.10.2,14.11.1,"Đã biết ZK/MPC/FHE đáng tiền ở đâu — nhưng cả ba vẫn thua nếu chính phép tính để lộ bí mật qua thời gian và điện năng; kẻ địch rỉ thông tin kiểu đó đánh thế nào?","nhảy 14.10.3 (phụ lục)"
+14.11.2,14.2.2,"Atlas đã khép vòng ở tuyến chính — phần còn lại là hồ sơ đọc khi cần; bắt đầu lại từ chỗ hẹp nhất: handover và LEO giữ kết nối cho một chiếc điện thoại đang chạy thế nào?","hết tuyến lõi → phụ lục"
+14.2.2,14.3.2,"Kết nối đã tới thiết bị — gói tin đáp xuống toà nhà có ngân sách điện; đo kinh tế và độ bền của nó (PUE, failure domain, AZ) bằng gì?","lệch chuỗi trong phụ lục"
+14.3.2,14.6.1,"PUE và failure domain đo độ bền của DC — còn lớp tải khắt khe nhất về thời gian thì sao: 16,6 ms một frame được chia thế nào?","nhảy 14.4.2–14.5.x"
+14.8.1,14.9.1,"Chuẩn giữ lời hứa giữa các phiên bản — nhưng lời hứa ấy chỉ chắc nếu ngôn ngữ chặn được lớp bug ngay khi biên dịch; type system chặn được gì?","lệch chuỗi trong phụ lục"
+14.9.3,14.10.3,"Primitives đã có ở đáy — nhưng chúng bảo vệ dữ liệu khi lưu và khi truyền; còn khi ĐANG TÍNH thì sao, ZK/MPC/FHE đáng tiền ở đâu hôm nay?","lệch chuỗi trong phụ lục"

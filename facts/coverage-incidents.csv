@@ -1,0 +1,69 @@
+id,symptom,likely_causes,first_check,chapter,status
+I-001,Pod OOM-killed dù RSS < limit,glibc arena phân mảnh / THP / page cache tính vào cgroup,dmesg | grep -i oom; memory.max vs rss; PSI,2.1,written
+I-002,"p99 gấp đôi, CPU host chỉ ~60%",CFS throttling do limits.cpu thấp,/sys/fs/cgroup/cpu.stat (nr_throttled),2.3,written
+I-003,Connection refused khi tải cao,somaxconn / tcp_max_syn_backlog quá nhỏ,ss -lnt (Recv-Q == Send-Q),2.6,written
+I-004,Cạn cổng ephemeral ra ngoài,TIME_WAIT dồn; không reuse,ss -s; netstat -tan | wc,2.6,written
+I-005,Gói tin drop âm thầm sau NAT,Bảng conntrack đầy,conntrack -C vs nf_conntrack_max; dmesg,2.6,written
+I-006,write() khựng đột biến khi ghi nhiều,Dirty page dâng → writeback chặn,/proc/vmstat (nr_dirty); iostat util,2.4,written
+I-007,Hệ thống chậm dần rồi sập (spiral),Swap + PSI memory tăng → queue nổ (Little),vmstat si/so; PSI memory full,2.1,written
+I-008,Redis/DB latency spike định kỳ,THP compaction stall,/sys/kernel/mm/transparent_hugepage; SLOWLOG,2.1,written
+I-009,p99 SSD vọt 100× p50,GC/FTL write cliff; WAF tăng,fio sustained; SMART % used,1.4,written
+I-010,Throughput sụp sau vài phút ghi,QLC cạn SLC-cache,sustained write benchmark 15 phút,1.4,written
+I-011,RAID5 rebuild fail giữa chừng,URE trên đĩa TB-scale,smartctl; tính xác suất URE,1.4,written
+I-012,Ổ mới latency ngẫu nhiên kinh khủng,SMR (shingled) thay vì CMR,tra model; io latency histogram,1.4,written
+I-013,"Tần số CPU tụt đột ngột, service chậm",Thermal throttling / power cap,turbostat; cpufreq stats; nhiệt độ,1.10,written
+I-014,Số liệu lệch không giải thích được,Silent data corruption (bit flip),checksum/scrub; EDAC log; ECC,1.3,written
+I-015,Service khác chậm khi service SIMD chạy,AVX-512 downclock (vi kiến trúc cũ),perf stat; turbostat_PKG%,1.2,written
+I-016,CPU steal cao trên cloud,Noisy neighbor cùng host,top (st%); steal metric,1.8,written
+I-017,Transfer lớn chậm dù băng thông cao,Cửa sổ TCP < BDP trên đường trễ,iperf3 -P 1 vs -P 10,1.7,written
+I-018,API Node chậm tốn thời lúc mọi request,Event loop bị chặn (sync IO/crypto/JSON to),event loop lag metric; --prof,3.3,written
+I-019,Java service hết thread,Pool nhỏ + IO chậm giữ thread (không virtual threads),JFR; jstack; pool metrics,3.6,written
+I-020,Pause GC định kỳ vài trăm ms,G1 humongous / heap near-max,GC log; JFR allocation profile,3.6,written
+I-021,Số goroutine tăng đều không giảm,Goroutine leak (block trên channel/lock),pprof /debug/goroutine,3.4,written
+I-022,Python multi-thread không ăn CPU,GIL,py-spy (native vs GIL),3.2,written
+I-023,RSS tăng đều qua tuần,Memory leak qua closure/global cache,heap profile so 2 mốc,3.9,written
+I-024,Go gọi C chậm bất thường,cgo overhead xuyên boundary,pprof cpu (cgo frames),3.4,written
+I-025,"Tokio task đói (latency cao, CPU thấp)",Blocking call chiếm executor thiếu spawn_blocking,tokio-console; runtime metrics,3.5,written
+I-026,502 lẻ tẻ sau deploy,keep-alive timeout LB > app; connection đóng giữa,so timeout 2 tầng; upstream logs,4.2,written
+I-027,HTTP/2 cả trang nghẽn vì 1 stream,HoL blocking trên TCP (mất gói),retransmit metric; thử HTTP/3,4.2,written
+I-028,SSH được nhưng HTTPS treo (MTU),PMTUD black hole — ICMP bị chặn,tracepath; tcpdump icmp,4.1,written
+I-029,SSE không stream (client nhận cụm),Proxy buffering (nginx),curl -N trực tiếp vs qua proxy,4.6,written
+I-030,WebSocket đứt mỗi 60s,LB idle timeout,LB config;心跳 ping/pong,4.6,written
+I-031,CPU cao bất thường khi mở kết nối dồn dập,TLS handshake (RSA/ECDHE) mỗi conn mới,ssl handshake/s metric; session resumption,4.1,written
+I-032,Preflight OPTIONS chiếm nửa request,CORS cấu hình sai + không cache,Access-Control-Max-Age; devtools,4.3,written
+I-033,DB/Latency nổ đúng lúc cache hết hạn,Cache stampede,hit ratio graph; single-flight,5.4,written
+I-034,Một partition Kafka/Cassandra nóng,Key design không phân tán,per-partition metrics,5.5,written
+I-035,Read chậm dần sau nhiều DELETE,Tombstone hell,tombstone histogram; compaction stats,5.5,written
+I-036,Replica lag tăng theo ghi,Single-thread apply / network / hardware,lag metric; apply throughput,5.2,written
+I-037,Cảnh báo wraparound PostgreSQL,autovacuum không theo kịp xid,datfrozenxid; vacuum progress,5.2,written
+I-038,Bảng phình dù row không tăng,Dead tuples + index bloat,pg_stat_user_tables (n_dead_tup),5.2,written
+I-039,MySQL từ chối kết nối lúc cao điểm,threads_connected chạm max; không pooler,SHOW STATUS Threads_connected,5.2,written
+I-040,Trang chi tiết tải 3 giây,N+1 query trong loop,APM trace; đếm query/request,5.2,written
+I-041,DDL/DELETE treo rất lâu,Long transaction giữ lock/xmin,pg_locks; pg_stat_activity,5.2,written
+I-042,Consumer chết lặp liên tục,Poison message (parse fail) → restart loop,DLQ; consumer error log,5.7,written
+I-043,Cả group rebalance liên tục,Session timeout < processing time,group metrics; heartbeat config,5.7,written
+I-044,Consumer lag tăng đều,Throughput consumer < producer,lag trend; partition throughput,5.7,written
+I-045,Dữ liệu DB và Elasticsearch lệch nhau,Dual-write không giao dịch,reconciliation job; outbox,5.15,written
+I-046,ClickHouse 'too many parts',Insert nhỏ liên tục thay vì batch,system.parts; batch ≥ 1k rows,5.8,written
+I-047,RAM nổ khi build vector index,HNSW toàn bộ trong RAM,tính kích thước index; quantization,5.10,written
+I-048,LWW mất update do clock lệch,NTP skew giữa app servers,so timestamp 2 node; NTP offset,8.1,written
+I-049,Trừ tiền 2 lần khi retry,Thiếu Idempotency-Key,log trùng request_id; audit,4.8,written
+I-050,Tải tăng nhẹ → sập hoàn toàn,Retry storm nhân lên (không jitter/budget),retry ratio metric,8.5,written
+I-051,Service A chết → cả cụm sập,Cascading failure; thiếu circuit breaker,trace phụ thuộc,8.5,written
+I-052,Cache restart → DB sập,Thundering herd,request rate graph tại thời điểm restart,8.5,written
+I-053,2 node cùng làm leader,Split-brain / fencing thiếu,Raft log; lease audit,8.2,written
+I-054,Leader bầu liên tục (flapping),RTT giữa node > election timeout,election metric; latency giữa node,8.2,written
+I-055,Lock 2 client cùng giữ,"GC pause + lock hết hạn, không fencing token",lease TTL vs GC pause,8.2,written
+I-056,Một sự cố ảnh hưởng 100% user,Không chia cell (blast radius),kiểm tra topology cell,8.7,written
+I-057,Pod Pending mãi,Không đủ tài nguyên / affinity / quota,kubectl describe events,9.1,written
+I-058,Rollout kẹt không drain được,PDB quá chặt,kubectl get pdb; eviction api,9.1,written
+I-059,HPA dao động lên xuống,Thuật toán + metric nhiễu; scale-down delay,HPA events,9.2,written
+I-060,Phí NAT Gateway sốc,Egress qua NAT; cạn cổng SNAT,NAT CloudWatch bytes/ports,9.3,written
+I-061,DNS chậm trong K8s,ndots:5 nhân 5 truy vấn + node-local DNS thiếu,dnsstat; resolv.conf,9.3,written
+I-062,Pod cạnh nhau cùng node cùng sập,Không có topology spread/anti-affinity,kubectl get pods -o wide,9.1,written
+I-063,Secret lộ qua log/commit,Scanning thiếu; env dump,gitleaks/trufflehog,10.6,written
+I-064,Token bị leak không thu hồi nổi,"JWT vô hạn hạn, không revoke list",thiết kế session; jti blocklist,10.3,written
+I-065,Webhook SSRF quét nội mạng,URL không kiểm chứng + egress mở,egress policy; URL allowlist,10.4,written
+I-066,TTFT cao nhưng GPU rảnh,Queueing / batching config sai,vLLM metrics (waiting/running),12.2,written
+I-067,Token bill tăng 10× sau upgrade model,Reasoning tokens mặc định,usage per request by type,12.6,written
+I-068,Agent truy cập dữ liệu lân phòng qua RAG,ACL không áp ở retrieval,red-team; ACL-aware retrieval test,12.5,written

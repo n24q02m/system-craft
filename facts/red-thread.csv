@@ -1,0 +1,149 @@
+# RED-THREAD — chuỗi 146 nhịp hỏi-đáp xuyên 145 chương (SA-2028.1)
+# Running example: DM — dịch vụ đặt món ăn, lớn dần qua 15 'mùa' theo cụm P0→P14; chuỗi theo thứ tự bản đồ (edu-order.csv hiện hành).
+# schema: thu_tu,chuong,cau_hoi_vao,cau_hoi_ra  ·  ràng buộc: cau_hoi_ra[N] ≡ cau_hoi_vao[N+1] — kiểm bằng tools/red_thread_check.py
+thu_tu,chuong,cau_hoi_vao,cau_hoi_ra
+1,0.1,Hai đồng sáng lập DM cãi nhau 'monolith hay microservices' ba tuần không đi tới đâu — chuyện gì thật sự đang diễn ra trong cuộc cãi đó?,Đã có toạ độ để cãi cho ra — nhưng cả team đang đứng trên những giả định nào chưa ai nói ra?
+2,0.2,Đã có toạ độ để cãi cho ra — nhưng cả team đang đứng trên những giả định nào chưa ai nói ra?,Tiên đề viết xong — nhưng mỗi quyết định cụ thể (kiểu chọn DB hôm qua) duyệt bằng gì cho đều tay?
+3,0.3,Tiên đề viết xong — nhưng mỗi quyết định cụ thể (kiểu chọn DB hôm qua) duyệt bằng gì cho đều tay?,"Review đủ lens rồi — con số '99% user hài lòng' trong slide lấy ở đâu, ai kiểm, và nếu nó đã chết thì sao?"
+4,0.4,"Review đủ lens rồi — con số '99% user hài lòng' trong slide lấy ở đâu, ai kiểm, và nếu nó đã chết thì sao?","Đủ đồ tư duy, làm thật: DM khởi động bằng một máy chủ và một process — điều gì cần cảm bằng tay trước tiên?"
+5,1.1,"Đủ đồ tư duy, làm thật: DM khởi động bằng một máy chủ và một process — điều gì cần cảm bằng tay trước tiên?",Từ nano-giây tới mili-giây là cả một tháp — phần lớn khoảng cách đó nằm ở đâu trong một cái máy?
+6,1.2,Từ nano-giây tới mili-giây là cả một tháp — phần lớn khoảng cách đó nằm ở đâu trong một cái máy?,"Cache là tầng trên cùng — nhưng RAM lắp thật vào máy có gì mà spec không nói thẳng (NUMA, ECC)?"
+7,1.3,"Cache là tầng trên cùng — nhưng RAM lắp thật vào máy có gì mà spec không nói thẳng (NUMA, ECC)?","Dữ liệu phải sống qua nhiều lần reboot — ổ SSD và RAID hứa gì, phản bội gì?"
+8,1.4,"Dữ liệu phải sống qua nhiều lần reboot — ổ SSD và RAID hứa gì, phản bội gì?","Có việc tính toán mà CPU không gánh nổi — khi nào GPU vào cuộc, và cái gì làm nó đắt?"
+9,1.5,"Có việc tính toán mà CPU không gánh nổi — khi nào GPU vào cuộc, và cái gì làm nó đắt?","GPU, card mạng, ổ đĩa nói chuyện với CPU và nhau qua đâu — vì sao 'cắm đúng khe' là quyết định hiệu năng?"
+10,1.6,"GPU, card mạng, ổ đĩa nói chuyện với CPU và nhau qua đâu — vì sao 'cắm đúng khe' là quyết định hiệu năng?",Trong máy đã rõ — còn đoạn đường từ điện thoại khách tới server: RTT và băng thông ràng buộc gì?
+11,1.7,Trong máy đã rõ — còn đoạn đường từ điện thoại khách tới server: RTT và băng thông ràng buộc gì?,"Mua máy hay thuê máy ảo cloud — đánh đổi thật là gì, và 'chồng vận hành cloud đọc được dữ liệu của tôi' phải lo tới đâu?"
+12,1.8,"Mua máy hay thuê máy ảo cloud — đánh đổi thật là gì, và 'chồng vận hành cloud đọc được dữ liệu của tôi' phải lo tới đâu?","Từ hai máy trở đi là hai cái đồng hồ — 'đơn đặt lúc 09:59:59' nghe ở máy nào, và lệch giờ gây họa gì?"
+13,1.9,"Từ hai máy trở đi là hai cái đồng hồ — 'đơn đặt lúc 09:59:59' nghe ở máy nào, và lệch giờ gây họa gì?","Cái máy ấy chạy bằng điện và toả nhiệt — hóa đơn, tần số, throttle đến từ đâu?"
+14,1.10,"Cái máy ấy chạy bằng điện và toả nhiệt — hóa đơn, tần số, throttle đến từ đâu?",Một máy một process là trần đầu tiên — process ấy đang được Linux đối xử thế nào với bộ nhớ của nó?
+15,2.1,Một máy một process là trần đầu tiên — process ấy đang được Linux đối xử thế nào với bộ nhớ của nó?,"Process thấy cả một không gian địa chỉ 'của mình' — bên trong, stack và heap vận hành ra sao?"
+16,2.2,"Process thấy cả một không gian địa chỉ 'của mình' — bên trong, stack và heap vận hành ra sao?","Nhiều process chia một CPU — scheduler cắt lát thế nào, và vì sao quota 500m lại giết p99?"
+17,2.3,"Nhiều process chia một CPU — scheduler cắt lát thế nào, và vì sao quota 500m lại giết p99?",Ghi file mà máy chết giữa chừng thì sao — page cache và fsync đang chơi trò gì?
+18,2.4,Ghi file mà máy chết giữa chừng thì sao — page cache và fsync đang chơi trò gì?,Một process phải hứng trăm nghìn connection — mô hình I/O nào sống nổi?
+19,2.5,Một process phải hứng trăm nghìn connection — mô hình I/O nào sống nổi?,Gói tin từ socket xuống card và ngược lại — netstack có chỗ nghẽn nào theo số lượng?
+20,2.6,Gói tin từ socket xuống card và ngược lại — netstack có chỗ nghẽn nào theo số lượng?,Chạy code của người khác (plugin duyệt ảnh món ăn) — cách ly tới đâu là đủ?
+21,2.7,Chạy code của người khác (plugin duyệt ảnh món ăn) — cách ly tới đâu là đủ?,Muốn nhìn thấy kernel đang làm gì mà không sửa code — eBPF mở được gì?
+22,2.8,Muốn nhìn thấy kernel đang làm gì mà không sửa code — eBPF mở được gì?,"Hiểu máy và OS rồi — DM viết lại bằng ngôn ngữ nào, và đồng thời cùng GC dạy bài học đầu tiên gì?"
+23,3.1,"Hiểu máy và OS rồi — DM viết lại bằng ngôn ngữ nào, và đồng thời cùng GC dạy bài học đầu tiên gì?","Python ra sản phẩm nhanh — nhưng chậm ở đâu, và khi nào lỗi của bạn không phải tại ngôn ngữ?"
+24,3.2,"Python ra sản phẩm nhanh — nhưng chậm ở đâu, và khi nào lỗi của bạn không phải tại ngôn ngữ?",Đẩy trạng thái đơn realtime cho hàng vạn client — event loop của Node dạy gì?
+25,3.3,Đẩy trạng thái đơn realtime cho hàng vạn client — event loop của Node dạy gì?,"Muốn một file binary, concurrency rẻ, deploy đơn giản — Go đổi lấy gì?"
+26,3.4,"Muốn một file binary, concurrency rẻ, deploy đơn giản — Go đổi lấy gì?",Phần thanh toán đòi memory-safety tuyệt đối — Rust có đáng cái giá học nó?
+27,3.5,Phần thanh toán đòi memory-safety tuyệt đối — Rust có đáng cái giá học nó?,Đội to dần cùng di sản JVM — virtual threads có đổi trò chơi không?
+28,3.6,Đội to dần cùng di sản JVM — virtual threads có đổi trò chơi không?,"C++ vẫn đứng ở đâu trong stack của DM, và giá của nó là gì?"
+29,3.7,"C++ vẫn đứng ở đâu trong stack của DM, và giá của nó là gì?",Biên dịch một lần chạy mọi nền — Wasm là sandbox gì cho plugin và trình duyệt?
+30,3.8,Biên dịch một lần chạy mọi nền — Wasm là sandbox gì cho plugin và trình duyệt?,Đủ runtime đặt cạnh nhau — quyết định 'viết cái này bằng gì' có ma trận không?
+31,3.9,Đủ runtime đặt cạnh nhau — quyết định 'viết cái này bằng gì' có ma trận không?,Runtime chỉ là một trạm — request của khách đi qua bao nhiêu trạm trước khi quay lại?
+32,3.10,Runtime chỉ là một trạm — request của khách đi qua bao nhiêu trạm trước khi quay lại?,Mỗi runtime dựng HTTP stack riêng — serializer và keep-alive cháy ở đâu?
+33,3.11,Mỗi runtime dựng HTTP stack riêng — serializer và keep-alive cháy ở đâu?,Service chạy ngon trong máy — giờ mở cửa cho thế giới: transport an toàn và nhanh là gì?
+34,4.1,Service chạy ngon trong máy — giờ mở cửa cho thế giới: transport an toàn và nhanh là gì?,"Trên transport đó, HTTP/1.1, H2, H3 khác nhau chỗ nào — app DM nên thương lượng gì?"
+35,4.2,"Trên transport đó, HTTP/1.1, H2, H3 khác nhau chỗ nào — app DM nên thương lượng gì?",Hợp đồng tài nguyên cho đối tác — REST cùng OpenAPI mô tả thế nào cho máy đọc được?
+36,4.3,Hợp đồng tài nguyên cho đối tác — REST cùng OpenAPI mô tả thế nào cho máy đọc được?,Nội bộ cần RPC hiệu năng và streaming — gRPC/protobuf đáng thêm một giao thức không?
+37,4.4,Nội bộ cần RPC hiệu năng và streaming — gRPC/protobuf đáng thêm một giao thức không?,Mỗi client cần một mẩu dữ liệu khác nhau — GraphQL có giải hay có thêm vấn đề?
+38,4.5,Mỗi client cần một mẩu dữ liệu khác nhau — GraphQL có giải hay có thêm vấn đề?,Đơn đổi trạng thái liên tục — đẩy realtime qua SSE/WebSocket/WebTransport thế nào cho tin?
+39,4.6,Đơn đổi trạng thái liên tục — đẩy realtime qua SSE/WebSocket/WebTransport thế nào cho tin?,"Sự kiện bên trong tổ chức (đơn mới, ship, hoàn) mô tả và khớp nối thế nào — AsyncAPI, CloudEvents?"
+40,4.7,"Sự kiện bên trong tổ chức (đơn mới, ship, hoàn) mô tả và khớp nối thế nào — AsyncAPI, CloudEvents?","API đã công khai — sống mãi à: version, deprecate, idempotency cho đối tác là gì?"
+41,4.8,"API đã công khai — sống mãi à: version, deprecate, idempotency cho đối tác là gì?",Nhìn lại toàn cảnh: cặp nào nói chuyện bằng gì — có ma trận quyết định không?
+42,4.9,Nhìn lại toàn cảnh: cặp nào nói chuyện bằng gì — có ma trận quyết định không?,"API đông thì dữ liệu phình — B-tree và LSM, ruột của mọi DB, khác nhau thế nào?"
+43,5.1,"API đông thì dữ liệu phình — B-tree và LSM, ruột của mọi DB, khác nhau thế nào?",Engine là ruột — vận hành PostgreSQL cho đơn hàng có bài riêng gì?
+44,5.2,Engine là ruột — vận hành PostgreSQL cho đơn hàng có bài riêng gì?,Không phải gì cũng quan hệ — menu và giỏ hàng đổi hình dạng hoài: document store khi nào đúng?
+45,5.3,Không phải gì cũng quan hệ — menu và giỏ hàng đổi hình dạng hoài: document store khi nào đúng?,Menu và tồn kho đọc lặp hàng triệu lần — cache dạy gì và phản bội gì?
+46,5.4,Menu và tồn kho đọc lặp hàng triệu lần — cache dạy gì và phản bội gì?,Lịch sử đơn theo chuỗi và theo vùng phình to — wide-column gánh thế nào?
+47,5.5,Lịch sử đơn theo chuỗi và theo vùng phình to — wide-column gánh thế nào?,Khách gõ 'phở bò giao nhanh' — search engine làm được gì mà SQL không?
+48,5.6,Khách gõ 'phở bò giao nhanh' — search engine làm được gì mà SQL không?,Các bước xử lý đơn cần bốc xếp đáng tin — stream kiểu Kafka khác queue thường chỗ nào?
+49,5.7,Các bước xử lý đơn cần bốc xếp đáng tin — stream kiểu Kafka khác queue thường chỗ nào?,"Chủ chuỗi muốn báo cáo tháng — OLAP khác gì DB giao dịch, nhanh hơn ở đâu?"
+50,5.8,"Chủ chuỗi muốn báo cáo tháng — OLAP khác gì DB giao dịch, nhanh hơn ở đâu?",Dữ liệu nhiều năm nhiều nguồn — object storage và lakehouse tổ chức ra sao?
+51,5.9,Dữ liệu nhiều năm nhiều nguồn — object storage và lakehouse tổ chức ra sao?,Gợi ý món và tìm theo ngữ nghĩa — vector search đổi trò tìm kiếm thế nào?
+52,5.10,Gợi ý món và tìm theo ngữ nghĩa — vector search đổi trò tìm kiếm thế nào?,Quan hệ quán-khách-phố và chuỗi số theo giờ — graph và time-series có xứng một chỗ?
+53,5.11,Quan hệ quán-khách-phố và chuỗi số theo giờ — graph và time-series có xứng một chỗ?,Tính toán chảy liên tục hay gom theo mẻ — stream và batch ăn khớp nhau thế nào?
+54,5.12,Tính toán chảy liên tục hay gom theo mẻ — stream và batch ăn khớp nhau thế nào?,"Dữ liệu cá nhân của khách — ai được giữ gì, bao lâu, xoá kiểu gì (governance)?"
+55,5.13,"Dữ liệu cá nhân của khách — ai được giữ gì, bao lâu, xoá kiểu gì (governance)?",Nhiều chuỗi nhà hàng dùng chung DM — multi-tenancy tách dữ liệu tới đâu thì đủ?
+56,5.14,Nhiều chuỗi nhà hàng dùng chung DM — multi-tenancy tách dữ liệu tới đâu thì đủ?,Đủ loại store — 'entity này sống ở đâu' chọn theo cái gì?
+57,5.15,Đủ loại store — 'entity này sống ở đâu' chọn theo cái gì?,"Chốt hạ tầng dữ liệu: bao nhiêu node, bao nhiêu GB, bao nhiêu tiền — tính kiểu gì?"
+58,5.16,"Chốt hạ tầng dữ liệu: bao nhiêu node, bao nhiêu GB, bao nhiêu tiền — tính kiểu gì?","Backend đã có hình hài — nhưng khách cầm điện thoại, xuống hầm mất sóng, máy yếu pin: ràng buộc client đổi gì?"
+59,6.1,"Backend đã có hình hài — nhưng khách cầm điện thoại, xuống hầm mất sóng, máy yếu pin: ràng buộc client đổi gì?","Điện thoại, máy tính, kiosk quán, TV — bốn môi trường, logic chia theo đường nào?"
+60,6.2,"Điện thoại, máy tính, kiosk quán, TV — bốn môi trường, logic chia theo đường nào?","Đang đặt món thì mạng đứt — local-first giữ được gì, gỡ rối ra sao?"
+61,6.3,"Đang đặt món thì mạng đứt — local-first giữ được gì, gỡ rối ra sao?",Có tin mới phải báo — push tốn pin thế nào và thông báo nào xứng đáng đánh thức người?
+62,6.4,Có tin mới phải báo — push tốn pin thế nào và thông báo nào xứng đáng đánh thức người?,"Ảnh menu nặng, khách ở xa — edge/CDN caching là hợp đồng gì với origin?"
+63,6.5,"Ảnh menu nặng, khách ở xa — edge/CDN caching là hợp đồng gì với origin?","Máy in bill, cảm biến tủ lạnh, kiosk — fleet thiết bị của quán vận hành thế nào?"
+64,6.6,"Máy in bill, cảm biến tủ lạnh, kiosk — fleet thiết bị của quán vận hành thế nào?",Mọi thứ chạy trên máy không tin được — bảo mật client là phòng tuyến nào?
+65,6.7,Mọi thứ chạy trên máy không tin được — bảo mật client là phòng tuyến nào?,Mặt tiền web chính là sản phẩm — trang tải và vẽ thế nào cho người ở lại?
+66,7.1,Mặt tiền web chính là sản phẩm — trang tải và vẽ thế nào cho người ở lại?,"Trang đã mở — dữ liệu nó đang nắm là của ai, tới khi nào là cũ?"
+67,7.2,"Trang đã mở — dữ liệu nó đang nắm là của ai, tới khi nào là cũ?",JS mỗi tuần nặng thêm — bundle budget và INP giữ bằng cách nào?
+68,7.3,JS mỗi tuần nặng thêm — bundle budget và INP giữ bằng cách nào?,Màn hình mọc lên không kiểm soát — design system là hợp đồng gì giữa design và code?
+69,7.4,Màn hình mọc lên không kiểm soát — design system là hợp đồng gì giữa design và code?,Sản phẩm cho mọi người — a11y và i18n là tính năng hay trang trí?
+70,7.5,Sản phẩm cho mọi người — a11y và i18n là tính năng hay trang trí?,Làm sao biết mặt tiền thật sự hỏng chỗ nào (chứ không phải dev tưởng) — test và RUM?
+71,7.6,Làm sao biết mặt tiền thật sự hỏng chỗ nào (chứ không phải dev tưởng) — test và RUM?,"Trình duyệt là chiến trường — XSS, CSP, token xử lý thế nào?"
+72,7.7,"Trình duyệt là chiến trường — XSS, CSP, token xử lý thế nào?","Mặt tiền đẹp mà lưng chỉ có một máy chủ — DM nhân bản, và nhiều bản sao nghĩa là nhiều sự thật: ai đúng?"
+73,8.1,"Mặt tiền đẹp mà lưng chỉ có một máy chủ — DM nhân bản, và nhiều bản sao nghĩa là nhiều sự thật: ai đúng?",Muốn một sự thật chung — đồng thuận kiểu Raft đánh đổi gì để có nó?
+74,8.2,Muốn một sự thật chung — đồng thuận kiểu Raft đánh đổi gì để có nó?,Một giao dịch chạm nhiều service — saga và outbox thay 2PC thế nào?
+75,8.3,Một giao dịch chạm nhiều service — saga và outbox thay 2PC thế nào?,Một DB không còn đủ — sharding và replication chia dữ liệu sao cho đều và sống?
+76,8.4,Một DB không còn đủ — sharding và replication chia dữ liệu sao cho đều và sống?,"Phụ thuộc cứ chết lúc cao điểm — retry, breaker, shedding giữ hệ đứng bằng gì?"
+77,8.5,"Phụ thuộc cứ chết lúc cao điểm — retry, breaker, shedding giữ hệ đứng bằng gì?","Service đã đông — ranh giới nào mới đúng (bounded context, sở hữu dữ liệu)?"
+78,8.6,"Service đã đông — ranh giới nào mới đúng (bounded context, sở hữu dữ liệu)?","Cháy nguyên một vùng — multi-region/DR cam kết gì (RTO, RPO) và trả bao nhiêu?"
+79,8.7,"Cháy nguyên một vùng — multi-region/DR cam kết gì (RTO, RPO) và trả bao nhiêu?","Ship liên tục không gián đoạn — migration, flag, canary đi đường nào?"
+80,8.8,"Ship liên tục không gián đoạn — migration, flag, canary đi đường nào?",Tự vận hành chục máy thủ công đã chật — Kubernetes và control plane gánh việc gì?
+81,9.1,Tự vận hành chục máy thủ công đã chật — Kubernetes và control plane gánh việc gì?,"Tải trưa cao gấp mười lần tối — autoscale tính theo gì, GPU xếp thế nào?"
+82,9.2,"Tải trưa cao gấp mười lần tối — autoscale tính theo gì, GPU xếp thế nào?","Mạng trong cloud — VPC, private link, endpoint: an toàn và tiền đổi chỗ nào?"
+83,9.3,"Mạng trong cloud — VPC, private link, endpoint: an toàn và tiền đổi chỗ nào?","Vào cụm qua cửa nào — LB, gateway, mesh làm gì mà app không cần biết?"
+84,9.4,"Vào cụm qua cửa nào — LB, gateway, mesh làm gì mà app không cần biết?",Có việc chạy 100 mili-giây mỗi giờ — serverless đáng tiền chưa?
+85,9.5,Có việc chạy 100 mili-giây mỗi giờ — serverless đáng tiền chưa?,Hạ tầng bằng code — IaC và GitOps: ai là sự thật khi hai bên khác nhau?
+86,9.6,Hạ tầng bằng code — IaC và GitOps: ai là sự thật khi hai bên khác nhau?,"Niềm tin vào từng bản build — CI/CD, artifact, DORA đo thế nào?"
+87,9.7,"Niềm tin vào từng bản build — CI/CD, artifact, DORA đo thế nào?",DM nổi tiếng rồi — và từ lúc đó có người muốn dữ liệu 4 triệu tài khoản: an ninh bắt đầu từ đâu?
+88,10.1,DM nổi tiếng rồi — và từ lúc đó có người muốn dữ liệu 4 triệu tài khoản: an ninh bắt đầu từ đâu?,"Ranh giới vẽ xong, lớp khoá — mật mã nào đang dùng, và máy lượng tử đã tới cửa chưa?"
+89,10.2,"Ranh giới vẽ xong, lớp khoá — mật mã nào đang dùng, và máy lượng tử đã tới cửa chưa?","Ai là ai, được làm gì — authn/authz và token xử lý thế nào cho 4 triệu user?"
+90,10.3,"Ai là ai, được làm gì — authn/authz và token xử lý thế nào cho 4 triệu user?",Lỗ hổng phổ biến nhất của web là gì — OWASP 2025 dạy gì cho DM?
+91,10.4,Lỗ hổng phổ biến nhất của web là gì — OWASP 2025 dạy gì cho DM?,Code của DM thật ra là của hàng nghìn package người khác — supply chain giữ sao?
+92,10.5,Code của DM thật ra là của hàng nghìn package người khác — supply chain giữ sao?,Máy cần bí mật để nói với nhau — secrets và workload identity quản thế nào cho khỏi lộ?
+93,10.6,Máy cần bí mật để nói với nhau — secrets và workload identity quản thế nào cho khỏi lộ?,Nếu đã bị xâm nhập — phát hiện từ đâu và xử lý ra sao?
+94,10.7,Nếu đã bị xâm nhập — phát hiện từ đâu và xử lý ra sao?,Giấy tờ cuối cùng — GDPR/PDPD buộc DM làm gì với dữ liệu khách?
+95,10.8,Giấy tờ cuối cùng — GDPR/PDPD buộc DM làm gì với dữ liệu khách?,"Hệ thống chạy, có user, có kẻ thù — giờ để nó chạy bền: vận hành đo bằng số gì?"
+96,11.1,"Hệ thống chạy, có user, có kẻ thù — giờ để nó chạy bền: vận hành đo bằng số gì?",Đo được thì phải thấy — bốn tín hiệu telemetry ghép nhau thế nào?
+97,11.2,Đo được thì phải thấy — bốn tín hiệu telemetry ghép nhau thế nào?,"Biết sức chứa đâu mà cân tải — đo đạc, capacity planning và chaos dạy gì?"
+98,11.3,"Biết sức chứa đâu mà cân tải — đo đạc, capacity planning và chaos dạy gì?","Sự cố lúc 2h sáng — ai chỉ huy, ai nói với khách, học được gì?"
+99,11.4,"Sự cố lúc 2h sáng — ai chỉ huy, ai nói với khách, học được gì?",Hóa đơn cloud là SLO thứ hai — FinOps quản tiền theo đơn vị nào?
+100,11.5,Hóa đơn cloud là SLO thứ hai — FinOps quản tiền theo đơn vị nào?,"Hệ thống là tổ chức — Conway, ADR, on-call nói gì về team của DM?"
+101,11.6,"Hệ thống là tổ chức — Conway, ADR, on-call nói gì về team của DM?",Kỳ họp với kế toán và pháp lý — nói ngôn ngữ gì cho hai bên cùng thấy rủi ro?
+102,11.7,Kỳ họp với kế toán và pháp lý — nói ngôn ngữ gì cho hai bên cùng thấy rủi ro?,Đi từ đây tới đâu — lộ trình lab và thói quen verify cho người vận hành?
+103,11.8,Đi từ đây tới đâu — lộ trình lab và thói quen verify cho người vận hành?,Mọi tầng đã chạy — DM muốn trợ lý AI trả lời 'tối nay ăn gì': giả định nào của kỹ sư vỡ đầu tiên?
+104,12.1,Mọi tầng đã chạy — DM muốn trợ lý AI trả lời 'tối nay ăn gì': giả định nào của kỹ sư vỡ đầu tiên?,"Đã chấp nhận không tất định — serving LLM: TTFT, KV cache, batch, GPU tính thế nào?"
+105,12.2,"Đã chấp nhận không tất định — serving LLM: TTFT, KV cache, batch, GPU tính thế nào?",Model không biết menu tuần này — RAG đưa tri thức vào ngữ cảnh thế nào cho tin được?
+106,12.3,Model không biết menu tuần này — RAG đưa tri thức vào ngữ cảnh thế nào cho tin được?,"Trợ lý phải hành động (đặt bàn, sửa đơn) — agent và MCP vạch ranh gì giữa AI và hệ thống?"
+107,12.4,"Trợ lý phải hành động (đặt bàn, sửa đơn) — agent và MCP vạch ranh gì giữa AI và hệ thống?",AI sai thì ai chặn — evals và guardrails là cổng nào của pipeline?
+108,12.5,AI sai thì ai chặn — evals và guardrails là cổng nào của pipeline?,Mỗi câu trả lời tốn tiền — token economics và routing tính sao cho lãi?
+109,12.6,Mỗi câu trả lời tốn tiền — token economics và routing tính sao cho lãi?,"Model từ đâu tới, ai ký, dữ liệu đi đâu — supply chain của chính AI?"
+110,12.7,"Model từ đâu tới, ai ký, dữ liệu đi đâu — supply chain của chính AI?",DM giờ là platform thật — đầu tiên là tiền: sổ cái double-entry giữ đồng tiền thế nào?
+111,13.1,DM giờ là platform thật — đầu tiên là tiền: sổ cái double-entry giữ đồng tiền thế nào?,Tiền đã vào sổ sạch — trạng thái đơn nhảy realtime cho hàng trăm nghìn người thế nào?
+112,13.2,Tiền đã vào sổ sạch — trạng thái đơn nhảy realtime cho hàng trăm nghìn người thế nào?,Mọi sự kiện chảy về một chỗ — ingest và stream vận hành ra sao?
+113,13.3,Mọi sự kiện chảy về một chỗ — ingest và stream vận hành ra sao?,Nước lũ dữ liệu — lakehouse phân tích tổ chức thế nào cho tin được?
+114,13.4,Nước lũ dữ liệu — lakehouse phân tích tổ chức thế nào cho tin được?,AI trong từng pipeline — AI-native khác 'dán chatbot vào sản phẩm' chỗ nào?
+115,13.5,AI trong từng pipeline — AI-native khác 'dán chatbot vào sản phẩm' chỗ nào?,"Khách ở hai bên bán cầu — đa vùng, residency, offline tính ra sao?"
+116,13.6,"Khách ở hai bên bán cầu — đa vùng, residency, offline tính ra sao?",Bán cho doanh nghiệp (chuỗi lớn) — SaaS B2B phân tầng tenant thế nào?
+117,13.7,Bán cho doanh nghiệp (chuỗi lớn) — SaaS B2B phân tầng tenant thế nào?,"Mọi tầng phía trên đều đứng trên silicon — transistor, '3nm', EUV nghĩa là gì?"
+118,14.1.1,"Mọi tầng phía trên đều đứng trên silicon — transistor, '3nm', EUV nghĩa là gì?","Die ra khỏi fab không đều nhau — yield, binning, chiplet định giá phần cứng thế nào?"
+119,14.1.2,"Die ra khỏi fab không đều nhau — yield, binning, chiplet định giá phần cứng thế nào?","Chip cần nhớ — SRAM, DRAM, HBM: vì sao bộ nhớ là phần đắt nhất của GPU AI?"
+120,14.1.3,"Chip cần nhớ — SRAM, DRAM, HBM: vì sao bộ nhớ là phần đắt nhất của GPU AI?",Ra khỏi chip là sóng — link budget của WiFi trong quán tính thế nào?
+121,14.2.1,Ra khỏi chip là sóng — link budget của WiFi trong quán tính thế nào?,"Khách di động, shipper chạy vệ tinh — handover, LEO, GPS giữ kết nối thế nào?"
+122,14.2.2,"Khách di động, shipper chạy vệ tinh — handover, LEO, GPS giữ kết nối thế nào?","Hàng nghìn máy chụm lại — nhiệt, điện, làm mát của datacenter giới hạn gì?"
+123,14.3.1,"Hàng nghìn máy chụm lại — nhiệt, điện, làm mát của datacenter giới hạn gì?","PUE, failure domain, AZ — kinh tế và độ bền của một datacenter đo thế nào?"
+124,14.3.2,"PUE, failure domain, AZ — kinh tế và độ bền của một datacenter đo thế nào?","Trong các DC đó, model AI cấu trúc thế nào — attention và MoE đổi gì cho hệ thống?"
+125,14.4.1,"Trong các DC đó, model AI cấu trúc thế nào — attention và MoE đổi gì cho hệ thống?","Huấn luyện phân tán — bộ nhớ, all-reduce, checkpoint nối các GPU với nhau thế nào?"
+126,14.4.2,"Huấn luyện phân tán — bộ nhớ, all-reduce, checkpoint nối các GPU với nhau thế nào?",Đo AI — eval và quantization: chất lượng đổi giá tiền theo tỉ số nào?
+127,14.4.3,Đo AI — eval và quantization: chất lượng đổi giá tiền theo tỉ số nào?,"Ngoài ML, HPC và MPI giải bài phân tán kiểu kinh điển thế nào?"
+128,14.5.1,"Ngoài ML, HPC và MPI giải bài phân tán kiểu kinh điển thế nào?",Cộng trừ số thực mà kết quả đổi giữa các lần chạy — IEEE 754 dạy gì?
+129,14.5.2,Cộng trừ số thực mà kết quả đổi giữa các lần chạy — IEEE 754 dạy gì?,"Thời gian thực mềm nhất là game — frame budget 16,6 ms quản thế nào?"
+130,14.6.1,"Thời gian thực mềm nhất là game — frame budget 16,6 ms quản thế nào?",Ping 100 ms mà vẫn cảm giác tức thì — prediction và reconciliation làm gì?
+131,14.6.2,Ping 100 ms mà vẫn cảm giác tức thì — prediction và reconciliation làm gì?,Khi người chơi nói dối — replication và server authority giữ gìn trò chơi?
+132,14.6.3,Khi người chơi nói dối — replication và server authority giữ gìn trò chơi?,Từ ảo sang robot thật — vòng điều khiển và cảm biến hợp lại thế nào?
+133,14.7.1,Từ ảo sang robot thật — vòng điều khiển và cảm biến hợp lại thế nào?,"Robot không được trễ — real-time, WCET, priority inversion là gì?"
+134,14.7.2,"Robot không được trễ — real-time, WCET, priority inversion là gì?",Sai một lần là tai nạn — functional safety và HARA thiết kế an toàn thế nào?
+135,14.7.3,Sai một lần là tai nạn — functional safety và HARA thiết kế an toàn thế nào?,Trở lại giấy tờ kỹ thuật — chuẩn mở kiểu IETF ra đời và tiến hoá thế nào?
+136,14.8.1,Trở lại giấy tờ kỹ thuật — chuẩn mở kiểu IETF ra đời và tiến hoá thế nào?,Chuẩn sống và đổi — versioning và compatibility giữ lời hứa cũ thế nào?
+137,14.8.2,Chuẩn sống và đổi — versioning và compatibility giữ lời hứa cũ thế nào?,Chạy trên máy là ngôn ngữ — type system chặn được lớp bug nào?
+138,14.9.1,Chạy trên máy là ngôn ngữ — type system chặn được lớp bug nào?,"Compiler làm gì cho bạn — tối ưu, UB, vectorization giúp ở đâu và hại ở đâu?"
+139,14.9.2,"Compiler làm gì cho bạn — tối ưu, UB, vectorization giúp ở đâu và hại ở đâu?",Tin số của chính mình — benchmark và reproducibility kiểm chứng thế nào?
+140,14.9.3,Tin số của chính mình — benchmark và reproducibility kiểm chứng thế nào?,Đáy của bảo mật — primitives mật mã nào đứng sau mọi lớp phía trên?
+141,14.10.1,Đáy của bảo mật — primitives mật mã nào đứng sau mọi lớp phía trên?,Máy lượng tử gõ cửa — PQC và hybrid chuyển đổi theo lộ trình nào?
+142,14.10.2,Máy lượng tử gõ cửa — PQC và hybrid chuyển đổi theo lộ trình nào?,"Riêng tư mạnh hơn nữa — ZK, MPC, FHE đáng tiền ở đâu hôm nay?"
+143,14.10.3,"Riêng tư mạnh hơn nữa — ZK, MPC, FHE đáng tiền ở đâu hôm nay?",Kẻ địch không đánh trực diện — side-channel rỉ thông tin kiểu gì?
+144,14.11.1,Kẻ địch không đánh trực diện — side-channel rỉ thông tin kiểu gì?,"Chống không hết thì quản rủi ro sao — mitigation, residual risk, và bao giờ gọi chuyên gia?"
+145,14.11.2,"Chống không hết thì quản rủi ro sao — mitigation, residual risk, và bao giờ gọi chuyên gia?","Atlas khép lại nơi nó mở ra — giờ đến lượt hệ thống của bạn: quyết định kế tiếp của nó là gì, và bạn sẽ kiểm chứng bằng gì?"
