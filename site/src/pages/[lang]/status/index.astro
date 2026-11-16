@@ -1,0 +1,77 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+import { loadStatusSnapshot } from "../../../lib/atlas";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const snap = loadStatusSnapshot();
+---
+
+<Base
+  title={`${t.navStatus} — System Craft`}
+  description={lang === "vi" ? "Trạng thái dữ kiện, watchlist và độ phủ." : "Ledger status, F3 watchlist, and coverage metrics."}
+  lang={lang}
+  altPath="status/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">Ledger & Coverage Health · SA-2028.1</div>
+      <h1>{lang === "vi" ? "Trạng thái Dữ kiện & Độ phủ" : "Ledger & Coverage Health"}</h1>
+      <p>{lang === "vi"
+        ? `Dữ kiện trích từ facts/versions.csv (cập nhật: ${snap.latestVerified}), facts/watchlist.csv và facts/ERRATA.md.`
+        : `Snapshot built directly from facts/versions.csv (latest verified: ${snap.latestVerified}), facts/watchlist.csv, and facts/ERRATA.md.`}</p>
+    </div>
+
+    <div class="status-grid">
+      <div class="status-card">
+        <div class="eyebrow">versions.csv</div>
+        <div class="stat-num">{snap.versionCount}</div>
+        <p>{lang === "vi" ? `sản phẩm đã kiểm định · UNVERIFIED = ${snap.unverified}` : `verified products · UNVERIFIED = ${snap.unverified}`}</p>
+      </div>
+      <div class="status-card">
+        <div class="eyebrow">watchlist.csv</div>
+        <div class="stat-num">{snap.watchlistCount}</div>
+        <p>{lang === "vi" ? "mục theo dõi nhịp F3" : "tracked F3 cadence entries"}</p>
+      </div>
+      <div class="status-card">
+        <div class="eyebrow">Coverage</div>
+        <div class="stat-num">{snap.decisionsCount} / {snap.incidentsCount}</div>
+        <p>{lang === "vi" ? "quyết định / sự cố đã phủ" : "decisions / incidents covered"}</p>
+      </div>
+      <div class="status-card">
+        <div class="eyebrow">Glossary</div>
+        <div class="stat-num">{snap.glossaryCount}</div>
+        <p>{lang === "vi" ? "thuật ngữ song ngữ VI/EN" : "bilingual glossary entries"}</p>
+      </div>
+    </div>
+
+    <h2>{lang === "vi" ? "Mục theo dõi chính (Watchlist)" : "Tracked Watchlist Snapshot"}</h2>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Kind</th>
+            <th>Known</th>
+            <th>Last Verified</th>
+          </tr>
+        </thead>
+        <tbody>
+          {snap.watchlist.map((w) => (
+            <tr>
+              <td><strong>{w.product}</strong></td>
+              <td><code>{w.kind}</code></td>
+              <td><code>{w.known}</code></td>
+              <td>{w.last_verified}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Base>

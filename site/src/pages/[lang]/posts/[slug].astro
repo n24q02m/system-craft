@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Base from "../../../layouts/Base.astro";
 import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+import { loadBookIndex, loadChapterCaseLinks } from "../../../lib/atlas";
 
 export async function getStaticPaths() {
   const all = await getCollection("blog", ({ data }) => !data.draft);
@@ -34,6 +35,10 @@ const toc = headings.filter((h) => h.depth === 2);
 const href = (p: { id: string }) => base + lang + "/posts/" + p.id.replace(lang + "/", "") + "/";
 const pageTitle = post.data.title + " — System Craft";
 const altPath = "posts/" + slug + "/";
+
+const { byCase } = loadChapterCaseLinks();
+const bookTitles = new Map(loadBookIndex().map((c) => [c.slug, c.title]));
+const relatedChapters = byCase.get(slug) || [];
 ---
 
 <Base
@@ -53,8 +58,25 @@ const altPath = "posts/" + slug + "/";
     </div>
 
     <div class="post-layout">
-      <article class="prose">
+      <article class="prose" data-pagefind-body>
         <Content />
+
+        {relatedChapters.length > 0 && (
+          <div class="related-box">
+            <h3>{lang === "vi" ? "Chương Sổ tay liên quan" : "Related Fieldbook Chapters (VI)"}</h3>
+            <ul>
+              {relatedChapters.map((rel) => (
+                <li>
+                  <a href={`${base}vi/book/${rel.chapter}/`}>
+                    <strong>{bookTitles.get(rel.chapter) || `Chương ${rel.chapter}`}</strong>
+                  </a>
+                  {" — "}
+                  <span>{lang === "vi" ? rel.vi_relation : rel.en_relation}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <nav class="post-nav">
           {

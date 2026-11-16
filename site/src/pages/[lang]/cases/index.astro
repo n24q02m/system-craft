@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const base = import.meta.env.BASE_URL;
+const posts = (
+  await getCollection("blog", ({ data, id }) => !data.draft && id.startsWith(`${lang}/`))
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title={`${t.navCases} — System Craft`}
+  description={t.siteDescription}
+  lang={lang}
+  altPath="cases/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">{lang === "vi" ? "Tập V · Song ngữ VI/EN" : "Volume V · VI/EN Essays"}</div>
+      <h1>{lang === "vi" ? "6 Case Studies Hệ thống Thực chiến" : "6 Engineering Case Studies"}</h1>
+      <p>{lang === "vi"
+        ? "Mỗi bài gắn chặt với các chương lý thuyết tương ứng trong Sổ tay (145 chương)."
+        : "Each case study links directly to the underlying mechanisms and operational numbers in the 145-chapter fieldbook."}</p>
+    </div>
+
+    {
+      posts.map((post) => {
+        const slug = post.id.replace(`${lang}/`, "");
+        return (
+          <a class="entry" href={`${base}${lang}/posts/${slug}/`}>
+            <div class="entry-code">{post.data.field}</div>
+            <div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+              <div class="topics">
+                {post.data.topics.map((x) => (
+                  <span class="topic">{x}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Base>

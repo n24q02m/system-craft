@@ -9,10 +9,18 @@ const blog = defineCollection({
     lang: z.enum(["vi", "en"]).default("vi"),
     order: z.number(),
     field: z.string(),
-    // Các khái niệm kỹ thuật bài này bàn tới, hiện ở đầu bài.
     topics: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
 });
 
-export const collections = { blog };
+const book = defineCollection({
+  loader: glob({
+    base: "../content/book",
+    pattern: "*.md",
+    generateId: ({ entry }) => entry.replace(/\.md$/, ""),
+  }),
+  schema: z.object({}).passthrough(),
+});
+
+export const collections = { blog, book };

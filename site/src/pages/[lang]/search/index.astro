@@ -1,0 +1,96 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { ACTIVE_LANGS, T, type Lang } from "../../../i18n";
+
+export async function getStaticPaths() {
+  return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const t = T[lang];
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title={`${t.navSearch} — System Craft`}
+  description={lang === "vi" ? "Tìm kiếm toàn văn offline trên 145 chương và 6 case studies." : "Offline full-text search across 145 chapters and 6 case studies."}
+  lang={lang}
+  altPath="search/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">Pagefind Offline Index</div>
+      <h1>{lang === "vi" ? "Tìm kiếm Toàn văn" : "Full-Text Search"}</h1>
+      <p>{lang === "vi"
+        ? "Chỉ mục tĩnh chạy hoàn toàn trên trình duyệt — không gọi API ngoài."
+        : "Static client-side full-text search over all chapters, learning units, and case studies."}</p>
+    </div>
+
+    <input
+      id="sc-search-input"
+      class="search-box"
+      type="search"
+      placeholder={lang === "vi" ? "Nhập thuật ngữ (vd: quorum, PagedAttention, fencing token, BDP)..." : "Type a technical query (e.g. quorum, PagedAttention, BDP)..."}
+      autofocus
+    />
+    <div id="sc-search-status" class="eyebrow" style="margin-bottom:12px;"></div>
+    <div id="sc-search-results"></div>
+  </div>
+
+  <script is:inline define:vars={{ base, lang }}>
+    (() => {
+      const input = document.getElementById("sc-search-input");
+      const status = document.getElementById("sc-search-status");
+      const out = document.getElementById("sc-search-results");
+      if (!input || !out) return;
+
+      let pagefind = null;
+      const ensureIndex = async () => {
+        if (pagefind) return pagefind;
+        try {
+          pagefind = await import(`${base}pagefind/pagefind.js`);
+          await pagefind.init();
+          return pagefind;
+        } catch (err) {
+          status.textContent = lang === "vi"
+            ? "Chỉ mục Pagefind sẵn sàng sau khi chạy `bun run build`."
+            : "Pagefind index is built during production static build.";
+          return null;
+        }
+      };
+
+      const run = async (q) => {
+        const trimmed = (q || "").trim();
+        if (!trimmed) {
+          out.innerHTML = "";
+          status.textContent = "";
+          return;
+        }
+        const pf = await ensureIndex();
+        if (!pf) return;
+        const res = await pf.search(trimmed);
+        status.textContent = `${res.results.length} ${lang === "vi" ? "kết quả" : "matches"}`;
+        const top = await Promise.all(res.results.slice(0, 25).map((r) => r.data()));
+        out.innerHTML = top
+          .map(
+            (d) =>
+              `<a class="search-hit" href="${d.url}"><strong>${d.meta?.title || d.url}</strong><p>${d.excerpt || ""}</p></a>`
+          )
+          .join("");
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const initialQ = params.get("q") || "";
+      if (initialQ) {
+        input.value = initialQ;
+        run(initialQ);
+      }
+
+      let timer;
+      input.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => run(input.value), 160);
+      });
+    })();
+  </script>
+</Base>

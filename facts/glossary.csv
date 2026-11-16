@@ -1,0 +1,846 @@
+# GLOSSARY — thuat ngu song ngu System Craft (sinh tu 145 chuong)
+term,vi_gloss,en_gloss,chapters,source
+"""không thấy thì không nhận""",gửi cả map cho client là mở cửa wall-hack: quy tắc thiết kế,gửi cả map cho client là mở cửa wall-hack: quy tắc thiết kế,14.6.3,book-s0
+0-RTT,"gửi dữ liệu ngay vòng đầu, chỉ dùng cho yêu cầu an toàn khi lặp lại","0-RTT — gửi dữ liệu ngay vòng đầu, chỉ dùng cho yêu cầu an toàn khi lặp lại",4.1,book-s0
+10 bẫy,tổng kết 4.1–4.8: từ 0-RTT replay tới offset pagination,tổng kết 4.1–4.8: từ 0-RTT replay tới offset pagination,4.9,book-s0
+12 bẫy,"số thập phân, múi giờ DST, emoji, null-chuỗi-rỗng: sai giống nhau ở mọi ngôn ngữ","số thập phân, múi giờ DST, emoji, null-chuỗi-rỗng: sai giống nhau ở mọi ngôn ngữ",3.9,book-s0
+2N,hai nguồn điện độc lập tới rack theo tier,2N — hai nguồn điện độc lập tới rack theo tier,14.3.1,book-s0
+2oo3,ba kênh theo đa số: chịu một hỏng mà không dừng vì nhiễu,2oo3 — ba kênh theo đa số: chịu một hỏng mà không dừng vì nhiễu,14.7.3,book-s0
+2PC/XA,khoá chéo chờ nhau: vì sao gần như chỉ còn trong sách,2PC/XA — khoá chéo chờ nhau: vì sao gần như chỉ còn trong sách,8.3,book-s0
+4 kiểu call,"unary, server-streaming, client-streaming, bidi","unary, server-streaming, client-streaming, bidi",4.4,book-s0
+60 phút đầu,"cô lập, báo cáo, gọi đúng người: kịch bản viết sẵn","cô lập, báo cáo, gọi đúng người: kịch bản viết sẵn",10.7,book-s0
+A01:2025,"broken access control: đổi order_id trong URL đọc được đơn người khác, không cần exploit: giữ ngôi số một nhiều kỳ","broken access control: đổi order_id trong URL đọc được đơn người khác, không cần exploit: giữ ngôi số một nhiều kỳ",10.4,book-s0
+A02 misconfiguration,"cấu hình sai, quyền mở, debug bật: nghèo mà nguy hiểm, quét tự động ra được","A02 misconfiguration — cấu hình sai, quyền mở, debug bật: nghèo mà nguy hiểm, quét tự động ra được",10.4,book-s0
+A03 supply chain,hạng mới: code của bạn là của hàng nghìn người khác (nối 10.5),A03 supply chain — hạng mới: code của bạn là của hàng nghìn người khác (nối 10.5),10.4,book-s0
+A10 exceptional conditions,mới 2025: hệ sập nửa chừng lộ dữ liệu trong thông báo lỗi,A10 exceptional conditions — mới 2025: hệ sập nửa chừng lộ dữ liệu trong thông báo lỗi,10.4,book-s0
+ACL-aware retrieval,"lọc theo quyền của người hỏi, không phải quyền của hệ: lỗ hổng I-068","ACL-aware retrieval — lọc theo quyền của người hỏi, không phải quyền của hệ: lỗ hổng I-068",12.3,book-s0
+adaptive UI,"một logic, nhiều hình theo màn hình và cách tương tác","adaptive UI — một logic, nhiều hình theo màn hình và cách tương tác",6.2,book-s0
+ADR,"bối cảnh, quyết định, hệ quả: hộ chiếu để ba năm sau khỏi đoán lại","ADR — bối cảnh, quyết định, hệ quả: hộ chiếu để ba năm sau khỏi đoán lại",11.6,book-s0
+AEAD,mã hoá và toàn vẹn gộp một (GCM): mặc định hiện đại,AEAD — mã hoá và toàn vẹn gộp một (GCM): mặc định hiện đại,14.10.1,book-s0
+agent,"vòng lặp plan, act, observe tới khi xong: token chảy theo vòng, không theo lượt","agent — vòng lặp plan, act, observe tới khi xong: token chảy theo vòng, không theo lượt",12.4,book-s0
+AI Gateway,"một cổng: route, rate limit, log token theo team: API gateway của thế hệ AI (nối 4.9)","AI Gateway — một cổng: route, rate limit, log token theo team: API gateway của thế hệ AI (nối 4.9)",12.6,book-s0
+AI-BOM,"khai báo nguồn model, giấy phép, dữ liệu train, phiên bản: SBOM cho AI (nối 10.5)","AI-BOM — khai báo nguồn model, giấy phép, dữ liệu train, phiên bản: SBOM cho AI (nối 10.5)",12.7,book-s0
+alias analysis,hai con trỏ có cùng đích không: quyết định mọi phép sắp xếp lại,alias analysis — hai con trỏ có cùng đích không: quyết định mọi phép sắp xếp lại,14.9.2,book-s0
+all-reduce,gộp gradient từ mọi GPU: nền của huấn luyện phân tán (nối 14.5.1),all-reduce — gộp gradient từ mọi GPU: nền của huấn luyện phân tán (nối 14.5.1),14.4.2;14.5.1,book-s0
+allocator,"malloc/jemalloc/mimalloc: cùng một tên việc, hiệu năng khác nhau","allocator — malloc/jemalloc/mimalloc: cùng một tên việc, hiệu năng khác nhau",2.2,book-s0
+ALT-SVC,header để server mời client nâng cấp lên H3,ALT-SVC — header để server mời client nâng cấp lên H3,4.2,book-s0
+Amdahl,"phần tuần tự là trần: 10% tuần tự, tối đa 10× (nối 3.1)","Amdahl — phần tuần tự là trần: 10% tuần tự, tối đa 10× (nối 3.1)",14.5.1,book-s0
+analyzer,"chuỗi xử lý lúc ghi và lúc tìm: hai đầu phải khớp, không khớp là không ra","analyzer — chuỗi xử lý lúc ghi và lúc tìm: hai đầu phải khớp, không khớp là không ra",5.6,book-s0
+ANN,approximate nearest neighbor: gần đúng vì chính xác là khắc khe,ANN — approximate nearest neighbor: gần đúng vì chính xác là khắc khe,5.10,book-s0
+AoS sang SoA,đổi bố cục để vòng lặp tự nhiên vectorize: nhiều khi đáng hơn intrinsic,AoS sang SoA — đổi bố cục để vòng lặp tự nhiên vectorize: nhiều khi đáng hơn intrinsic,14.9.2,book-s0
+AoS/SoA,"hai cách xếp struct trong bộ nhớ, chọn đúng là tăng tốc miễn phí","AoS/SoA — hai cách xếp struct trong bộ nhớ, chọn đúng là tăng tốc miễn phí",1.2;3.7,book-s0
+API Top 10,"BOLA, BFLA: endpoint có bảng riêng vì tội danh riêng","API Top 10 — BOLA, BFLA: endpoint có bảng riêng vì tội danh riêng",10.4,book-s0
+ARIMA,mô hình thống kê chuỗi thời gian tuyến tính (AutoRegressive Integrated Moving Average) chuẩn để làm baseline,ARIMA — classical autoregressive statistical baseline for stationary and seasonal time series.,5.11,curated-bilingual
+arithmetic intensity,số phép tính trên mỗi byte đọc,arithmetic intensity — số phép tính trên mỗi byte đọc,1.5,book-s0
+assume breach,"thiết kế như kẻ đã vào trong: mục tiêu là chặn lan, không phải chặn cửa mãi mãi","assume breach — thiết kế như kẻ đã vào trong: mục tiêu là chặn lan, không phải chặn cửa mãi mãi",10.1,book-s0
+async có màu,"hàm async lây lan kiểu, đổi cách tổ chức code","hàm async lây lan kiểu, đổi cách tổ chức code",3.5,book-s0
+AsyncAPI 3.0,"""OpenAPI của thế giới sự kiện"": mô tả kênh, payload, binding","AsyncAPI 3.0 — ""OpenAPI của thế giới sự kiện"": mô tả kênh, payload, binding",4.7,book-s0
+asyncio,event loop cho I/O song song (không phải tính song song),asyncio — event loop cho I/O song song (không phải tính song song),3.2,book-s0
+at-least-once,consumer phải chịu trùng lặp: thiết kế idempotent,at-least-once — consumer phải chịu trùng lặp: thiết kế idempotent,4.7,book-s0
+attach point,"chỗ cắm: kprobe, tracepoint, uprobe, XDP","attach point — chỗ cắm: kprobe, tracepoint, uprobe, XDP",2.8,book-s0
+attention,cơ chế tự chú ý (Q·K^T) cho phép mô hình gán trọng số ngữ cảnh giữa mọi cặp token; tốn O(N²) compute & KV cache,Self-attention — pairwise contextual weighting across sequence tokens scaling quadratically in context length.,12.2;14.4.1,curated-bilingual
+attestation,"Play Integrity, App Attest: bằng chứng client chưa bị bẻ: tăng rào, không tường thành","attestation — Play Integrity, App Attest: bằng chứng client chưa bị bẻ: tăng rào, không tường thành",6.7,book-s0
+AuthN vs AuthZ,"chứng minh danh tính rồi mới quyết định quyền: hai vấn đề khác nhau, hai hệ khác nhau","AuthN vs AuthZ — chứng minh danh tính rồi mới quyết định quyền: hai vấn đề khác nhau, hai hệ khác nhau",10.3,book-s0
+authoritative server,"server là sự thật duy nhất, client chỉ dự đoán: nền của mọi thứ còn lại","authoritative server — server là sự thật duy nhất, client chỉ dự đoán: nền của mọi thứ còn lại",14.6.2,book-s0
+auto-rollback,"metric xấu quá ngưỡng là lùi tự động: điều kiện của tốc độ, không phải mạo hiểm","auto-rollback — metric xấu quá ngưỡng là lùi tự động: điều kiện của tốc độ, không phải mạo hiểm",9.7,book-s0
+B-tree,"cây có thứ tự: đọc O(log n), ghi đè tại chỗ trong trang","B-tree — cây có thứ tự: đọc O(log n), ghi đè tại chỗ trong trang",5.1,book-s0
+ba con đường,"API của hãng, open-weight tự host, tự train: ba mức chi phí và kiểm soát","API của hãng, open-weight tự host, tự train: ba mức chi phí và kiểm soát",12.7,book-s0
+ba con đường xung đột,"tránh (route theo vùng), giải tự động (CRDT, LWW — 6.3), hoà ngược (người quyết)","tránh (route theo vùng), giải tự động (CRDT, LWW — 6.3), hoà ngược (người quyết)",8.7,book-s0
+ba loại break,"syntactic, semantic, hành vi không ghi: xếp theo độ khó phát hiện","syntactic, semantic, hành vi không ghi: xếp theo độ khó phát hiện",14.8.2,book-s0
+ba lớp chống lộ,"quét repo, soi log, phát hiện dùng khoá bất thường: lộ phải thấy trong giờ","quét repo, soi log, phát hiện dùng khoá bất thường: lộ phải thấy trong giờ",10.6,book-s0
+ba lớp ML,"mô hình, objective, optimizer: khung đọc mọi tin tức AI","mô hình, objective, optimizer: khung đọc mọi tin tức AI",14.4.1,book-s0
+ba mô hình mesh,"sidecar, sidecar-less, eBPF: cùng giải mTLS, retry, telemetry: chọn theo chi phí và đội ngũ","sidecar, sidecar-less, eBPF: cùng giải mTLS, retry, telemetry: chọn theo chi phí và đội ngũ",9.4,book-s0
+ba mức isolation,"shared, schema-per-tenant, database-per-tenant: playbook có bảng đổi (nối 5.14)","shared, schema-per-tenant, database-per-tenant: playbook có bảng đổi (nối 5.14)",13.7,book-s0
+ba sản phẩm chạy sẵn,"etcd, Consul, ZooKeeper: đừng tự viết Raft cho sản phẩm","etcd, Consul, ZooKeeper: đừng tự viết Raft cho sản phẩm",8.2,book-s0
+ba trường phái fetching,"fetch rồi render, streaming, prefetch: đổi chỗ chờ","fetch rồi render, streaming, prefetch: đổi chỗ chờ",7.2,book-s0
+ba trục song song,"data, tensor, pipeline: mỗi trục đổi bộ nhớ lấy tốc độ",Design axis — independent evaluation dimension on the systems map.,14.4.2,book-s0
+ba tầng,"tokens, component, pattern: mỗi tầng một chủ sở hữu","tokens, component, pattern: mỗi tầng một chủ sở hữu",7.4,book-s0
+ba tầng cân bằng,"L4 theo connection, L7 theo route, mesh theo logic service: mỗi tầng một câu hỏi","L4 theo connection, L7 theo route, mesh theo logic service: mỗi tầng một câu hỏi",9.4,book-s0
+ba đồng hồ,"maintain window ba vùng, deploy chạy theo mặt trời: on-call không rét cả địa cầu","maintain window ba vùng, deploy chạy theo mặt trời: on-call không rét cả địa cầu",13.6,book-s0
+backlog/somaxconn,hàng đợi connection đã bắt tay chưa được app nhận,backlog/somaxconn — hàng đợi connection đã bắt tay chưa được app nhận,2.6,book-s0
+backpressure,"quá tải thì chặn nguồn, rơi, hay đệm: ba lựa chọn, công khai, không mặc định ngầm","backpressure — quá tải thì chặn nguồn, rơi, hay đệm: ba lựa chọn, công khai, không mặc định ngầm",13.3,book-s0
+baseline,mô hình hoặc hệ đo đơn giản nhất chạy được đầu cuối để làm mốc so sánh mọi cải tiến phức tạp,Baseline — simplest end-to-end reference system required before adding modeling or architectural complexity.,0.4;12.5,curated-bilingual
+baseline cùng lúc,so trên cùng máy cùng giờ: số benchmark không tuyệt đối,so trên cùng máy cùng giờ: số benchmark không tuyệt đối,14.9.3,book-s0
+batch insert,nhỏ giọt là tự sát: gộp mẻ là luật,batch insert — nhỏ giọt là tự sát: gộp mẻ là luật,5.8,book-s0
+BBR/cubic,hai thuật toán kiểm soát tắc nghẽn,BBR/cubic — hai thuật toán kiểm soát tắc nghẽn,2.6,book-s0
+BDP,bandwidth-delay product: số byte lấp đầy đường ống,BDP — bandwidth-delay product: số byte lấp đầy đường ống,1.7,book-s0
+benchmark methodology,"warm-up, p99, payload thật: thiếu một thứ thì kết quả là truyện kể","benchmark methodology — warm-up, p99, payload thật: thiếu một thứ thì kết quả là truyện kể",3.11,book-s0
+binning,"đo từng die, xếp hạng tần số và điện áp: cùng thiết kế silicon ra nhiều SKU","binning — đo từng die, xếp hạng tần số và điện áp: cùng thiết kế silicon ra nhiều SKU",14.1.2,book-s0
+bisection bandwidth,"cắt đôi cụm, qua được bao nhiêu: con số thật của topology","bisection bandwidth — cắt đôi cụm, qua được bao nhiêu: con số thật của topology",14.5.1,book-s0
+biên theo tính năng,mỗi tính năng AI có lãi-lỗ riêng: âm thì tắt hoặc đổi thiết kế,mỗi tính năng AI có lãi-lỗ riêng: âm thì tắt hoặc đổi thiết kế,13.5,book-s0
+biến thiên 5–15%,hai máy cùng SKU khác hiệu năng và nhiệt: benchmark một máy là đo một mẫu ngẫu nhiên,hai máy cùng SKU khác hiệu năng và nhiệt: benchmark một máy là đo một mẫu ngẫu nhiên,14.1.2,book-s0
+biết đủ để làm,"mốc dừng: đủ hành động an toàn, còn lại tra cứu","mốc dừng: đủ hành động an toàn, còn lại tra cứu",11.8,book-s0
+blameless postmortem,"hỏi ""cơ chế nào cho phép lỗi này"" chứ không ""ai sai"": văn hoá, không phải thủ tục","blameless postmortem — hỏi ""cơ chế nào cho phép lỗi này"" chứ không ""ai sai"": văn hoá, không phải thủ tục",11.4,book-s0
+blocking I/O,"một thread chờ một I/O, mỗi connection một thread","blocking I/O — một thread chờ một I/O, mỗi connection một thread",2.5,book-s0
+bloom filter,"""chắc chắn không có"" với giá rẻ","bloom filter — ""chắc chắn không có"" với giá rẻ",5.1,book-s0
+BM25,hàm xếp hạng từ khoá kinh điển (TF-IDF chuẩn hoá độ dài tài liệu) luôn cần làm nhánh đối chiếu với tìm kiếm ngữ nghĩa,BM25 — lexical relevance scoring family complementing dense semantic retrieval in hybrid search.,5.6;12.3,curated-bilingual
+borrow checker,kiểm tra mọi lần mượn tham chiếu ngay lúc biên dịch,borrow checker — kiểm tra mọi lần mượn tham chiếu ngay lúc biên dịch,3.5,book-s0
+boundary overhead,chi phí mỗi lần qua biên native và wasm,boundary overhead — chi phí mỗi lần qua biên native và wasm,3.8,book-s0
+bounded context,"ranh giới trong đó một mô hình có ngữ nghĩa nhất quán: ""đơn"" của bếp khác ""đơn"" của kế toán","bounded context — ranh giới trong đó một mô hình có ngữ nghĩa nhất quán: ""đơn"" của bếp khác ""đơn"" của kế toán",8.6,book-s0
+bpftrace,ngôn ngữ tra cứu kernel một dòng kiểu SQL,bpftrace — ngôn ngữ tra cứu kernel một dòng kiểu SQL,2.8,book-s0
+breaking change UI,đổi hành vi component là nâng major version: hệ quả lan tới mọi app (nối 4.8),breaking change UI — đổi hành vi component là nâng major version: hệ quả lan tới mọi app (nối 4.8),7.4,book-s0
+buffer sizing,đỉnh ngày tồi tệ nhân thời gian hồi: nhỏ giọt đầy đĩa là chết,buffer sizing — đỉnh ngày tồi tệ nhân thời gian hồi: nhỏ giọt đầy đĩa là chết,13.3,book-s0
+build lặp được,"cùng commit cho cùng artifact, tham chiếu bằng digest: ""chạy được trên máy em"" không tính","cùng commit cho cùng artifact, tham chiếu bằng digest: ""chạy được trên máy em"" không tính",9.7,book-s0
+build vs buy vs rent,"tự viết, mua, thuê SaaS: ma trận theo lợi thế cạnh tranh","build vs buy vs rent — tự viết, mua, thuê SaaS: ma trận theo lợi thế cạnh tranh",11.7,book-s0
+bulkhead,"chia pool và thread theo service: chìm một khoang, không chìm cả tàu","bulkhead — chia pool và thread theo service: chìm một khoang, không chìm cả tàu",8.5,book-s0
+burn rate,tốc độ cháy budget: hai ngưỡng thay cho một ngưỡng tĩnh ồn ào,burn rate — tốc độ cháy budget: hai ngưỡng thay cho một ngưỡng tĩnh ồn ào,11.1,book-s0
+bài toán hẹp giá trị cao,"benchmark riêng tư, KYC chọn lọc: nơi chúng đáng tiền","benchmark riêng tư, KYC chọn lọc: nơi chúng đáng tiền",14.10.3,book-s0
+bài toán ngược,từ ngân sách ra SLA: chọn chỗ cắt,từ ngân sách ra SLA: chọn chỗ cắt,5.16,book-s0
+băng ISM,"2,4/5/6 GHz là ""đường công cộng"" không phép: nhiễu không ai sai, thiết kế phải chịu","2,4/5/6 GHz là ""đường công cộng"" không phép: nhiễu không ai sai, thiết kế phải chịu",14.2.1,book-s0
+băng thông vs độ trễ,số byte/giây và thời gian chờ từng lần: hai thứ tăng khác nhau,Latency — end-to-end duration of a single operation.,1.3,book-s0
+bước cố định,"vật lý mô phỏng theo bước cố định, render theo khung: nối 14.6.2","vật lý mô phỏng theo bước cố định, render theo khung: nối 14.6.2",14.6.1,book-s0
+bản quyền OSS,"MIT, AGPL, BSL: ""miễn phí"" không đồng nghĩa ""tuỳ ý dùng""","MIT, AGPL, BSL: ""miễn phí"" không đồng nghĩa ""tuỳ ý dùng""",10.8,book-s0
+bản đồ P12,"serving, RAG, agent, evals, economics, supply chain: sáu chương xếp sẵn","serving, RAG, agent, evals, economics, supply chain: sáu chương xếp sẵn",12.1,book-s0
+bảng giá thật,"network hop, vận hành, debug phân tán: không thấy trong demo","network hop, vận hành, debug phân tán: không thấy trong demo",8.6,book-s0
+"bẫy ""một giải pháp""","mua một sản phẩm là xong: phòng thủ là kim tự tháp nhiều tầng, không phải một điểm","mua một sản phẩm là xong: phòng thủ là kim tự tháp nhiều tầng, không phải một điểm",10.1,book-s0
+bậc thang,"các tầng thời gian cách nhau bậc độ lớn, không phải dốc liền",Latency hierarchy — discrete orders of magnitude separating hardware/network tiers.,1.1,book-s0
+bậc thang LoRA/SFT,chỉnh nhẹ bằng dữ liệu riêng trước khi train lại: chi phí cố định tăng theo bậc,Latency hierarchy — discrete orders of magnitude separating hardware/network tiers.,12.7,book-s0
+bậc thang offline,cache chỉ đọc → hàng đợi ghi → conflict-free: mỗi bậc lên một chi phí,Latency hierarchy — discrete orders of magnitude separating hardware/network tiers.,6.3,book-s0
+bốn bậc phòng thủ,"constant-time, tách kênh, không chung máy, chấp nhận ghi sổ: chọn theo tài sản","constant-time, tách kênh, không chung máy, chấp nhận ghi sổ: chọn theo tài sản",14.11.2,book-s0
+bốn bệnh kinh điển,"query N+1, index bỏ sót, pool cạn, lock chờ nhau","query N+1, index bỏ sót, pool cạn, lock chờ nhau",5.2,book-s0
+bốn câu kiểm,"""đáng phân tán không"": bốn câu, trả lời trước khi trả tiền","""đáng phân tán không"": bốn câu, trả lời trước khi trả tiền",8.6,book-s0
+bốn công cụ bốn triết lý,"Terraform, Pulumi, CDK, config thuần: chương chấm từng em","Terraform, Pulumi, CDK, config thuần: chương chấm từng em",9.6,book-s0
+bốn cấp đa vùng,"backup xa, cold, warm, active-active: mỗi cấp gấp hoá đơn","backup xa, cold, warm, active-active: mỗi cấp gấp hoá đơn",8.7,book-s0
+bốn giả định còn,"HTTP, cân bằng tải, cache, observability dùng nguyên: Quyển II áp nguyên","HTTP, cân bằng tải, cache, observability dùng nguyên: Quyển II áp nguyên",12.1,book-s0
+bốn họ primitives,"đối xứng (nhanh), bất đối xứng (trao khoá, chậm), hash/MAC (toàn vẹn), chữ ký (không chối): mỗi họ một câu hỏi","đối xứng (nhanh), bất đối xứng (trao khoá, chậm), hash/MAC (toàn vẹn), chữ ký (không chối): mỗi họ một câu hỏi",14.10.1,book-s0
+bốn loại team,"stream-aligned, platform, enabling, complicated-subsystem: ba kiểu tương tác","stream-aligned, platform, enabling, complicated-subsystem: ba kiểu tương tác",11.6,book-s0
+bốn trường phái cross-platform,"native từng nền, web, compile-to-native, tự vác runtime: chương có bảng sự thật","native từng nền, web, compile-to-native, tự vác runtime: chương có bảng sự thật",6.2,book-s0
+bốn tầng gian lận,"thông tin, input, trạng thái/thời gian, kinh tế: mỗi tầng một phòng","thông tin, input, trạng thái/thời gian, kinh tế: mỗi tầng một phòng",14.6.3,book-s0
+bốn tầng i18n,"dịch message, định dạng số tiền tệ, ngày giờ, chiều chữ RTL","dịch message, định dạng số tiền tệ, ngày giờ, chiều chữ RTL",7.5,book-s0
+bốn tầng lưu,browser → edge CDN → origin shield → origin: mỗi tầng một vai: lỗi thường nằm ở tầng bị quên,browser → edge CDN → origin shield → origin: mỗi tầng một vai: lỗi thường nằm ở tầng bị quên,6.5,book-s0
+bộ nhớ tuyến tính,"vùng duy nhất chương trình được chạm, có biên cứng","vùng duy nhất chương trình được chạm, có biên cứng",3.8,book-s0
+bộ nhớ ảo,"không gian địa chỉ riêng mỗi process, ánh xạ vào RAM khi cần","Virtual memory — OS-managed address translation backed by page tables, TLB, and swap/reclaim.",2.1,book-s0
+C extension,đoạn native có thể nhả GIL khi tính nặng,C extension — đoạn native có thể nhả GIL khi tính nặng,3.2,book-s0
+C10K,"bài toán xưa ""mười nghìn connection"", nay đã giải được","C10K — bài toán xưa ""mười nghìn connection"", nay đã giải được",2.5,book-s0
+cache channel,đo thời gian truy cập biết tiến trình kia chạm gì: cách ly tiến trình vẫn rò,cache channel — đo thời gian truy cập biết tiến trình kia chạm gì: cách ly tiến trình vẫn rò,14.11.1,book-s0
+cache-aside,"app tự đọc, thấy thiếu tự điền: phổ biến nhất, bẫy lớn nhất","cache-aside — app tự đọc, thấy thiếu tự điền: phổ biến nhất, bẫy lớn nhất",5.4,book-s0
+Cache-Control,"max-age, s-maxage, stale-while-revalidate: hợp đồng origin cam kết với từng tầng","Cache-Control — max-age, s-maxage, stale-while-revalidate: hợp đồng origin cam kết với từng tầng",6.5,book-s0
+calibration,mô hình sai thì lệnh đúng vẫn tạo chuyển động sai,calibration — mô hình sai thì lệnh đúng vẫn tạo chuyển động sai,14.7.1,book-s0
+cam kết,"reserved, savings plan: giá rẻ hơn đổi cam kết vài năm: bài dự báo","reserved, savings plan: giá rẻ hơn đổi cam kết vài năm: bài dự báo",11.5,book-s0
+cancellation,trừ hai số gần nhau mất chữ số có nghĩa: thuật toán số viết quanh nó,cancellation — trừ hai số gần nhau mất chữ số có nghĩa: thuật toán số viết quanh nó,14.5.2,book-s0
+CAP,partition xảy ra thì chọn consistency hoặc availability: đừng trích sai như quảng cáo,CAP — partition xảy ra thì chọn consistency hoặc availability: đừng trích sai như quảng cáo,8.1,book-s0
+capability,quyền root cắt nhỏ theo từng loại việc,capability — quyền root cắt nhỏ theo từng loại việc,2.7,book-s0
+capacity đa chiều,"điện, nhiệt, m², mạng, nước, giấy phép: AI chờ điện nhiều hơn chờ chip","điện, nhiệt, m², mạng, nước, giấy phép: AI chờ điện nhiều hơn chờ chip",14.3.2,book-s0
+capex/opex,mua tài sản hay thuê chi phí: tài chính nhìn hai thứ khác hẳn,capex/opex — mua tài sản hay thuê chi phí: tài chính nhìn hai thứ khác hẳn,11.7,book-s0
+carbon-aware,dời việc nặng sang giờ điện sạch/rẻ thay vì tôn giáo,carbon-aware — dời việc nặng sang giờ điện sạch/rẻ thay vì tôn giáo,1.10,book-s0
+carbon-aware scheduling,dời job theo giờ điện sạch: giá điện theo giờ đổi hành vi đặt job,carbon-aware scheduling — dời job theo giờ điện sạch: giá điện theo giờ đổi hành vi đặt job,14.3.2,book-s0
+cardinality,số chuỗi khác nhau đang sống: phình là cháy ngân sách,cardinality — số chuỗi khác nhau đang sống: phình là cháy ngân sách,5.11;11.2,book-s0
+cascading,"câu hỏi dễ cho model nhỏ, khó mới lên model to: phân loại trước, route sau","cascading — câu hỏi dễ cho model nhỏ, khó mới lên model to: phân loại trước, route sau",12.6,book-s0
+Cassandra 5.0 / ScyllaDB 2026.3,"hai hiện thân, verify 10/2026 trong chương","Cassandra 5.0 / ScyllaDB 2026.3 — hai hiện thân, verify 10/2026 trong chương",5.5,book-s0
+catalog,metastore biết bảng gồm những file nào: metadata là xương sống,catalog — metastore biết bảng gồm những file nào: metadata là xương sống,5.9;5.13;13.4,book-s0
+CDC,change data capture: đọc WAL phát sự kiện ra ngoài,CDC — change data capture: đọc WAL phát sự kiện ra ngoài,5.15,book-s0
+cell-based,chia hệ thành cell độc lập: cháy một cell không lan (blast radius),cell-based — chia hệ thành cell độc lập: cháy một cell không lan (blast radius),8.7,book-s0
+CGO,cửa gọi C: mỗi lần qua là chuyển ngữ cảnh đắt,CGO — cửa gọi C: mỗi lần qua là chuyển ngữ cảnh đắt,3.4,book-s0
+cgroup,giới hạn tài nguyên của nhóm process,cgroup — giới hạn tài nguyên của nhóm process,2.7,book-s0
+cgroup v2,"nhóm tài nguyên, giới hạn CPU/RAM theo quota","cgroup v2 — nhóm tài nguyên, giới hạn CPU/RAM theo quota",2.3,book-s0
+chaos engineering,"giết node có chủ đích trong giờ hành chính: giả định ""chịu được một AZ chết"" phải được kiểm định","chaos engineering — giết node có chủ đích trong giờ hành chính: giả định ""chịu được một AZ chết"" phải được kiểm định",11.3,book-s0
+chargeback,đo và phân bổ chi phí theo tenant: không đo thì không đàm phán nổi,chargeback — đo và phân bổ chi phí theo tenant: không đo thì không đàm phán nổi,5.14,book-s0
+checkpoint,job nghìn GPU chết giữa chừng là thường: checkpoint là bảo hiểm bắt buộc,checkpoint — job nghìn GPU chết giữa chừng là thường: checkpoint là bảo hiểm bắt buộc,14.4.2,book-s0
+chi phí bậc số,"phút-GPU cho việc CPU làm mili-giây: ""dùng ZK cho mọi thứ"" cần hỏi lại","phút-GPU cho việc CPU làm mili-giây: ""dùng ZK cho mọi thứ"" cần hỏi lại",14.10.3,book-s0
+chi phí giấu,"kích thước cài đặt, thời gian build, tính năng hụt: thứ không ghi trên landing page","kích thước cài đặt, thời gian build, tính năng hụt: thứ không ghi trên landing page",6.2,book-s0
+chiplet,"nhiều die nhỏ ghép trong gói: yield tốt, mỗi die một chức năng","chiplet — nhiều die nhỏ ghép trong gói: yield tốt, mỗi die một chức năng",14.1.2,book-s0
+chunking,cắt tài liệu thành mảnh có nghĩa: cắt sai là tìm sai,chunking — cắt tài liệu thành mảnh có nghĩa: cắt sai là tìm sai,12.3,book-s0
+chuyển ngữ cảnh,"đổi task đang chạy, có giá và giá năm bậc",Context switch — saving/restoring thread/process CPU state across scheduler preemption.,2.3,book-s0
+chuẩn mở hay đóng,"text công khai (IETF, W3C) hay mua có phí (ISO): chi phí tuân thủ","text công khai (IETF, W3C) hay mua có phí (ISO): chi phí tuân thủ",14.8.1,book-s0
+chính sách mặc định,"org chọn sẵn REST/OpenAPI ngoài, gRPC trong: 80% khỏi họp","org chọn sẵn REST/OpenAPI ngoài, gRPC trong: 80% khỏi họp",4.9,book-s0
+chất lượng dữ liệu,"test như test code: null, freshness, anomaly: fail tại pipeline, không fail cuối tháng","test như test code: null, freshness, anomaly: fail tại pipeline, không fail cuối tháng",13.4,book-s0
+chứa đứng,"khoá tài khoản, tách mạng, đóng endpoint: mỗi nhánh cắt đều có giá, chọn theo rủi ro","khoá tài khoản, tách mạng, đóng endpoint: mỗi nhánh cắt đều có giá, chọn theo rủi ro",10.7,book-s0
+chữ ký cỡ KB,"PQC to hơn ECC bậc số: ảnh hưởng handshake, chứng chỉ, nhúng","PQC to hơn ECC bậc số: ảnh hưởng handshake, chứng chỉ, nhúng",14.10.2,book-s0
+circuit breaker,đếm lỗi tới ngưỡng thì ngừng gọi một khoảng: cho phụ thuộc hồi sức,circuit breaker — đếm lỗi tới ngưỡng thì ngừng gọi một khoảng: cho phụ thuộc hồi sức,8.5,book-s0
+circuit breaking ở gateway,cản bão ngay từ tầng vào (nối 8.5),cản bão ngay từ tầng vào (nối 8.5),9.4,book-s0
+CLS,layout shift: nhảy layout giữa chừng: khách bấm nhầm nút vì nó chạy,CLS (layout shift) — nhảy layout giữa chừng: khách bấm nhầm nút vì nó chạy,7.3,book-s0-alias
+cluster,nhiều process chia nhau một cổng,cluster — nhiều process chia nhau một cổng,3.3,book-s0
+clustering key,thứ tự bên trong partition: đọc lịch sử nhanh,clustering key — thứ tự bên trong partition: đọc lịch sử nhanh,5.5,book-s0
+CMOS,"cặp transistor bổ trợ: tốn điện khi chuyển mạch, không phải khi đứng yên","CMOS — cặp transistor bổ trợ: tốn điện khi chuyển mạch, không phải khi đứng yên",14.1.1,book-s0
+CO-RE,cùng một binary chạy trên nhiều phiên bản kernel,CO-RE — cùng một binary chạy trên nhiều phiên bản kernel,2.8,book-s0
+code splitting,chia bundle theo route và theo tương tác: tải cái cần trước,code splitting — chia bundle theo route và theo tương tác: tải cái cần trước,7.3,book-s0
+codegen,sinh client/server từ schema: hết gõ tay hai đầu,codegen — sinh client/server từ schema: hết gõ tay hai đầu,4.4,book-s0
+cognitive load,tải nhận thức là giới hạn thật: chọn kiến trúc theo nó,cognitive load — tải nhận thức là giới hạn thật: chọn kiến trúc theo nó,11.6,book-s0
+cold start,từ lệnh chạy tới sẵn sàng phục vụ,cold start — từ lệnh chạy tới sẵn sàng phục vụ,3.9;6.1;9.5,book-s0
+collapse key,"gộp thông báo cùng chủ đề: ba tin ""đơn mới"" thành một","collapse key — gộp thông báo cùng chủ đề: ba tin ""đơn mới"" thành một",6.4,book-s0
+collector,tầng gom và lọc trung gian: app đừng đẩy thẳng tới backend,collector — tầng gom và lọc trung gian: app đừng đẩy thẳng tới backend,11.2,book-s0
+columnar,"lưu theo cột: ""doanh thu theo thành phố"" chỉ đọc cột tiền và cột thành phố","columnar — lưu theo cột: ""doanh thu theo thành phố"" chỉ đọc cột tiền và cột thành phố",5.8,book-s0
+commodity hoá,"chuẩn hoá lớp (HTTP, SQL, USB) thì lợi nhuận dịch lên lớp trên: động lực kinh tế","chuẩn hoá lớp (HTTP, SQL, USB) thì lợi nhuận dịch lên lớp trên: động lực kinh tế",14.8.1,book-s0
+common-cause,"hai kênh cùng nguồn điện, cùng nhiệt: kẻ thù của redundancy","common-cause — hai kênh cùng nguồn điện, cùng nhiệt: kẻ thù của redundancy",14.7.3,book-s0
+compaction,"gom dọn tầng file: I/O nền, thủ phạm p99 vọt","compaction — gom dọn tầng file: I/O nền, thủ phạm p99 vọt",5.1;5.9,book-s0
+compatibility,BACKWARD/FORWARD/FULL: quy tắc tiến hoá sự kiện,compatibility — BACKWARD/FORWARD/FULL: quy tắc tiến hoá sự kiện,4.7,book-s0
+compatibility matrix,"phiên bản client nhân phiên bản server, hỗ trợ n-1 n-2: bảng nói thật","compatibility matrix — phiên bản client nhân phiên bản server, hỗ trợ n-1 n-2: bảng nói thật",14.8.2,book-s0
+compensation,"""phản đề"": huỷ đơn, hoàn tiền — là nghiệp vụ, không phải UNDO","compensation — ""phản đề"": huỷ đơn, hoàn tiền — là nghiệp vụ, không phải UNDO",8.3,book-s0
+component API,props là hợp đồng: bốn luật chương này điểm danh,component API — props là hợp đồng: bốn luật chương này điểm danh,7.4,book-s0
+concurrency,nhiều việc trộn nhau trên một tài nguyên,concurrency — nhiều việc trộn nhau trên một tài nguyên,3.1,book-s0
+condition number,bài toán khó thổi sai số lên bậc: bài xấu không thuật toán nào cứu,condition number — bài toán khó thổi sai số lên bậc: bài xấu không thuật toán nào cứu,14.5.2,book-s0
+congestion control,"thuật toán nhả gói của phía gửi: BBR, CUBIC","congestion control — thuật toán nhả gói của phía gửi: BBR, CUBIC",4.1,book-s0
+connection ID,định danh kết nối sống qua cả khi đổi IP,connection ID — định danh kết nối sống qua cả khi đổi IP,4.1,book-s0
+ConnectRPC,"gRPC ""thoải mái hơn"": chạy được trên HTTP/1.1 và curl được","ConnectRPC — gRPC ""thoải mái hơn"": chạy được trên HTTP/1.1 và curl được",4.4,book-s0
+conntrack,"bảng kernel theo dõi phiên, đầy thì từ chối gói mới","conntrack — bảng kernel theo dõi phiên, đầy thì từ chối gói mới",2.6,book-s0
+consistency level,"ONE/QUORUM/ALL: mỗi lần đọc ghi đổi ""cổ phiếu"" đúng đắn","consistency level — ONE/QUORUM/ALL: mỗi lần đọc ghi đổi ""cổ phiếu"" đúng đắn",5.5,book-s0
+consumer group,"nhóm chia nhau partition, mỗi nhóm một offset riêng","consumer group — nhóm chia nhau partition, mỗi nhóm một offset riêng",5.7,book-s0
+container awareness,JVM đọc đúng limit CPU/RAM của pod thay vì của máy thật,container awareness — JVM đọc đúng limit CPU/RAM của pod thay vì của máy thật,3.6,book-s0
+context,văn hoá huỷ việc lan truyền theo chuỗi gọi,context — văn hoá huỷ việc lan truyền theo chuỗi gọi,3.4,book-s0
+context engineering,chọn gì vào hộp ngữ cảnh: nghề mới,context engineering — chọn gì vào hộp ngữ cảnh: nghề mới,12.3,book-s0
+continuous batching,hàng vào ra liên tục theo token: GPU hết ngồi chờ cả mẻ cứng,continuous batching — hàng vào ra liên tục theo token: GPU hết ngồi chờ cả mẻ cứng,12.2,book-s0
+contract test,chặn bug xuyên ngôn ngữ ngay ở chỗ giao nhau,contract test — chặn bug xuyên ngôn ngữ ngay ở chỗ giao nhau,3.9;4.3,book-s0
+control loop,"đọc, lọc, tính, phát lệnh trong 1–10 ms, trăm tới nghìn lần mỗi giây: độ trễ ở đây là quán tính","control loop — đọc, lọc, tính, phát lệnh trong 1–10 ms, trăm tới nghìn lần mỗi giây: độ trễ ở đây là quán tính",14.7.1,book-s0
+control plane,"API server, scheduler, controller manager, etcd: khai báo rồi vòng reconcile kéo về","control plane — API server, scheduler, controller manager, etcd: khai báo rồi vòng reconcile kéo về",9.1,book-s0
+cooperative/preemptive,tự nhường hoặc bị giật quyền,cooperative/preemptive — tự nhường hoặc bị giật quyền,3.1,book-s0
+copilot vs agent,người giữ quyết định hay AI tự quyết: ranh giới trách nhiệm và pháp lý,copilot vs agent — người giữ quyết định hay AI tự quyết: ranh giới trách nhiệm và pháp lý,13.5,book-s0
+copy-on-write,hai process chia trang chỉ-đọc tới khi một bên ghi,copy-on-write — hai process chia trang chỉ-đọc tới khi một bên ghi,2.1,book-s0
+correlate,"metric, log, trace cùng trace ID: ba câu hỏi trả lời trong một cú nhấp","correlate — metric, log, trace cùng trace ID: ba câu hỏi trả lời trong một cú nhấp",11.2,book-s0
+cost per query,chi phí theo truy vấn và theo tầng: analytics cũng có ngân sách,cost per query — chi phí theo truy vấn và theo tầng: analytics cũng có ngân sách,13.4,book-s0
+CoWoS,GPU kề HBM trên interposer silicon: băng thông ghép là đặc điểm cả cụm,CoWoS — GPU kề HBM trên interposer silicon: băng thông ghép là đặc điểm cả cụm,14.1.2,book-s0
+CQRS,"model đọc tách model viết: giải pháp cuối cho query nặng, không mặc định","CQRS — model đọc tách model viết: giải pháp cuối cho query nặng, không mặc định",8.6,book-s0
+CRA,Cyber Resilience Act: phần mềm bán vào EU phải khai thành phần và vá đúng hạn: luật kỹ thuật nhất,CRA — Cyber Resilience Act: phần mềm bán vào EU phải khai thành phần và vá đúng hạn: luật kỹ thuật nhất,10.8,book-s0
+crash-free rate,tỉ lệ phiên không treo: chỉ số sức khoẻ duy nhất không nói dối được,crash-free rate — tỉ lệ phiên không treo: chỉ số sức khoẻ duy nhất không nói dối được,6.1,book-s0
+CRDT,cấu trúc dữ liệu hội tụ: hai nhánh sửa cùng chỗ vẫn tự về một kết quả,CRDT — cấu trúc dữ liệu hội tụ: hai nhánh sửa cùng chỗ vẫn tự về một kết quả,6.3,book-s0
+credential tĩnh,"API key nằm trong file config: khoá chì ai cũng copy được, sống mãi mãi","API key nằm trong file config: khoá chì ai cũng copy được, sống mãi mãi",10.6,book-s0
+CSP,Content-Security-Policy: hạn chế nguồn script được tải: hãm thiệt hại khi XSS vẫn lọt,CSP — Content-Security-Policy: hạn chế nguồn script được tải: hãm thiệt hại khi XSS vẫn lọt,7.7,book-s0
+CSPRNG,ngẫu nhiên từ nguồn mật mã: seed từ đồng hồ là chuyện kể cười có thật,CSPRNG — ngẫu nhiên từ nguồn mật mã: seed từ đồng hồ là chuyện kể cười có thật,14.10.1,book-s0
+CSR,"client render: chậm lần đầu, mượt về sau","CSR — client render: chậm lần đầu, mượt về sau",7.1,book-s0
+cursor pagination,"con trỏ ""đọc tới đâu"": tốc độ đều, sống với dữ liệu đang đổi","cursor pagination — con trỏ ""đọc tới đâu"": tốc độ đều, sống với dữ liệu đang đổi",4.8,book-s0
+CVSS,"điểm nghiêm trọng 0 tới 10: đo độ nặng lý thuyết, không đo ""đang bị khai thác không""","CVSS — điểm nghiêm trọng 0 tới 10: đo độ nặng lý thuyết, không đo ""đang bị khai thác không""",10.5,book-s0
+CXL/HBM,hai lối mở rộng bộ nhớ ngoài phẳng cũ,CXL/HBM — hai lối mở rộng bộ nhớ ngoài phẳng cũ,1.3,book-s0
+cây phụ thuộc,một thư viện kéo theo hàng trăm package: mỗi node một chỗ có thể nặng thêm,một thư viện kéo theo hàng trăm package: mỗi node một chỗ có thể nặng thêm,7.3,book-s0
+cùng trạm điện,"""có 3 AZ"" nhưng chung một nguồn: sự cố thật của các cloud lớn","""có 3 AZ"" nhưng chung một nguồn: sự cố thật của các cloud lớn",14.3.2,book-s0
+cú pháp vs semantics,"dấu ngoặc là thị hiếu, hành vi khi chạy là hợp đồng: kiến trúc nằm ở hai cái sau","dấu ngoặc là thị hiếu, hành vi khi chạy là hợp đồng: kiến trúc nằm ở hai cái sau",14.9.1,book-s0
+cổng releasing,eval như CI/CD (11.2): promote hay rollback theo ngưỡng,eval như CI/CD (11.2): promote hay rollback theo ngưỡng,14.4.3,book-s0
+cỗ máy đổi model,"model mới mỗi quý: tính năng phải đổi model như đổi thư viện, không phải viết lại","model mới mỗi quý: tính năng phải đổi model như đổi thư viện, không phải viết lại",13.5,book-s0
+cộng không kết hợp,(a+b)+c khác a+(b+c) ở bit cuối: đổi thứ tự chạy là đổi kết quả,(a+b)+c khác a+(b+c) ở bit cuối: đổi thứ tự chạy là đổi kết quả,14.5.2,book-s0
+cửa sổ,số byte bên gửi được phép thả ra trước khi chờ xác nhận,window — số byte bên gửi được phép thả ra trước khi chờ xác nhận,1.7;5.12,book-s0
+data contract,schema + SLA giữa producer và consumer: nối 4.3,data contract — schema + SLA giữa producer và consumer: nối 4.3,5.13,book-s0
+data leakage,"rò rỉ dữ liệu kiểm định vào tập huấn luyện hoặc bước tiền xử lý (normalization, split sai chiều thời gian)",Data leakage — evaluation information inadvertently influencing training or preprocessing statistics.,0.4;12.5,curated-bilingual
+data moat,dữ liệu riêng là thứ khó copy nhất: lợi thế thật nằm ở đây,data moat — dữ liệu riêng là thứ khó copy nhất: lợi thế thật nằm ở đây,12.7,book-s0
+DataLoader,gom các resolver cùng nhịp thành một truy vấn batch,DataLoader — gom các resolver cùng nhịp thành một truy vấn batch,4.5,book-s0
+dB,logarit: 3 dB là gấp đôi: cộng trừ thay nhân chia,dB — logarit: 3 dB là gấp đôi: cộng trừ thay nhân chia,14.2.1,book-s0
+dead letter queue,nơi sự kiện hỏng nằm chờ người soi,dead letter queue — nơi sự kiện hỏng nằm chờ người soi,4.7;13.3,book-s0
+deadline lan truyền,"thời hạn của request gốc chia xuống từng hop, hết hạn thì huỷ cả chuỗi","thời hạn của request gốc chia xuống từng hop, hết hạn thì huỷ cả chuỗi",4.4,book-s0
+decay,phân rã: tài liệu chết dần khi thế giới đổi quanh nó,decay (phân rã) — tài liệu chết dần khi thế giới đổi quanh nó,0.4,book-s0-alias
+DEK/KEK,"khoá dữ liệu sinh từng cái, khoá chủ quay vòng: tách vòng đời rõ ràng","DEK/KEK — khoá dữ liệu sinh từng cái, khoá chủ quay vòng: tách vòng đời rõ ràng",10.2,book-s0
+Dennard chết,"mật độ tăng mà điện áp không giảm được nữa (~2006): hết hiệu năng miễn phí, quay sang đa lõi (nối 3.1)","mật độ tăng mà điện áp không giảm được nữa (~2006): hết hiệu năng miễn phí, quay sang đa lõi (nối 3.1)",14.1.1,book-s0
+deprecation window,"hai version sống song song một thời gian, kèm header cảnh báo","deprecation window — hai version sống song song một thời gian, kèm header cảnh báo",4.8,book-s0
+depth/cost limit,chặn query lồng sâu hoặc đắt bất thường: hai van bắt buộc,depth/cost limit — chặn query lồng sâu hoặc đắt bất thường: hai van bắt buộc,4.5,book-s0
+detection as code,"rule nằm trong git, có test, có review: không phải đoạn regex chui dưới gầm SIEM","detection as code — rule nằm trong git, có test, có review: không phải đoạn regex chui dưới gầm SIEM",10.7,book-s0
+direct-to-chip vs immersion,bản lạnh nước ấm hoặc nhúng cả máy: nước ~40°C vẫn mát được,direct-to-chip vs immersion — bản lạnh nước ấm hoặc nhúng cả máy: nước ~40°C vẫn mát được,14.3.1,book-s0
+distillation,chưng cất tri thức — dạy mô hình nhỏ (student) bắt chước phân phối đầu ra của mô hình lớn (teacher),Knowledge distillation — training a compact student model against a larger teacher model's soft predictions.,12.2;12.7,curated-bilingual
+DMA/P2P,"thiết bị tự chép dữ liệu, không qua CPU","DMA/P2P — thiết bị tự chép dữ liệu, không qua CPU",1.6,book-s0
+document,"JSON có khóa, đọc theo hình ứng dụng: một lần đọc đủ cả cụm","document — JSON có khóa, đọc theo hình ứng dụng: một lần đọc đủ cả cụm",5.3,book-s0
+DORA,"tần suất deploy, lead time, tỉ lệ thay đổi hỏng, thời gian khôi phục: đo năng lực giao hàng, không đo cá nhân","DORA — tần suất deploy, lead time, tỉ lệ thay đổi hỏng, thời gian khôi phục: đo năng lực giao hàng, không đo cá nhân",9.7,book-s0
+double-entry,"mỗi giao dịch ghi hai vế nợ-có: tổng luôn cân, lỗi cộng nổi ngay trong truy vấn","double-entry — mỗi giao dịch ghi hai vế nợ-có: tổng luôn cân, lỗi cộng nổi ngay trong truy vấn",13.1,book-s0
+downsampling/retention,làm thô dữ liệu cũ và xoá theo tuổi: hai van tiết kiệm bắt buộc,downsampling/retention — làm thô dữ liệu cũ và xoá theo tuổi: hai van tiết kiệm bắt buộc,5.11,book-s0
+DPU,processor dồn việc hạ tầng ra khỏi CPU,DPU — processor dồn việc hạ tầng ra khỏi CPU,1.6,book-s0
+DRA,"lập lịch GPU theo tài nguyên động: GPU không còn là ""trời cho ai lấy""","DRA — lập lịch GPU theo tài nguyên động: GPU không còn là ""trời cho ai lấy""",9.2,book-s0
+DRAM,"1 transistor + 1 tụ: phải refresh liên tục, dính rowhammer (nối 14.11)","DRAM — 1 transistor + 1 tụ: phải refresh liên tục, dính rowhammer (nối 14.11)",14.1.3,book-s0
+drift,hotfix bấm console lúc nửa đêm: reconcile sẽ lộ; chính sách xử lý là câu hỏi tổ chức,drift — hotfix bấm console lúc nửa đêm: reconcile sẽ lộ; chính sách xử lý là câu hỏi tổ chức,9.6,book-s0
+drill,tập sự cố định kỳ: chưa drill là DR tưởng tượng,drill — tập sự cố định kỳ: chưa drill là DR tưởng tượng,8.7,book-s0
+dual-write,ghi hai store trong một transaction trông như được: là bug phân tán chờ ngày nổ,dual-write — ghi hai store trong một transaction trông như được: là bug phân tán chờ ngày nổ,5.15,book-s0
+DuckDB 2.0,"OLAP nhúng một file như SQLite của analytics (LTS 21/10/2026, verify trong chương)","DuckDB 2.0 — OLAP nhúng một file như SQLite của analytics (LTS 21/10/2026, verify trong chương)",5.8,book-s0
+dynamic secrets,"Vault sinh khi workload xin, TTL ngắn: hết việc là tự chết","dynamic secrets — Vault sinh khi workload xin, TTL ngắn: hết việc là tự chết",10.6,book-s0
+dòng cache,đơn vị vận chuyển 64 byte giữa CPU và RAM,đơn vị vận chuyển 64 byte giữa CPU và RAM,1.2,book-s0
+dùng sẵn hay xây,"MUI, shadcn hay tự viết: bài make-or-buy có bảng","MUI, shadcn hay tự viết: bài make-or-buy có bảng",7.4,book-s0
+dữ liệu về backend,telemetry chảy về queue và TSDB: nối 5.7 với 5.11,telemetry chảy về queue và TSDB: nối 5.7 với 5.11,6.6,book-s0
+eager vs lazy,tính ngay hay tính khi cần: hai họ đánh giá,eager vs lazy — tính ngay hay tính khi cần: hai họ đánh giá,14.9.1,book-s0
+eBPF,khung nạp chương trình nhỏ chạy an toàn trong kernel,eBPF — khung nạp chương trình nhỏ chạy an toàn trong kernel,2.8,book-s0
+ECC,bit dự phòng tự sửa lỗi bộ nhớ,ECC — bit dự phòng tự sửa lỗi bộ nhớ,1.3,book-s0
+edge,personalization nhẹ và cắt latency: cái gì đáng lên (nối 6.5),edge — personalization nhẹ và cắt latency: cái gì đáng lên (nối 6.5),13.6,book-s0
+edge compute,"chạy code tại điểm gần khách: cá nhân hoá nhẹ, WAF — không phải nghiệp vụ nặng","edge compute — chạy code tại điểm gần khách: cá nhân hoá nhẹ, WAF — không phải nghiệp vụ nặng",6.5,book-s0
+EEVDF,bộ lập lịch mới của Linux 6.6+,EEVDF — bộ lập lịch mới của Linux 6.6+,2.3,book-s0
+embedding,chữ/ảnh/món thành điểm trong không gian nghìn chiều: gần nhau về toạ độ là gần nhau về nghĩa,embedding — chữ/ảnh/món thành điểm trong không gian nghìn chiều: gần nhau về toạ độ là gần nhau về nghĩa,5.10;12.3,book-s0
+embedding vs referencing,"nhúng dữ liệu liên quan vào document, hay tách ra tham chiếu: quyết định số một","embedding vs referencing — nhúng dữ liệu liên quan vào document, hay tách ra tham chiếu: quyết định số một",5.3,book-s0
+enclave/TEE,"vùng bí mật trong CPU: niềm tin vào vendor, lịch sử CVE riêng","enclave/TEE — vùng bí mật trong CPU: niềm tin vào vendor, lịch sử CVE riêng",14.11.2,book-s0
+engine theo câu hỏi,"BI ad-hoc, báo cáo định kỳ, huấn luyện ML: ba câu hỏi, ba lựa chọn","BI ad-hoc, báo cáo định kỳ, huấn luyện ML: ba câu hỏi, ba lựa chọn",13.4,book-s0
+enterprise-ready,"SSO, audit log, tuân thủ: checklist cuối chương","enterprise-ready — SSO, audit log, tuân thủ: checklist cuối chương",13.7,book-s0
+envelope encryption,"dữ liệu khoá bằng DEK, DEK được KEK bọc: kiến trúc chuẩn của mọi KMS","envelope encryption — dữ liệu khoá bằng DEK, DEK được KEK bọc: kiến trúc chuẩn của mọi KMS",10.2,book-s0
+EOL,ngày hết đời chính thức của một phiên bản phần mềm,EOL — ngày hết đời chính thức của một phiên bản phần mềm,0.2,book-s0
+epoll,"hỏi kernel ""cái nào sẵn sàng"" rồi mới xử lý","epoll — hỏi kernel ""cái nào sẵn sàng"" rồi mới xử lý",2.5,book-s0
+EPSS + KEV,xác suất bị khai thác 30 ngày cộng danh sách đang bị đánh thật: vá trước,EPSS + KEV — xác suất bị khai thác 30 ngày cộng danh sách đang bị đánh thật: vá trước,10.5,book-s0
+errata,"danh mục sai đã biết, sửa công khai có kỷ luật","errata — danh mục sai đã biết, sửa công khai có kỷ luật",0.4,book-s0
+error budget,"phần sai sót được phép: ship nhanh tiêu budget, hết budget là freeze tính năng","error budget — phần sai sót được phép: ship nhanh tiêu budget, hết budget là freeze tính năng",11.1,book-s0
+ES vs OpenSearch,hai nhánh sau licence 2021 (verify 10/2026 trong chương),ES vs OpenSearch — hai nhánh sau licence 2021 (verify 10/2026 trong chương),5.6,book-s0
+escape hatch,đường di chuyển mô hình cho tenant phình to: thiết kế sẵn từ ngày đầu,escape hatch — đường di chuyển mô hình cho tenant phình to: thiết kế sẵn từ ngày đầu,5.14,book-s0
+EU AI Act,"phân lớp rủi ro, nghĩa vụ minh bạch (nối 10.8)","EU AI Act — phân lớp rủi ro, nghĩa vụ minh bạch (nối 10.8)",12.7,book-s0
+"EUV 13,5 nm",bước sóng in mạch mịn nhất,bước sóng in mạch mịn nhất,14.1.1,book-s0
+eval,bộ câu hỏi cộng rubric thay cho assert: chạy mỗi lần đổi model hay prompt,eval — bộ câu hỏi cộng rubric thay cho assert: chạy mỗi lần đổi model hay prompt,12.5,book-s0
+eval từng mức quant,mất chất lệch theo nhiệm vụ: đo trên dữ liệu của bạn,mất chất lệch theo nhiệm vụ: đo trên dữ liệu của bạn,14.4.3,book-s0
+event loop,vòng một thread quay qua sáu phase xử lý callback,event loop — vòng một thread quay qua sáu phase xử lý callback,3.3,book-s0
+event sourcing,"trạng thái là hàm của sự kiện: audit miễn phí, tái dựng được (nối 5.15)","event sourcing — trạng thái là hàm của sự kiện: audit miễn phí, tái dựng được (nối 5.15)",8.6,book-s0
+event time vs processing time,"thời gian trong dữ liệu và thời gian xử lý: lệch nhau là chuẩn, không phải lỗi","event time vs processing time — thời gian trong dữ liệu và thời gian xử lý: lệch nhau là chuẩn, không phải lỗi",5.12,book-s0
+eviction,đầy RAM thì ai ra trước: LRU/LFU là lựa chọn vận hành số một,eviction — đầy RAM thì ai ra trước: LRU/LFU là lựa chọn vận hành số một,5.4,book-s0
+exactly-once,hiệu ứng-một-lần = at-least-once + idempotency (4.8): chương giải mê cung thuật ngữ này,exactly-once — hiệu ứng-một-lần = at-least-once + idempotency (4.8): chương giải mê cung thuật ngữ này,8.3,book-s0
+execution plan,EXPLAIN cho thấy DB định chạy thế nào: đọc trước khi tối ưu,execution plan — EXPLAIN cho thấy DB định chạy thế nào: đọc trước khi tối ưu,5.2,book-s0
+expand-contract,"thêm cột mới, chép dữ liệu, đổi đường đọc, xoá cột cũ: ba bản deploy nhỏ thay một ALTER khoá bảng","expand-contract — thêm cột mới, chép dữ liệu, đổi đường đọc, xoá cột cũ: ba bản deploy nhỏ thay một ALTER khoá bảng",8.8,book-s0
+FaaS,"hàm được đánh thức theo request, tính GB-giây: gần đúng ""không việc không tiền""","FaaS — hàm được đánh thức theo request, tính GB-giây: gần đúng ""không việc không tiền""",9.5,book-s0
+fail-safe,mất điện thì phanh đậu tự áp: hỏng theo cách an toàn là thiết kế,fail-safe — mất điện thì phanh đậu tự áp: hỏng theo cách an toàn là thiết kế,14.7.3,book-s0
+failure domain,"búp bê lồng: rack, hàng, phòng, AZ, region: mỗi lớp chết mà tổng còn sống","failure domain — búp bê lồng: rack, hàng, phòng, AZ, region: mỗi lớp chết mà tổng còn sống",14.3.2,book-s0
+false sharing,hai thread đánh nhau trên cùng một dòng cache dù dữ liệu khác nhau (nối 1.2),false sharing — hai thread đánh nhau trên cùng một dòng cache dù dữ liệu khác nhau (nối 1.2),2.2,book-s0
+fan-out,một tin tới N người: câu hỏi nền của mọi hệ realtime,fan-out — một tin tới N người: câu hỏi nền của mọi hệ realtime,13.2,book-s0
+feature flag,bật tắt tính năng mà không deploy lại: gây tê tại chỗ — và là nợ phải dọn,feature flag — bật tắt tính năng mà không deploy lại: gây tê tại chỗ — và là nợ phải dọn,8.8,book-s0
+federation,nhiều service góp vào một supergraph: GraphQL của microservice,federation — nhiều service góp vào một supergraph: GraphQL của microservice,4.5,book-s0
+fencing token,số tăng đơn điệu gắn mỗi quyền: node chậm tới mà vẫn tưởng mình là leader sẽ bị token thấp vô hiệu,fencing token — số tăng đơn điệu gắn mỗi quyền: node chậm tới mà vẫn tưởng mình là leader sẽ bị token thấp vô hiệu,8.2,book-s0
+FHE,"tính trên bản mã, chủ sở hữu giải mã kết quả: đắt nhất phổ","FHE — tính trên bản mã, chủ sở hữu giải mã kết quả: đắt nhất phổ",14.10.3,book-s0
+filter pre vs post,lọc metadata trước hay sau khi tìm vector: quyết định vận hành bị bỏ quên nhiều nhất,filter pre vs post — lọc metadata trước hay sau khi tìm vector: quyết định vận hành bị bỏ quên nhiều nhất,5.10,book-s0
+FinFET/GAA,hình dạng kênh dẫn của transistor thế hệ mới,FinFET/GAA — hình dạng kênh dẫn của transistor thế hệ mới,14.1.1,book-s0
+flaky test,"lúc qua lúc trượt: kẻ thù số một của niềm tin, tha thứ là mất cả bộ test","flaky test — lúc qua lúc trượt: kẻ thù số một của niềm tin, tha thứ là mất cả bộ test",7.6,book-s0
+fleet lifecycle,"ra đời, nâng cấp, thu hồi: thiết bị sống mười năm, không phải hai năm","fleet lifecycle — ra đời, nâng cấp, thu hồi: thiết bị sống mười năm, không phải hai năm",6.6,book-s0
+flow control,"van chỉnh áp suất từng stream, từng connection","flow control — van chỉnh áp suất từng stream, từng connection",4.2,book-s0
+FLP,hệ bất đồng bộ thì đồng thuận hoàn hảo không đảm bảo: mọi hệ thật đều phải hy sinh gì đó,FLP — hệ bất đồng bộ thì đồng thuận hoàn hảo không đảm bảo: mọi hệ thật đều phải hy sinh gì đó,8.1,book-s0
+FP16/FP8,"thang precision: đổi số bit cho tốc và rẻ, trả bằng độ chính xác","FP16/FP8 (thang precision) — đổi số bit cho tốc và rẻ, trả bằng độ chính xác",1.5,book-s0-alias
+fragmentation,bộ nhớ còn rảnh nhưng xếp không lọt,fragmentation — bộ nhớ còn rảnh nhưng xếp không lọt,2.2,book-s0
+frame budget,"16,6 ms cho input, mô phỏng, render, trình bày: mọi hệ chia chung một túi","frame budget — 16,6 ms cho input, mô phỏng, render, trình bày: mọi hệ chia chung một túi",14.6.1,book-s0
+FSPL,"suy hao tăng theo tần số: 6 GHz nhanh nhưng xuyên tường kém 2,4 GHz, mmWave cần trạm dày","FSPL — suy hao tăng theo tần số: 6 GHz nhanh nhưng xuyên tường kém 2,4 GHz, mmWave cần trạm dày",14.2.1,book-s0
+fsync,lệnh cam kết dữ liệu thật xuống đĩa,fsync — lệnh cam kết dữ liệu thật xuống đĩa,1.4,book-s0
+fsync/fdatasync,ép dữ liệu (kèm hay không kèm metadata) xuống đĩa thật,fsync/fdatasync — ép dữ liệu (kèm hay không kèm metadata) xuống đĩa thật,2.4,book-s0
+G1/ZGC,"hai GC: một cân bằng mặc định, một pause dưới miligiây cho p99","G1/ZGC — hai GC: một cân bằng mặc định, một pause dưới miligiây cho p99",3.6,book-s0
+gateway,"chốt chặn TLS, authn, rate limit: đúng tầng, đừng nhét nghiệp vụ","gateway — chốt chặn TLS, authn, rate limit: đúng tầng, đừng nhét nghiệp vụ",4.9,book-s0
+Gateway API,"Ingress trưởng thành: role chia quyền, route giàu hơn, chuẩn 2026","Gateway API — Ingress trưởng thành: role chia quyền, route giàu hơn, chuẩn 2026",9.4,book-s0
+GC vs ownership,an toàn có pause hay kiểm tra biên dịch kèm thuế tư duy (nối 3.5),GC vs ownership — an toàn có pause hay kiểm tra biên dịch kèm thuế tư duy (nối 3.5),14.9.1,book-s0
+GDPR/PDPD,"EU và Nghị định 13 của VN: quyền chủ thể, căn cứ xử lý, phạt theo doanh thu","GDPR/PDPD — EU và Nghị định 13 của VN: quyền chủ thể, căn cứ xử lý, phạt theo doanh thu",10.8,book-s0
+GEO,cao RTT nửa giây: truyền hình và backup,GEO — cao RTT nửa giây: truyền hình và backup,14.2.2,book-s0
+GIL,khoá toàn cục: một thread chạy bytecode Python tại một thời điểm,GIL — khoá toàn cục: một thread chạy bytecode Python tại một thời điểm,3.2,book-s0
+Git là nguồn chân lý,mọi thay đổi qua pull request: sửa tay ngoài Git là nợ hạ tầng,mọi thay đổi qua pull request: sửa tay ngoài Git là nợ hạ tầng,9.6,book-s0
+giới hạn & hình dải,"thời gian chạy, bộ nhớ, số kết nối song song: vượt là sự cố dạng riêng của FaaS","thời gian chạy, bộ nhớ, số kết nối song song: vượt là sự cố dạng riêng của FaaS",9.5,book-s0
+GMP,mô hình ba tầng của scheduler Go,GMP — mô hình ba tầng của scheduler Go,3.4,book-s0
+GNSS,"vị trí từ thời gian của ≥4 vệ tinh: ~mét ngoài trời, tệ trong nhà","GNSS — vị trí từ thời gian của ≥4 vệ tinh: ~mét ngoài trời, tệ trong nhà",14.2.2,book-s0
+golden set,bộ vàng vài trăm ca: mọi thay đổi phải qua trước prod,golden set — bộ vàng vài trăm ca: mọi thay đổi phải qua trước prod,12.5,book-s0
+Goodhart,"benchmark công khai bị học-vào: điểm cao dần, giá trị thông tin giảm dần","Goodhart — benchmark công khai bị học-vào: điểm cao dần, giá trị thông tin giảm dần",14.4.3,book-s0
+goroutine,"""thread xanh"" của Go, vài KB stack, tạo hàng chục nghìn cái thoải mái","goroutine — ""thread xanh"" của Go, vài KB stack, tạo hàng chục nghìn cái thoải mái",3.4,book-s0
+GPU,bộ xử lý song song mật độ cao ưu tiên thông lượng FLOPs và băng thông HBM hơn độ trễ đơn luồng,GPU — wide-SIMD parallel accelerator trading single-thread latency for massive compute and HBM bandwidth.,1.5;12.2,curated-bilingual
+graceful degradation,"tắt tính năng phụ, giữ lõi: menu vẫn xem được khi gợi ý đã chết","graceful degradation — tắt tính năng phụ, giữ lõi: menu vẫn xem được khi gợi ý đã chết",8.5,book-s0
+graph,"đỉnh và cạnh khi chính quan hệ là dữ liệu: ""quán nào bạn của bạn hay đi""","graph — đỉnh và cạnh khi chính quan hệ là dữ liệu: ""quán nào bạn của bạn hay đi""",5.11,book-s0
+guardrails,"ba lớp: lọc vào, kiểm trong (tool, ngân sách), soi ra (PII, chất lượng)","guardrails — ba lớp: lọc vào, kiểm trong (tool, ngân sách), soi ra (PII, chất lượng)",12.5,book-s0
+gắn kết,"tính ""đứng cạnh nhau"" của dữ liệu được dùng liền nhau","locality — tính ""đứng cạnh nhau"" của dữ liệu được dùng liền nhau",1.2,book-s0
+hai thế giới nhúng,thiết bị có Linux và vi điều khiển bare-metal: hai bài toán vận hành khác hẳn,thiết bị có Linux và vi điều khiển bare-metal: hai bài toán vận hành khác hẳn,6.6,book-s0
+handover,"đổi điểm nối không đứt phiên: cellular chuẩn hoá mượt, Wi-Fi ↔ cellular app tự lo","handover — đổi điểm nối không đứt phiên: cellular chuẩn hoá mượt, Wi-Fi ↔ cellular app tự lo",14.2.2,book-s0
+happens-before,"quan hệ ""xảy ra trước"": thứ tự nhân quả, không phải thứ tự đọc trên đồng hồ","happens-before — quan hệ ""xảy ra trước"": thứ tự nhân quả, không phải thứ tự đọc trên đồng hồ",8.1,book-s0
+HARA,mức hại nhân mức lộ nhân mức tránh: rủi ro thành số trước khi thiết kế,HARA — mức hại nhân mức lộ nhân mức tránh: rủi ro thành số trước khi thiết kế,14.7.3,book-s0
+hard vs soft real-time,"trễ một lần là hỏng (túi khí, servo) so với trễ là trải nghiệm xấu: hai thế giới, hai kỷ luật","hard vs soft real-time — trễ một lần là hỏng (túi khí, servo) so với trễ là trải nghiệm xấu: hai thế giới, hai kỷ luật",14.7.2,book-s0
+"harvest now, decrypt later","ghi lưu lượng hôm nay, giải mã khi lượng tử tới: lý do chuyển PQC sớm;","ghi lưu lượng hôm nay, giải mã khi lượng tử tới: lý do chuyển PQC sớm;",10.2;14.10.2,book-s0
+hash ring,dữ liệu đi tới partition theo hash của key: không cần master,hash ring — dữ liệu đi tới partition theo hash của key: không cần master,5.5,book-s0
+HBM,"DRAM chồng layer cạnh compute: băng thông bậc số, năng lượng/bit thấp, đắt và không nâng cấp được","HBM — DRAM chồng layer cạnh compute: băng thông bậc số, năng lượng/bit thấp, đắt và không nâng cấp được",14.1.3,book-s0
+head vs tail sampling,quyết định lấy mẫu ở đầu (rẻ nhưng mù) hay cuối (giữ được đúng request lỗi): bẫy 100% là hóa đơn,head vs tail sampling — quyết định lấy mẫu ở đầu (rẻ nhưng mù) hay cuối (giữ được đúng request lỗi): bẫy 100% là hóa đơn,11.2,book-s0
+head-of-line,"HoL: một gói mất làm chờ cả hàng: bệnh của TCP, không phải của HTTP","head-of-line (HoL) — một gói mất làm chờ cả hàng: bệnh của TCP, không phải của HTTP",4.2,book-s0-alias
+header parsing,chi phí ẩn của request nhiều header,header parsing — chi phí ẩn của request nhiều header,3.11,book-s0
+headroom 2×,"gấp đôi cho giờ đỉnh và ngày một node chết: số liệu, không mê tín","gấp đôi cho giờ đỉnh và ngày một node chết: số liệu, không mê tín",5.16,book-s0
+health check,hợp đồng sống của LB: probe qua không nghĩa là người dùng hài lòng,health check — hợp đồng sống của LB: probe qua không nghĩa là người dùng hài lòng,9.4,book-s0
+heap,vùng cấp phát tuỳ ý theo vòng đời đối tượng,heap — vùng cấp phát tuỳ ý theo vòng đời đối tượng,2.2,book-s0
+heartbeat,ping/pong phát hiện kết nối chết trước khi khách phát hiện,heartbeat — ping/pong phát hiện kết nối chết trước khi khách phát hiện,4.6,book-s0
+hedging,bản thứ hai gửi đi nếu bản đầu trễ: đổi tải lấy đuôi p99,hedging — bản thứ hai gửi đi nếu bản đầu trễ: đổi tải lấy đuôi p99,8.5,book-s0
+HNSW,đồ thị bậc thang: chỉ số phổ biến nhất 2026,HNSW — đồ thị bậc thang: chỉ số phổ biến nhất 2026,5.10,book-s0
+HoL,"một gói mất làm chờ cả hàng: bệnh của TCP, không phải của HTTP","head-of-line — một gói mất làm chờ cả hàng: bệnh của TCP, không phải của HTTP",4.2,book-s0
+home region,"mỗi user và dữ liệu có vùng nhà: ghi về nhà, đọc gần chỗ: active-active không đối xứng","home region — mỗi user và dữ liệu có vùng nhà: ghi về nhà, đọc gần chỗ: active-active không đối xứng",13.6,book-s0
+HPA,"nhân pod theo CPU hoặc queue: hành xử theo chu kỳ, đặt sai nhịp là dao động cưa phình-xẹp","HPA — nhân pod theo CPU hoặc queue: hành xử theo chu kỳ, đặt sai nhịp là dao động cưa phình-xẹp",9.2,book-s0
+HPACK/QPACK,"nén header của H2/H3, phải giữ bảng nén hai đầu","HPACK/QPACK — nén header của H2/H3, phải giữ bảng nén hai đầu",4.2,book-s0
+HTAP,một máy hai workload: trào lưu hợp nhất 2026 và giới hạn của nó,HTAP — một máy hai workload: trào lưu hợp nhất 2026 và giới hạn của nó,5.15,book-s0
+hybrid,"ECDH cộng ML-KEM cùng lúc: một bên yếu, bên kia vẫn giữ","hybrid — ECDH cộng ML-KEM cùng lúc: một bên yếu, bên kia vẫn giữ",14.10.2,book-s0
+hypervisor,phần mềm dựng máy ảo trên máy thật,hypervisor — phần mềm dựng máy ảo trên máy thật,1.8,book-s0
+Hyrum's law,"với đủ người dùng, mọi hành vi đều có người phụ thuộc: kể cả bug: hợp đồng phải ghi rõ","Hyrum's law — với đủ người dùng, mọi hành vi đều có người phụ thuộc: kể cả bug: hợp đồng phải ghi rõ",14.8.2,book-s0
+hành trình,tỉ lệ hoàn thành đặt hàng theo từng bước: con số đơn lẻ không nói lên điều gì,tỉ lệ hoàn thành đặt hàng theo từng bước: con số đơn lẻ không nói lên điều gì,7.6,book-s0
+hệ kiểu hướng giá trị,"Option thay null, Result thay exception: null bị đẩy ra code mới","Option thay null, Result thay exception: null bị đẩy ra code mới",14.9.1,book-s0
+hệ quy chiếu,bộ cách đặt tên và đo một vấn đề để tranh luận trên cùng một nền,Reference frame — shared coordinate axes and vocabulary to evaluate architectural tradeoffs.,0.1,book-s0
+hợp đồng là kiến trúc,"SLA vendor, di dỡ dữ liệu, exit clause: ràng buộc thiết kế như dependency;","SLA vendor, di dỡ dữ liệu, exit clause: ràng buộc thiết kế như dependency;",11.7,book-s0
+IaC,"khai báo trạng thái mong muốn, công cụ tính diff: đổi hạ tầng như đổi code","IaC — khai báo trạng thái mong muốn, công cụ tính diff: đổi hạ tầng như đổi code",9.6,book-s0
+IC,"incident commander: chỉ huy, không code: một tiếng nói, một la bàn","IC — incident commander: chỉ huy, không code: một tiếng nói, một la bàn",11.4,book-s0
+idempotency toàn trình,khoá chống trùng xuyên suốt mọi tầng (D-134): thiếu một vòng thì trừ hai lần,khoá chống trùng xuyên suốt mọi tầng (D-134): thiếu một vòng thì trừ hai lần,13.1,book-s0
+Idempotency-Key,"client gửi khoá, server nhớ kết quả: retry không tạo hai đơn","Idempotency-Key — client gửi khoá, server nhớ kết quả: retry không tạo hai đơn",4.8,book-s0
+idempotent,GET/PUT/DELETE lặp lại an toàn: nền cho retry của 4.8,idempotent — GET/PUT/DELETE lặp lại an toàn: nền cho retry của 4.8,4.3,book-s0
+IDP,"internal developer platform: golden path cho dev, dùng như sản phẩm thật","IDP — internal developer platform: golden path cho dev, dùng như sản phẩm thật",9.6,book-s0
+IEEE 754,"dấu, mantissa, số mũ cơ số 2: hữu hạn và làm tròn mọi phép tính","IEEE 754 — dấu, mantissa, số mũ cơ số 2: hữu hạn và làm tròn mọi phép tính",14.5.2,book-s0
+index,cấu trúc phụ theo hình câu hỏi: sai hình là quét bảng,index — cấu trúc phụ theo hình câu hỏi: sai hình là quét bảng,5.2,book-s0
+index lồng tenant_id,"composite index đặt tenant_id đầu tiên: nếu không, truy vấn tenant này quét cả tenant khác","composite index đặt tenant_id đầu tiên: nếu không, truy vấn tenant này quét cả tenant khác",5.14,book-s0
+ingest vs stream,"gom nhiều nguồn về một kho, và xử lý chảy liên tục: hai dòng, hai công cụ","ingest vs stream — gom nhiều nguồn về một kho, và xử lý chảy liên tục: hai dòng, hai công cụ",13.3,book-s0
+injection 2026,framework giảm mạnh nhưng chưa chết: đăng ký lệnh trong dữ liệu vẫn là đường cũ,injection 2026 — framework giảm mạnh nhưng chưa chết: đăng ký lệnh trong dữ liệu vẫn là đường cũ,10.4,book-s0
+interest management,"server gửi mỗi người đúng phần thế giới họ thấy: chia vùng (AOI), không quét tất cả","interest management — server gửi mỗi người đúng phần thế giới họ thấy: chia vùng (AOI), không quét tất cả",14.6.3,book-s0
+Internet-Draft,"ai cũng viết được, hết hạn 6 tháng nếu không gia hạn: đừng cài draft cho sản phẩm","Internet-Draft — ai cũng viết được, hết hạn 6 tháng nếu không gia hạn: đừng cài draft cho sản phẩm",14.8.1,book-s0
+interop,"chi phí gọi qua biên ngôn ngữ: FFI, CGO, C extension","interop — chi phí gọi qua biên ngôn ngữ: FFI, CGO, C extension",3.9,book-s0
+interpolation,vẽ người chơi khác ở quá khứ một chút: mượt giữa hai trạng thái nhận được,interpolation — vẽ người chơi khác ở quá khứ một chút: mượt giữa hai trạng thái nhận được,14.6.2,book-s0
+inverse kinematics,từ vị trí muốn ra góc khớp: nhiều nghiệm và điểm kỳ dị,inverse kinematics — từ vị trí muốn ra góc khớp: nhiều nghiệm và điểm kỳ dị,14.7.1,book-s0
+inverted index,bảng từ sang danh sách document: trái tim của mọi search engine,inverted index — bảng từ sang danh sách document: trái tim của mọi search engine,5.6,book-s0
+io_uring,"hàng đợi chung hai chiều giữa app và kernel, giảm syscall","io_uring — hàng đợi chung hai chiều giữa app và kernel, giảm syscall",2.5,book-s0
+IR,đại diện trung gian giữa cú pháp và máy: nơi compiler làm việc,IR — đại diện trung gian giữa cú pháp và máy: nơi compiler làm việc,14.9.1,book-s0
+islands / partial hydration,"khung tĩnh, ""đảo"" tương tác hydrate đúng chỗ cần","islands / partial hydration — khung tĩnh, ""đảo"" tương tác hydrate đúng chỗ cần",7.1,book-s0
+isolation level,thoả hiệp giữa độ đúng đắn và độ đồng thời: READ COMMITTED tới SERIALIZABLE,isolation level — thoả hiệp giữa độ đúng đắn và độ đồng thời: READ COMMITTED tới SERIALIZABLE,5.2,book-s0
+isolation theo phổ,"tiến trình, container, VM, enclave, máy riêng: chi phí và độ mạnh cùng tăng","tiến trình, container, VM, enclave, máy riêng: chi phí và độ mạnh cùng tăng",14.11.2,book-s0
+JIT,biên dịch sang mã máy ngay khi nạp,JIT — biên dịch sang mã máy ngay khi nạp,2.8;3.6,book-s0
+jitter,"dao động độ trễ: kẻ giết kín, sinh ra từ cache, GC, page fault","jitter — dao động độ trễ: kẻ giết kín, sinh ra từ cache, GC, page fault",14.7.2,book-s0
+JSON Schema,kiểu và ràng buộc từng trường: bỏ cả một lớp bug validate tay,JSON Schema — kiểu và ràng buộc từng trường: bỏ cả một lớp bug validate tay,4.3,book-s0
+Karpenter,"mua node đúng kích cỡ workload, xong việc trả lại: node như mua rau","Karpenter — mua node đúng kích cỡ workload, xong việc trả lại: node như mua rau",9.2,book-s0
+KDF + salt,mật khẩu thấp entropy: argon2/bcrypt chậm cộng salt chống bảng tra cứu,KDF + salt — mật khẩu thấp entropy: argon2/bcrypt chậm cộng salt chống bảng tra cứu,14.10.1,book-s0
+KEDA,autoscale theo độ sâu hàng đợi Kafka/Redis: worker hiện đại,KEDA — autoscale theo độ sâu hàng đợi Kafka/Redis: worker hiện đại,9.2,book-s0
+keep-alive,tái dùng connection thay vì bắt tay TLS lại mỗi request,keep-alive — tái dùng connection thay vì bắt tay TLS lại mỗi request,3.11,book-s0
+keychain/keystore,"kho bí mật của hệ điều hành: dùng đúng, không tự chế","keychain/keystore — kho bí mật của hệ điều hành: dùng đúng, không tự chế",6.7,book-s0
+khan hiếm HBM,"AI 2024–2026 chờ bộ nhớ, không chờ chip","AI 2024–2026 chờ bộ nhớ, không chờ chip",14.1.3,book-s0
+khoản ẩn,"NAT, traffic liên vùng, tài nguyên idle: hóa đơn phình từ dòng nhỏ","NAT, traffic liên vùng, tài nguyên idle: hóa đơn phình từ dòng nhỏ",11.5,book-s0
+khung vận hành dữ liệu,"phân loại, yêu cầu chủ thể, hợp đồng xử lý: dựng một lần cho mọi luật","phân loại, yêu cầu chủ thể, hợp đồng xử lý: dựng một lần cho mọi luật",10.8,book-s0
+kim tự tháp FE,"unit, component, E2E: càng lên cao càng đắt và càng ít","unit, component, E2E: càng lên cao càng đắt và càng ít",7.6,book-s0
+kinh tế kiến trúc,mọi quyết định chương 5 tới 10 có dòng tiền: chương nối lại tất cả,mọi quyết định chương 5 tới 10 có dòng tiền: chương nối lại tất cả,11.5,book-s0
+kiosk mode,môi trường khoá một mục đích: ràng buộc nhẹ hơn nhưng trách nhiệm nặng hơn,kiosk mode — môi trường khoá một mục đích: ràng buộc nhẹ hơn nhưng trách nhiệm nặng hơn,6.2,book-s0
+kiến trúc chia lớp,"lõi nghiệp vụ dùng chung, giao diện theo nền: đường phân chuẩn","lõi nghiệp vụ dùng chung, giao diện theo nền: đường phân chuẩn",6.2,book-s0
+kiến trúc tham chiếu,gộp cả P12 vào một bản vẽ,gộp cả P12 vào một bản vẽ,13.5,book-s0
+kiến trúc trưởng thành,"không phải ""viết hàm rồi bỏ"": connection, idempotency, quan sát vẫn phải có","không phải ""viết hàm rồi bỏ"": connection, idempotency, quan sát vẫn phải có",9.5,book-s0
+kiểm biên server,vận tốc và tần suất tối đa từ thông số thiết kế: chặn speed-hack,vận tốc và tần suất tối đa từ thông số thiết kế: chặn speed-hack,14.6.3,book-s0
+KMS,dịch vụ giữ khoá: được quyền dùng khoá không đồng nghĩa đọc được khoá,KMS — dịch vụ giữ khoá: được quyền dùng khoá không đồng nghĩa đọc được khoá,10.2,book-s0
+knee,điểm gối: nơi thêm tài nguyên hết sinh lời: đo trước khi mua,knee (điểm gối) — nơi thêm tài nguyên hết sinh lời: đo trước khi mua,11.3,book-s0-alias
+KRaft,Kafka tự gộp Raft vào: đã lướt qua ở 5.7,KRaft — Kafka tự gộp Raft vào: đã lướt qua ở 5.7,8.2,book-s0
+KV cache,bộ nhớ đệm lưu các tensor Key/Value của những token đã tính để không tính lại khi sinh token tiếp,KV cache — persisted key/value attention tensors reusing past prefix computation during autoregressive decoding.,12.2,curated-bilingual
+kênh,"số đường song song CPU nói chuyện RAM, quyết định băng thông","số đường song song CPU nói chuyện RAM, quyết định băng thông",1.3,book-s0
+kịch bản bị xâm nhập,"khoá thiết bị, xoá phiên, giới hạn tần suất: tập trước, không ứng khẩu lúc nổ","khoá thiết bị, xoá phiên, giới hạn tần suất: tập trước, không ứng khẩu lúc nổ",6.7,book-s0
+L1/L2/L3,"các tầng cache nhỏ dần, chậm dần, chung dần","L1/L2/L3 — các tầng cache nhỏ dần, chậm dần, chung dần",1.2,book-s0
+lab,30 phút trên chính hệ của bạn: nguyên tắc thành kinh nghiệm khi tự verify,lab — 30 phút trên chính hệ của bạn: nguyên tắc thành kinh nghiệm khi tự verify,11.8,book-s0
+lab vs RUM,"một bên giả lập có kiểm soát, một bên đời thực đầy nhiễu: dùng cả hai","lab vs RUM — một bên giả lập có kiểm soát, một bên đời thực đầy nhiễu: dùng cả hai",7.6,book-s0
+lag compensation,server quay thời gian lại theo thời điểm bắn: bắn theo cái người chơi thấy,lag compensation — server quay thời gian lại theo thời điểm bắn: bắn theo cái người chơi thấy,14.6.2,book-s0
+lambda/kappa,"hai kiến trúc cũ-mới: một ý tưởng, hai đường đi","lambda/kappa — hai kiến trúc cũ-mới: một ý tưởng, hai đường đi",5.12,book-s0
+lane,"một đường PCIe, băng thông đơn vị của mọi card","lane — một đường PCIe, băng thông đơn vị của mọi card",1.6,book-s0
+late data,dữ liệu đến trễ phải có đường hợp nhất lại,late data — dữ liệu đến trễ phải có đường hợp nhất lại,5.8,book-s0
+latency,độ trễ: thời gian một việc trọn vẹn,latency (độ trễ) — thời gian một việc trọn vẹn,1.1,book-s0-alias
+layout shift,nhảy layout giữa chừng: khách bấm nhầm nút vì nó chạy,CLS — nhảy layout giữa chừng: khách bấm nhầm nút vì nó chạy,7.3,book-s0
+leap second,giây nhuần làm phút có 61 giây,leap second — giây nhuần làm phút có 61 giây,1.9,book-s0
+lease,"thuê quyền leader trong thời hạn định trước: hết hạn là bầu lại, đừng tin mãi mãi","lease — thuê quyền leader trong thời hạn định trước: hết hạn là bầu lại, đừng tin mãi mãi",8.2,book-s0
+ledger,"sổ chỉ thêm không sửa xoá: audit là truy vấn, không phải điều tra","ledger — sổ chỉ thêm không sửa xoá: audit là truy vấn, không phải điều tra",13.1,book-s0
+lens,lăng kính: góc nhìn chuẩn hoá khi soi một hệ thống (chương 0.3),lens (lăng kính) — góc nhìn chuẩn hoá khi soi một hệ thống (chương 0.3),0.1;0.3,book-s0-alias
+LEO,"vệ tinh thấp RTT chục ms, bay liên tục nên đổi liên kết: internet vùng sâu, backup cáp","LEO — vệ tinh thấp RTT chục ms, bay liên tục nên đổi liên kết: internet vùng sâu, backup cáp",14.2.2,book-s0
+license model,"""open weight"" chưa chắc tự do thương mại: đọc kỹ điều khoản","license model — ""open weight"" chưa chắc tự do thương mại: đọc kỹ điều khoản",12.7,book-s0
+link budget,phép cộng bằng dB: biên an toàn cho multipath và người di chuyển,link budget — phép cộng bằng dB: biên an toàn cho multipath và người di chuyển,14.2.1,book-s0
+Little mỗi trạm,hàng đợi = throughput × thời gian trạm: công thức tính pool,hàng đợi = throughput × thời gian trạm: công thức tính pool,3.10,book-s0
+LLM-judge,"model chấm model: rẻ và scale được, nhưng phải soát bằng mẫu người chấm","LLM-judge — model chấm model: rẻ và scale được, nhưng phải soát bằng mẫu người chấm",12.5,book-s0
+load shedding,quá tải thì chủ động từ chối việc rẻ trước: trả 503 thà treo 30 giây,load shedding — quá tải thì chủ động từ chối việc rẻ trước: trả 503 thà treo 30 giây,8.5,book-s0
+load test,"k6, Locust giả lập giờ cao điểm thật: giới hạn đo, không phỏng","load test — k6, Locust giả lập giờ cao điểm thật: giới hạn đo, không phỏng",11.3,book-s0
+locality,"gắn kết: tính ""đứng cạnh nhau"" của dữ liệu được dùng liền nhau","locality (gắn kết) — tính ""đứng cạnh nhau"" của dữ liệu được dùng liền nhau",1.2,book-s0-alias
+lockstep,"mọi client cùng mô phỏng xác định từ cùng input: một người lag, cả trận chờ","lockstep — mọi client cùng mô phỏng xác định từ cùng input: một người lag, cả trận chờ",14.6.2,book-s0
+log đáng tin,thời gian đồng bộ (nối 1.9) và nguồn kẻ tấn công không đụng được: nền của mọi phát hiện,thời gian đồng bộ (nối 1.9) và nguồn kẻ tấn công không đụng được: nền của mọi phát hiện,10.7,book-s0
+long task,task chính quá 50 ms chặn tương tác: thủ phạm của INP,long task — task chính quá 50 ms chặn tương tác: thủ phạm của INP,7.3,book-s0
+loop delay,độ trễ giữa hai vòng lặp: nhịp tim của Node,loop delay — độ trễ giữa hai vòng lặp: nhịp tim của Node,3.3,book-s0
+LoRA,chỉ học phần chèn nhỏ: tinh chỉnh riêng rẻ bậc số so với fine-tune đầy,LoRA — chỉ học phần chèn nhỏ: tinh chỉnh riêng rẻ bậc số so với fine-tune đầy,14.4.2;12.7,book-s0
+LSM-tree,"ghi tuần tự memtable rồi flush thành tầng file, compaction gom dần","LSM-tree — ghi tuần tự memtable rồi flush thành tầng file, compaction gom dần",5.1,book-s0
+luật Conway,hệ thống chép hình trục giao tiếp: người không tách thì code không tách,hệ thống chép hình trục giao tiếp: người không tách thì code không tách,11.6,book-s0
+luật Little,L = throughput × thời gian trong hệ: hàng đợi tự sinh khi hai bên lệch nhau,Little's Law — L = lambda * W: average items in system equals arrival rate times residence time.,1.1;3.1;5.16;11.3,book-s0
+LWW,"last-write-wins: đơn giản, nhưng đồng hồ hai máy lệch nhau (nối 1.9) là âm thầm mất dữ liệu","LWW — last-write-wins: đơn giản, nhưng đồng hồ hai máy lệch nhau (nối 1.9) là âm thầm mất dữ liệu",6.3,book-s0
+lãnh thổ đối phương,obfuscate không phải bảo mật: giả định mọi code đều bị soi,obfuscate không phải bảo mật: giả định mọi code đều bị soi,6.7,book-s0
+lăng kính,góc nhìn chuẩn hoá khi soi một hệ thống (chương 0.3),lens — góc nhìn chuẩn hoá khi soi một hệ thống (chương 0.3),0.1;0.3,book-s0
+ma trận cặp giao tiếp,"hỏi ""ai nói với ai, nhịp nào, ai giữ client"" trước khi hỏi ""giao thức nào""","hỏi ""ai nói với ai, nhịp nào, ai giữ client"" trước khi hỏi ""giao thức nào""",4.9,book-s0
+ma trận lens × động từ,bàn làm việc: ô trống là chỗ chưa ai nhìn,"Engineering verb — recurring mode of work across design, diagnosis, and operations.",0.3,book-s0
+ma trận truy vấn,"hàng workload, cột store: điểm rơi trả lời ""entity này sống ở đâu""","hàng workload, cột store: điểm rơi trả lời ""entity này sống ở đâu""",5.15,book-s0
+make illegal states unrepresentable,trạng thái không hợp lệ không biên dịch được: đích của hệ kiểu hiện đại,make illegal states unrepresentable — trạng thái không hợp lệ không biên dịch được: đích của hệ kiểu hiện đại,14.9.1,book-s0
+max_connections,mỗi connection tốn RAM thật: nâng bừa là chuột rút,max_connections — mỗi connection tốn RAM thật: nâng bừa là chuột rút,5.2,book-s0
+MCP,"Model Context Protocol: cổng chung nối model với tool (cập nhật 2026-07: stateless, OAuth 2.1)","MCP — Model Context Protocol: cổng chung nối model với tool (cập nhật 2026-07: stateless, OAuth 2.1)",12.4,book-s0
+medallion,"bronze/silver/gold: lọc dần theo chất lượng, mỗi tầng một hợp đồng","medallion — bronze/silver/gold: lọc dần theo chất lượng, mỗi tầng một hợp đồng",5.9;13.4,book-s0
+memory wall,"cổ chai GPU AI là băng thông đút chữ, không phải phép tính","memory wall — cổ chai GPU AI là băng thông đút chữ, không phải phép tính",14.1.3,book-s0
+MergeTree,họ engine của ClickHouse: LSM tinh thần cho analytics,MergeTree — họ engine của ClickHouse: LSM tinh thần cho analytics,5.8,book-s0
+MESI,bộ bốn trạng thái một dòng cache trên đa lõi,MESI — bộ bốn trạng thái một dòng cache trên đa lõi,1.2,book-s0
+metering,"đo tiêu thụ theo tenant tự động: hóa đơn sinh từ số đo, không từ bảng tính","metering — đo tiêu thụ theo tenant tự động: hóa đơn sinh từ số đo, không từ bảng tính",13.7,book-s0
+metric-native vs bảng cột,hai họ giải time-series 2026 (trạng thái verify trong chương),hai họ giải time-series 2026 (trạng thái verify trong chương),5.11,book-s0
+microVM,"máy ảo siêu nhẹ kiểu Firecracker, khởi động trong chục miligiây","microVM — máy ảo siêu nhẹ kiểu Firecracker, khởi động trong chục miligiây",2.7,book-s0
+MIG,chia một GPU vật lý thành mấy GPU logic,MIG — chia một GPU vật lý thành mấy GPU logic,1.5,book-s0
+MIMO,"đa anten: diversity, spatial streams, beamforming: Wi-Fi nhanh thật là MIMO","MIMO — đa anten: diversity, spatial streams, beamforming: Wi-Fi nhanh thật là MIMO",14.2.1,book-s0
+min/median/p99,báo cả ba: p99 là cái người dùng gặp (nối 2.3),min/median/p99 — báo cả ba: p99 là cái người dùng gặp (nối 2.3),14.9.3,book-s0
+mitigate trước,"dừng cháy bằng rollback, shedding, tắt flag: nguyên nhân để sau, khách hàng trước","dừng cháy bằng rollback, shedding, tắt flag: nguyên nhân để sau, khách hàng trước",11.4,book-s0
+ML-KEM/ML-DSA,trao khoá và chữ ký nền lattices (FIPS 203/204): thay ECDH và RSA,ML-KEM/ML-DSA — trao khoá và chữ ký nền lattices (FIPS 203/204): thay ECDH và RSA,14.10.2,book-s0
+MoE,mỗi token kích một phần chuyên gia: tham số lớn mà chi phí token nhỏ: kinh tế serving (12.6),MoE — mỗi token kích một phần chuyên gia: tham số lớn mà chi phí token nhỏ: kinh tế serving (12.6),14.4.1,book-s0
+MongoDB 9.0,"document store trưởng thành, có transaction (trạng thái verify trong chương)","MongoDB 9.0 — document store trưởng thành, có transaction (trạng thái verify trong chương)",5.3,book-s0
+move,chuyển nhượng tài nguyên thay vì chép,move — chuyển nhượng tài nguyên thay vì chép,3.7,book-s0
+MPC,"chia dữ liệu thành shares rồi giao thức cộng lại: tổng lương, đấu giá, threshold signing","MPC — chia dữ liệu thành shares rồi giao thức cộng lại: tổng lương, đấu giá, threshold signing",14.10.3,book-s0
+MPI,"gửi và nhận tường minh: mỗi tiến trình một không gian nhớ, không race tự nhiên","MPI — gửi và nhận tường minh: mỗi tiến trình một không gian nhớ, không race tự nhiên",14.5.1,book-s0
+MQTT/CoAP,"giao thức nhắn tin nhẹ cho IoT: broker trung tâm, QoS chọn theo mức","MQTT/CoAP — giao thức nhắn tin nhẹ cho IoT: broker trung tâm, QoS chọn theo mức",6.6,book-s0
+mTLS nội bộ,hai chiều mọi service: không tin mạng nội bộ là vô trùng,hai chiều mọi service: không tin mạng nội bộ là vô trùng,4.9,book-s0
+MTU,kích thước gói lớn nhất trên đường,MTU — kích thước gói lớn nhất trên đường,1.7,book-s0
+MU-MIMO,một điểm phát nói với nhiều thiết bị theo không gian,MU-MIMO — một điểm phát nói với nhiều thiết bị theo không gian,14.2.1,book-s0
+multi-agent,tách khi nào đáng: không phải mặc định,multi-agent — tách khi nào đáng: không phải mặc định,12.4,book-s0
+multi-agent theo quyền,mỗi agent một scope quyền như một service account: tách vì an toàn,mỗi agent một scope quyền như một service account: tách vì an toàn,13.5,book-s0
+multi-CDN + DNS,nhiều nhà cung cấp sau một tên miền: DNS là công tắc chuyển,multi-CDN + DNS — nhiều nhà cung cấp sau một tên miền: DNS là công tắc chuyển,6.5,book-s0
+multiplex,"nhiều request chia sẻ một connection, mỗi cái một stream","multiplex — nhiều request chia sẻ một connection, mỗi cái một stream",4.2,book-s0
+mutex,khoá độc quyền một tài nguyên,mutex — khoá độc quyền một tài nguyên,3.1,book-s0
+mutex/lock-free,hai cách nhiều thread cùng vào một dữ liệu,mutex/lock-free — hai cách nhiều thread cùng vào một dữ liệu,2.2,book-s0
+MVCC,mỗi transaction thấy ảnh dữ liệu tại thời điểm nó bắt đầu,MVCC — mỗi transaction thấy ảnh dữ liệu tại thời điểm nó bắt đầu,5.1,book-s0
+mô hình nhẩm,QPS nhân số pod nhân giá node: suy luận quy mô không cần bảng tính,QPS nhân số pod nhân giá node: suy luận quy mô không cần bảng tính,9.2,book-s0
+mời sớm,pháp lý vào từ khâu thiết kế: giờ tư vấn rẻ hơn nhiều so tu sửa khi đã chạy,pháp lý vào từ khâu thiết kế: giờ tư vấn rẻ hơn nhiều so tu sửa khi đã chạy,11.7,book-s0
+mở rộng độc quyền,thêm phần độc quyền để khoá khách: lịch sử trình duyệt đầy bài,thêm phần độc quyền để khoá khách: lịch sử trình duyệt đầy bài,14.8.1,book-s0
+mục KHÔNG dùng,công khai cho đối tác hay team không có tooling: chương có hẳn một mục,công khai cho đối tác hay team không có tooling: chương có hẳn một mục,4.4,book-s0
+N+1,một query lồng tạo nhiều vòng ra DB,N+1 — một query lồng tạo nhiều vòng ra DB,4.5,book-s0
+namespace,"làm process thấy hệ thống ""của riêng mình"": PID, mạng, mount","namespace — làm process thấy hệ thống ""của riêng mình"": PID, mạng, mount",2.7,book-s0
+NAND,"vật liệu lưu của SSD: ghi theo trang, xoá theo khối","NAND — vật liệu lưu của SSD: ghi theo trang, xoá theo khối",1.4,book-s0
+NAT Gateway,ra internet không cần IP công cộng: bẫy SNAT khi nghìn kết nối song song,NAT Gateway — ra internet không cần IP công cộng: bẫy SNAT khi nghìn kết nối song song,9.3,book-s0
+near-miss,gần-mất: chỉ khi báo cáo không bị phạt thì mới có dữ liệu thật,near-miss — gần-mất: chỉ khi báo cáo không bị phạt thì mới có dữ liệu thật,11.4,book-s0
+netpoller,tầng I/O sự kiện gắn vào epoll/kqueue,netpoller — tầng I/O sự kiện gắn vào epoll/kqueue,3.4,book-s0
+ngân sách hiệu năng,"cold start bao nhiêu giây, pin bao nhiêu phần trăm: chốt trước khi viết code","cold start bao nhiêu giây, pin bao nhiêu phần trăm: chốt trước khi viết code",6.1,book-s0
+ngữ nghĩa chung,"method, status, header giống nhau mọi phiên bản: tầng app không cần đổi","method, status, header giống nhau mọi phiên bản: tầng app không cần đổi",4.2,book-s0
+ngữ nghĩa giao hàng,"at-most-once, at-least-once, có thứ tự: client phải được biết mình đang giữ ngữ nghĩa nào","at-most-once, at-least-once, có thứ tự: client phải được biết mình đang giữ ngữ nghĩa nào",13.2,book-s0
+nhãn nguồn P/I/V/E,"paper/đối chiếu độc lập/vendor/erect... chính xác hơn: P chuẩn hoá, I phân tích độc lập, V vendor, E kinh nghiệm nội bộ","Provenance label — P (primary), I (independent measurement), V (vendor), E (estimate).",0.4,book-s0
+nhịp verify phiên bản,"kiến thức có hạn dùng: kiểm tra phiên bản, EOL theo nhịp","kiến thức có hạn dùng: kiểm tra phiên bản, EOL theo nhịp",11.8,book-s0
+NIS2/DORA,quản trị và thử nghiệm cho tổ chức quan trọng: báo cáo sự cố tính bằng giờ,NIS2/DORA — quản trị và thử nghiệm cho tổ chức quan trọng: báo cáo sự cố tính bằng giờ,10.8,book-s0
+"node ""3 nm""",nhãn marketing: so sánh chéo bằng mật độ transistor/mm²,nhãn marketing: so sánh chéo bằng mật độ transistor/mm²,14.1.1,book-s0
+node role,master/data/ingest tách vai cho an toàn,node role — master/data/ingest tách vai cho an toàn,5.6,book-s0
+noisy neighbor,hàng xóm cùng máy ăn mất tài nguyên của bạn,noisy neighbor — hàng xóm cùng máy ăn mất tài nguyên của bạn,1.8;5.14,book-s0
+noisy neighbor bốn tầng,"DB, app, mạng, chi phí: giới hạn từng tầng một","DB, app, mạng, chi phí: giới hạn từng tầng một",13.7,book-s0
+non-blocking,API không chặn vòng: mọi chờ trở thành promise,non-blocking — API không chặn vòng: mọi chờ trở thành promise,3.3,book-s0
+nonce không lặp,lặp nonce ở chế độ streaming phá toàn bộ: kinh điển các vụ VPN,lặp nonce ở chế độ streaming phá toàn bộ: kinh điển các vụ VPN,14.10.1,book-s0
+NTP,"giao thức chỉnh đồng hồ qua mạng, đúng tới vài miligiây, chỉnh từ từ","NTP — giao thức chỉnh đồng hồ qua mạng, đúng tới vài miligiây, chỉnh từ từ",1.9,book-s0
+NTP lệch,vài miligiây tới hàng trăm (1.9),vài miligiây tới hàng trăm (1.9),8.1,book-s0
+NUMA,"bộ nhớ chia theo node, mỗi node gần một nhóm CPU, qua cầu là chậm","NUMA — bộ nhớ chia theo node, mỗi node gần một nhóm CPU, qua cầu là chậm",1.3,book-s0
+NVLink,"dây riêng giữa các GPU, rộng hơn PCIe","NVLink — dây riêng giữa các GPU, rộng hơn PCIe",1.6,book-s0
+nút thắt di chuyển,"chữa xong chỗ này, tắc chuyển sang chỗ kia","chữa xong chỗ này, tắc chuyển sang chỗ kia",3.10,book-s0
+năm giả định vỡ,"deterministic, reproducible, latency một đuôi, sửa lỗi bằng code, chi phí cỡ CPU: hết","deterministic, reproducible, latency một đuôi, sửa lỗi bằng code, chi phí cỡ CPU: hết",12.1,book-s0
+năm loại state,"server, URL, form tạm, UI cục bộ, thứ tự sắp xếp: mỗi loại một chủ và một vòng đời","server, URL, form tạm, UI cục bộ, thứ tự sắp xếp: mỗi loại một chủ và một vòng đời",7.2,book-s0
+O_DIRECT,đường thẳng bỏ cache cho DB tự quản,O_DIRECT — đường thẳng bỏ cache cho DB tự quản,2.4,book-s0
+object storage,"blob qua HTTP API, bền 11 chữ 9, rẻ nhất theo GB: nền của mọi thứ to","object storage — blob qua HTTP API, bền 11 chữ 9, rẻ nhất theo GB: nền của mọi thứ to",5.9,book-s0
+objective là proxy,"""AI làm sai ý tôi"" thường bắt đầu từ loss sai, không phải tham số thiếu","""AI làm sai ý tôi"" thường bắt đầu từ loss sai, không phải tham số thiếu",14.4.1,book-s0
+offline-first theo bậc,"shipper cần bậc cao, khách duyệt menu cần thấp: chọn theo dòng máu (nối 6.3)","shipper cần bậc cao, khách duyệt menu cần thấp: chọn theo dòng máu (nối 6.3)",13.6,book-s0
+offset pagination,nhảy theo trang: đơn giản nhưng trang cuối chậm dần,offset pagination — nhảy theo trang: đơn giản nhưng trang cuối chậm dần,4.8,book-s0
+offset/drift,độ lệch hiện tại và tốc độ lệch thêm dần,offset/drift — độ lệch hiện tại và tốc độ lệch thêm dần,1.9,book-s0
+OLTP vs OLAP,"giao dịch từng dòng vs phân tích cả bảng: hai workload, hai loại máy","OLTP vs OLAP — giao dịch từng dòng vs phân tích cả bảng: hai workload, hai loại máy",5.8,book-s0
+on-call,"vòng trực có giá: đo page, đo burnout — điều kiện tồn tại của cả chương","on-call — vòng trực có giá: đo page, đo burnout — điều kiện tồn tại của cả chương",11.4,book-s0
+OOM killer,kernel chấm điểm và giết process khi cạn bộ nhớ,OOM killer — kernel chấm điểm và giết process khi cạn bộ nhớ,2.1,book-s0
+oom_score_adj,núm chỉnh điểm ấy để bảo vệ process quan trọng,oom_score_adj — núm chỉnh điểm ấy để bảo vệ process quan trọng,2.1,book-s0
+OpenAPI 3.2,"spec 2025 mô tả đường, tham số, response: hợp đồng thực thi được","OpenAPI 3.2 — spec 2025 mô tả đường, tham số, response: hợp đồng thực thi được",4.3,book-s0
+orchestration vs choreography,có đạo diễn trung tâm hay múa theo sự kiện: hai kiểu dàn saga,orchestration vs choreography — có đạo diễn trung tâm hay múa theo sự kiện: hai kiểu dàn saga,8.3,book-s0
+orchestrator,"Airflow/Dagster/Prefect điều batch theo DAG, xử lệ thuộc và retry","orchestrator — Airflow/Dagster/Prefect điều batch theo DAG, xử lệ thuộc và retry",5.12,book-s0
+OT/CRDT,cộng tác chung tài liệu: chỉ khi cần (nối 6.3),OT/CRDT — cộng tác chung tài liệu: chỉ khi cần (nối 6.3),13.2,book-s0
+OTA,"cập nhật qua sóng: nguyên vẹn, ký số, có rollback — hỏng là quán mất bill sáng sau","OTA — cập nhật qua sóng: nguyên vẹn, ký số, có rollback — hỏng là quán mất bill sáng sau",6.6,book-s0
+outbox,ghi sự kiện vào DB chính rồi propagate: một nguồn thật,outbox — ghi sự kiện vào DB chính rồi propagate: một nguồn thật,5.15;8.3,book-s0
+over-fetch/under-fetch,"lôi cả thứ không cần, hoặc gọi nhiều lần mới đủ mẩu cần","over-fetch/under-fetch — lôi cả thứ không cần, hoặc gọi nhiều lần mới đủ mẩu cần",4.5,book-s0
+overcommit,kernel hứa nhiều hơn RAM thật có,overcommit — kernel hứa nhiều hơn RAM thật có,2.1,book-s0
+overfitting,"mô hình học thuộc nhiễu của tập train, giảm độ chính xác khi chuyển sang dữ liệu mới",Overfitting — excess model capacity fitting training idiosyncrasies at the expense of out-of-distribution generalization.,12.5;14.4.1,curated-bilingual
+ownership,"mỗi giá trị đúng một chủ, hết phạm vi tự dọn","ownership — mỗi giá trị đúng một chủ, hết phạm vi tự dọn",3.5;5.13,book-s0
+ownership là bằng chứng alias,Rust tối ưu tốt vì compiler đọc được chứng minh: tham chiếu rải rác là chống tối ưu,Rust tối ưu tốt vì compiler đọc được chứng minh: tham chiếu rải rác là chống tối ưu,14.9.2,book-s0
+P = α·C·V²·f,công suất tỉ lệ bình phương điện áp: vì sao mọi thế hệ nhắm vào V,công suất tỉ lệ bình phương điện áp: vì sao mọi thế hệ nhắm vào V,14.1.1,book-s0
+PACELC,kể cả không partition vẫn đổi latency lấy consistency: phần hay bị quên,PACELC — kể cả không partition vẫn đổi latency lấy consistency: phần hay bị quên,8.1,book-s0
+pacer,"bộ điều nhịp GC, vặn bằng GOGC/GOMEMLIMIT","pacer — bộ điều nhịp GC, vặn bằng GOGC/GOMEMLIMIT",3.4,book-s0
+page cache,RAM giữ bản sao các trang đĩa để đọc nhanh và ghi gom,page cache — RAM giữ bản sao các trang đĩa để đọc nhanh và ghi gom,2.4,book-s0
+PagedAttention,KV cache chia trang như bộ nhớ ảo: hết phân mảnh,PagedAttention — KV cache chia trang như bộ nhớ ảo: hết phân mảnh,12.2,book-s0
+parallel run,"cũ và mới chạy song song, so kết quả: bằng chứng trước niềm tin","parallel run — cũ và mới chạy song song, so kết quả: bằng chứng trước niềm tin",8.8,book-s0
+parallelism,nhiều việc chạy thật cùng lúc trên nhiều lõi: hai khái niệm khác nhau,parallelism — nhiều việc chạy thật cùng lúc trên nhiều lõi: hai khái niệm khác nhau,3.1,book-s0
+Parquet,định dạng cột columnar đặt trên object,Parquet — định dạng cột columnar đặt trên object,5.9,book-s0
+partition,"đơn vị song song: có thứ tự trong partition, không có thứ tự giữa chúng","partition — đơn vị song song: có thứ tự trong partition, không có thứ tự giữa chúng",5.7,book-s0
+partition key,"đơn vị phân tán: mọi hàng cùng key nằm cùng node, đọc chuỗi không tán loạn","partition key — đơn vị phân tán: mọi hàng cùng key nằm cùng node, đọc chuỗi không tán loạn",5.5,book-s0
+pass,"từng bước một giả thuyết: inlining, const-fold, dead-code, sắp xếp lệnh","pass — từng bước một giả thuyết: inlining, const-fold, dead-code, sắp xếp lệnh",14.9.2,book-s0
+pattern ghi an toàn,"ghi file tạm, fsync, rename, fsync thư mục","ghi file tạm, fsync, rename, fsync thư mục",2.4,book-s0
+pause GC,"thời gian ""dừng thế giới"" của từng runtime","pause GC — thời gian ""dừng thế giới"" của từng runtime",3.9,book-s0
+payment provider,"ai giữ tiền, ai xử khiếu nại, đường chuyển provider: ba quyết định khó nhất chương","payment provider — ai giữ tiền, ai xử khiếu nại, đường chuyển provider: ba quyết định khó nhất chương",13.1,book-s0
+PCIe gen,thế hệ lane: cùng x16 nhưng gen mới nhanh gấp đôi cũ,PCIe gen — thế hệ lane: cùng x16 nhưng gen mới nhanh gấp đôi cũ,1.6,book-s0
+PDB,PodDisruptionBudget: đợt nâng cấp phải tôn trọng số pod tối thiểu,PDB — PodDisruptionBudget: đợt nâng cấp phải tôn trọng số pod tối thiểu,9.1,book-s0
+peering/TGW,nối VPC: topology quyết định chi phí và độ trễ,peering/TGW — nối VPC: topology quyết định chi phí và độ trễ,9.3,book-s0
+performance budget,"số KB và mili giây tối đa cho từng trang: vượt là fail CI, không phải họp thảo luận","performance budget — số KB và mili giây tối đa cho từng trang: vượt là fail CI, không phải họp thảo luận",7.3,book-s0
+perplexity,độ đo mức bối rối của mô hình ngôn ngữ khi dự đoán token tiếp theo (chỉ so được trên cùng bộ tách từ),Perplexity — exp(cross-entropy loss) over next-token prediction; only comparable across identical tokenizers.,12.1;12.5,curated-bilingual
+pg_stat_statements,nơi mọi câu hỏi chậm có tên,pg_stat_statements — nơi mọi câu hỏi chậm có tên,5.2,book-s0
+phong bì CloudEvents,"metadata chuẩn (type, source, time, id) bọc payload: consumer biết mình đang giữ gì","metadata chuẩn (type, source, time, id) bọc payload: consumer biết mình đang giữ gì",4.7,book-s0
+phân rã,tài liệu chết dần khi thế giới đổi quanh nó,decay — tài liệu chết dần khi thế giới đổi quanh nó,0.4;14.5.1,book-s0
+phí ẩn,"embedding, rerank, judge, tool call: hóa đơn không chỉ có model chính","embedding, rerank, judge, tool call: hóa đơn không chỉ có model chính",12.6,book-s0
+phương pháp trước kết luận,"biểu đồ không trục, không máy, không số lần là quảng cáo","biểu đồ không trục, không máy, không số lần là quảng cáo",14.9.3,book-s0
+phổ precision,"FP64 khoa học, FP32 mặc định, bf16 ML: đổi precision là quyết định từng tầng","FP64 khoa học, FP32 mặc định, bf16 ML: đổi precision là quyết định từng tầng",14.5.2,book-s0
+phổ sai số,"mỗi cảm biến sai một kiểu: camera mù sâu, LiDAR chính xác nhưng thưa, IMU nhanh nhưng trôi","mỗi cảm biến sai một kiểu: camera mù sâu, LiDAR chính xác nhưng thưa, IMU nhanh nhưng trôi",14.7.1,book-s0
+pin,virtual thread dính vào carrier thread vì khối synchronized,pin — virtual thread dính vào carrier thread vì khối synchronized,3.6,book-s0
+pin và lock,"ghim phiên bản, khoá checksum: bản cập nhật lén im là rủi ro;","ghim phiên bản, khoá checksum: bản cập nhật lén im là rủi ro;",10.5,book-s0
+pipeline CPU-GPU,"GPU vẽ khung N trong lúc CPU tính N+1: ""CPU 100% GPU rảnh"" là tắc pipeline","pipeline CPU-GPU — GPU vẽ khung N trong lúc CPU tính N+1: ""CPU 100% GPU rảnh"" là tắc pipeline",14.6.1,book-s0
+placement,"đặt bản sao khác vùng, khác tủ: một tủ cháy không mất cả ba","placement — đặt bản sao khác vùng, khác tủ: một tủ cháy không mất cả ba",8.4,book-s0
+playbook,P13 là bảy playbook nền tảng: kiến trúc tham chiếu cộng quyết định đánh số,playbook — P13 là bảy playbook nền tảng: kiến trúc tham chiếu cộng quyết định đánh số,13.1,book-s0
+PLP,tụ điện giữ đủ điện ghi xong khi mất nguồn: ranh giới ổ datacenter và ổ rẻ,PLP — tụ điện giữ đủ điện ghi xong khi mất nguồn: ranh giới ổ datacenter và ổ rẻ,1.4,book-s0
+PMTUD,"tự dò MTU, chết khi bị firewall chặn báo","PMTUD — tự dò MTU, chết khi bị firewall chặn báo",1.7,book-s0
+poison message,tin làm consumer sập lặp vô hạn: phải có DLQ,poison message — tin làm consumer sập lặp vô hạn: phải có DLQ,5.7,book-s0
+polyglot đúng cách,"nhiều store, mỗi store một hợp đồng trục và một chủ sở hữu","nhiều store, mỗi store một hợp đồng trục và một chủ sở hữu",5.15,book-s0
+pool,"số connection/worker giữ sẵn: tính được, không phỏng","pool — số connection/worker giữ sẵn: tính được, không phỏng",3.10,book-s0
+pool phía client,số connection giữ sẵn: ranh giới giữa 502 và mượt,số connection giữ sẵn: ranh giới giữa 502 và mượt,3.11,book-s0
+POUR,"perceivable, operable, understandable, robust: bốn nguyên tắc của WCAG 2.2","POUR — perceivable, operable, understandable, robust: bốn nguyên tắc của WCAG 2.2",7.5,book-s0
+PQC,"mật mã hậu lượng tử, FIPS 203/204/205 chuẩn hoá 2024: lớp dự phòng cho ngày máy lượng tử","PQC — mật mã hậu lượng tử, FIPS 203/204/205 chuẩn hoá 2024: lớp dự phòng cho ngày máy lượng tử",10.2,book-s0
+pre/post-training,"học kho lớn rồi align theo ý định (SFT, RLHF/RLVR): hai pha chênh nhau bậc chi phí","pre/post-training — học kho lớn rồi align theo ý định (SFT, RLHF/RLVR): hai pha chênh nhau bậc chi phí",14.4.2,book-s0
+prediction,"client áp dụng input của mình ngay: khớp thì im, lệch thì nhảy về","prediction — client áp dụng input của mình ngay: khớp thì im, lệch thì nhảy về",14.6.2,book-s0
+prefill/decode,đọc prompt (kẹt compute) và sinh token từng chiếc (kẹt băng thông): hai pha đối nghịch,prefill/decode — đọc prompt (kẹt compute) và sinh token từng chiếc (kẹt băng thông): hai pha đối nghịch,12.2,book-s0
+presence/typing,"tín hiệu tần số cao, giá rẻ: tách đường riêng khỏi dữ liệu thật","presence/typing — tín hiệu tần số cao, giá rẻ: tách đường riêng khỏi dữ liệu thật",13.2,book-s0
+priority inheritance,thuốc của inversion: phải bật đúng chỗ,priority inheritance — thuốc của inversion: phải bật đúng chỗ,14.7.2,book-s0
+priority inversion,"task thấp giữ khoá, task cao chờ oan: một cấu hình sai tạo độ trễ ""ngẫu nhiên""","priority inversion — task thấp giữ khoá, task cao chờ oan: một cấu hình sai tạo độ trễ ""ngẫu nhiên""",14.7.2,book-s0
+private DNS,"zone và resolver nội bộ: sự cố ""sáng vẫn chạy chiều chết"" thường nằm ở đây","private DNS — zone và resolver nội bộ: sự cố ""sáng vẫn chạy chiều chết"" thường nằm ở đây",9.3,book-s0
+PrivateLink/VPC endpoint,"đường riêng tới dịch vụ cloud: không ra internet, tính theo giờ và theo GB","PrivateLink/VPC endpoint — đường riêng tới dịch vụ cloud: không ra internet, tính theo giờ và theo GB",9.3,book-s0
+probe,"readiness, liveness, startup: LB và kubelet dựa vào để biết pod sống tới mức nào","probe — readiness, liveness, startup: LB và kubelet dựa vào để biết pod sống tới mức nào",9.1,book-s0
+progressive delivery,canary 1% rồi 10% rồi 100% theo metric: thả dần có phanh,progressive delivery — canary 1% rồi 10% rồi 100% theo metric: thả dần có phanh,9.7,book-s0
+prompt injection,"dữ liệu độc hại trở thành lệnh: XSS thế hệ AI, chặn bằng phân tầng niềm tin","prompt injection — dữ liệu độc hại trở thành lệnh: XSS thế hệ AI, chặn bằng phân tầng niềm tin",12.4,book-s0
+protobuf,"schema nhị phân + luật tiến hoá: thêm trường được, đổi số trường là chết người","protobuf — schema nhị phân + luật tiến hoá: thêm trường được, đổi số trường là chết người",4.4,book-s0
+provenance,"nguồn gốc của một con số: ai đo, khi nào, trong điều kiện nào","provenance — nguồn gốc của một con số: ai đo, khi nào, trong điều kiện nào",0.4,book-s0
+provisioning,cấp danh tính và bí mật riêng cho từng máy từ xưởng: cấm password chung cả fleet,provisioning — cấp danh tính và bí mật riêng cho từng máy từ xưởng: cấm password chung cả fleet,6.6,book-s0
+pseudo-localization,giả dịch để bắt chuỗi hardcode trước khi dịch thật,pseudo-localization — giả dịch để bắt chuỗi hardcode trước khi dịch thật,7.5,book-s0
+PSI,pressure stall information: thời gian chờ tài nguyên của process,PSI — pressure stall information: thời gian chờ tài nguyên của process,2.3,book-s0
+PTP,"chuẩn IEEE 1588 tới microgiây, cần card mạng hỗ trợ","PTP — chuẩn IEEE 1588 tới microgiây, cần card mạng hỗ trợ",1.9,book-s0
+PUE,tổng điện tiêu chia điện cho máy tính: con số của cả tòa nhà,PUE — tổng điện tiêu chia điện cho máy tính: con số của cả tòa nhà,1.10;14.3.2,book-s0
+purge vs TTL,"chủ động xoá (nhanh, dễ quên chỗ) hay đợi hết hạn (an toàn, chậm): hai trường phái","purge vs TTL — chủ động xoá (nhanh, dễ quên chỗ) hay đợi hết hạn (an toàn, chậm): hai trường phái",6.5,book-s0
+py-spy,"soi profile process đang chạy, không cần restart","py-spy — soi profile process đang chạy, không cần restart",3.2,book-s0
+QPS × kích thước bản ghi,thông lượng nhân cỡ dữ liệu = băng thông bắt buộc,thông lượng nhân cỡ dữ liệu = băng thông bắt buộc,5.16,book-s0
+quan sát tại gateway,"trace, access log: chỗ duy nhất thấy mọi request","trace, access log: chỗ duy nhất thấy mọi request",9.4,book-s0
+quantization,"FP8, INT4: đổi chút chất lấy giá và tốc độ: bảng giá rõ","quantization — FP8, INT4: đổi chút chất lấy giá và tốc độ: bảng giá rõ",12.2;14.4.3,book-s0
+queue vs log,"xoá sau ack, hay giữ để tua lại: hai ngữ nghĩa gốc","queue vs log — xoá sau ack, hay giữ để tua lại: hai ngữ nghĩa gốc",5.7,book-s0
+QUIC,transport chạy trên UDP: tin cậy + mã hoá + stream độc lập,QUIC — transport chạy trên UDP: tin cậy + mã hoá + stream độc lập,4.1,book-s0
+QUIC migration,connection ID sống qua đổi IP (nối 4.1): vũ khí của app di động,QUIC migration — connection ID sống qua đổi IP (nối 4.1): vũ khí của app di động,14.2.2,book-s0
+quorum,đa số N/2+1: chấp nhận thiểu số máy chết mà vẫn quyết định được,quorum — đa số N/2+1: chấp nhận thiểu số máy chết mà vẫn quyết định được,8.2,book-s0
+quy hoạch,"chia ngân sách trước, tối ưu sau","chia ngân sách trước, tối ưu sau",14.6.1,book-s0
+quyền web push,quyền là lời hứa: xin rồi mà lạm dụng là bị tắt vĩnh viễn,quyền là lời hứa: xin rồi mà lạm dụng là bị tắt vĩnh viễn,6.4,book-s0
+RabbitMQ 4.x,hàng đợi cạnh tranh trưởng thành: chỗ dùng khác Kafka,RabbitMQ 4.x — hàng đợi cạnh tranh trưởng thành: chỗ dùng khác Kafka,5.7,book-s0
+rack chục kW,GPU + HBM vượt ngưỡng gió: direct-to-chip và immersion chủ lưu từ 2024,GPU + HBM vượt ngưỡng gió: direct-to-chip và immersion chủ lưu từ 2024,14.3.1,book-s0
+RAG,"truy hồi rồi sinh: pipeline bốn khâu, DB vector chỉ một","RAG — truy hồi rồi sinh: pipeline bốn khâu, DB vector chỉ một",5.10,book-s0
+RAG doanh nghiệp,"ACL, freshness, nguồn tường minh: ba thứ thêm vào 12.3","ACL, freshness, nguồn tường minh: ba thứ thêm vào 12.3",13.5,book-s0
+RAG vs long-context,nhét cả kho vào context: đắt và vẫn trượt: chương có bảng quyết,RAG vs long-context — nhét cả kho vào context: đắt và vẫn trượt: chương có bảng quyết,12.3,book-s0
+RAID5/RAID10,parity rẻ nhưng rebuild rủi ro vs mirror đắt nhưng an toàn,RAID5/RAID10 — parity rẻ nhưng rebuild rủi ro vs mirror đắt nhưng an toàn,1.4,book-s0
+RAII,tài nguyên gắn với vòng đời đối tượng: hết phạm vi tự trả lại,RAII — tài nguyên gắn với vòng đời đối tượng: hết phạm vi tự trả lại,3.7,book-s0
+RAM,"bộ nhớ chính DRAM (~100 ns/truy cập ngẫu nhiên), nhanh hơn SSD ~1000× nhưng mất khi cúp điện",RAM (DRAM) — volatile main memory (~100 ns access) bridging fast CPU caches and persistent storage.,1.1;1.3,curated-bilingual
+ranh giới vật lý,lớp vật lý không patch được (nối 14.3.2),lớp vật lý không patch được (nối 14.3.2),14.11.2,book-s0
+rate limiting,token bucket + header báo hạn mức còn lại,rate limiting — token bucket + header báo hạn mức còn lại,4.8,book-s0
+RBAC/ABAC/ReBAC,"vai trò, thuộc tính, quan hệ: ba mô hình AuthZ","RBAC/ABAC/ReBAC — vai trò, thuộc tính, quan hệ: ba mô hình AuthZ",10.3,book-s0
+RDMA,"card mạng ghi thẳng vào bộ nhớ ứng dụng, bỏ kernel","RDMA — card mạng ghi thẳng vào bộ nhớ ứng dụng, bỏ kernel",1.6,book-s0
+readiness,trạng thái descriptor đã đọc/ghi được,readiness — trạng thái descriptor đã đọc/ghi được,2.5,book-s0
+rebalance,chia lại khi consumer chết: làm sai là bão,rebalance — chia lại khi consumer chết: làm sai là bão,5.7,book-s0
+recall vs latency,cặp núm đổi nhau: càng chính xác càng chậm,recall vs latency — cặp núm đổi nhau: càng chính xác càng chậm,5.10,book-s0
+reconcile,agent liên tục kéo thực tại về mô hình (nối 9.1): không áp dụng một lần rồi thôi,reconcile — agent liên tục kéo thực tại về mô hình (nối 9.1): không áp dụng một lần rồi thôi,9.6,book-s0
+reconcile loop,"quan sát, so sánh, sửa: đúng trạng thái là đủ, không ra lệnh từng bước","reconcile loop — quan sát, so sánh, sửa: đúng trạng thái là đủ, không ra lệnh từng bước",9.1,book-s0
+reconciliation,"sau khi nhảy, chạy lại chuỗi input đã lưu: người chơi không thấy đứt","reconciliation — sau khi nhảy, chạy lại chuỗi input đã lưu: người chơi không thấy đứt",14.6.2,book-s0
+reconnect + backoff,client tự nối lại với khoảng chờ tăng dần để không tạo bão,reconnect + backoff — client tự nối lại với khoảng chờ tăng dần để không tạo bão,4.6,book-s0
+reconnect storm,"deploy xong vạn client cùng quay lại trong một giây: backoff cộng jitter (nối 3.10, 6.4)","reconnect storm — deploy xong vạn client cùng quay lại trong một giây: backoff cộng jitter (nối 3.10, 6.4)",13.2,book-s0
+Redis/Valkey,hai cái tên một dòng họ sau licence 2024 (verify trong chương),Redis/Valkey — hai cái tên một dòng họ sau licence 2024 (verify trong chương),5.4,book-s0
+refcount + cycle GC,"đếm tham chiếu dọn rác tức thời, kèm bộ dọn vòng tròn","refcount + cycle GC — đếm tham chiếu dọn rác tức thời, kèm bộ dọn vòng tròn",3.2,book-s0
+relevance score,xếp hạng kết quả (BM25): thứ SQL không có,relevance score — xếp hạng kết quả (BM25): thứ SQL không có,5.6,book-s0
+replica lag,"bản sao trễ bao nhiêu: đọc ""vừa ghi xong"" có thể không thấy nó","replica lag — bản sao trễ bao nhiêu: đọc ""vừa ghi xong"" có thể không thấy nó",8.4,book-s0
+requests/limits,"CPU và RAM cam kết và trần: scheduler xếp theo requests, vượt limits là bị throttle (bẫy có mã sự cố I-057, I-062)","requests/limits — CPU và RAM cam kết và trần: scheduler xếp theo requests, vượt limits là bị throttle (bẫy có mã sự cố I-057, I-062)",9.1,book-s0
+rerank,xếp lại theo liên quan thật trước khi nhét vào hộp: chặt ở đúng chỗ,rerank — xếp lại theo liên quan thật trước khi nhét vào hộp: chặt ở đúng chỗ,12.3,book-s0
+resharding,"chia lại khi dữ liệu phình: di chuyển nóng, consistent hashing giảm số chỗ phải dời","resharding — chia lại khi dữ liệu phình: di chuyển nóng, consistent hashing giảm số chỗ phải dời",8.4,book-s0
+residency,"luật giữ dữ liệu trong biên giới: ràng buộc kiến trúc thật, không phải câu hỏi tuỳ chọn","residency — luật giữ dữ liệu trong biên giới: ràng buộc kiến trúc thật, không phải câu hỏi tuỳ chọn",13.6,book-s0
+residual risk,"rủi ro còn lại sau giảm, ghi rõ, có chủ, có người ký: trung tâm của quản trị","residual risk — rủi ro còn lại sau giảm, ghi rõ, có chủ, có người ký: trung tâm của quản trị",14.11.2,book-s0
+resolver,hàm trả từng trường: chỗ N+1 nấp,resolver — hàm trả từng trường: chỗ N+1 nấp,4.5,book-s0
+Result/Option,"lỗi và ""không có"" là kiểu rõ ràng, không null ẩn","Result/Option — lỗi và ""không có"" là kiểu rõ ràng, không null ẩn",3.5,book-s0
+retention theo độ nóng,"hot/ấm/lạnh: TTL giảm dần theo tầng, không mặc định vô hạn","hot/ấm/lạnh: TTL giảm dần theo tầng, không mặc định vô hạn",5.13,book-s0
+retrieval,"tìm mẩu liên quan từ kho tri thức: hybrid từ khoá cộng ngữ nghĩa (nối 5.6, 5.10)","retrieval — tìm mẩu liên quan từ kho tri thức: hybrid từ khoá cộng ngữ nghĩa (nối 5.6, 5.10)",12.3,book-s0
+retry có kỷ luật,backoff luỹ tiến cộng jitter (nối 3.10): retry bừa là tự tạo bão,backoff luỹ tiến cộng jitter (nối 3.10): retry bừa là tự tạo bão,8.5,book-s0
+retry storm,retry chồng lên retry đúng lúc hạ tầng chậm,retry storm — retry chồng lên retry đúng lúc hạ tầng chậm,3.10,book-s0
+RF + quorum,"nhân bản ba bản, ghi đủ hai là xong: sống qua một máy chết","RF + quorum — nhân bản ba bản, ghi đủ hai là xong: sống qua một máy chết",8.4,book-s0
+RFC 9457,"problem details: lỗi có type, title, detail chuẩn để code xử lý thay vì parse chuỗi","RFC 9457 — problem details: lỗi có type, title, detail chuẩn để code xử lý thay vì parse chuỗi",4.8,book-s0
+RFC bất biến,số phát là không đổi nữa: chuỗi obsoletes nối các thế hệ,số phát là không đổi nữa: chuỗi obsoletes nối các thế hệ,14.8.1,book-s0
+risk register,"sổ rủi ro sống: ""còn lại gì, ai chịu"" thay vì ""an toàn chưa""","risk register — sổ rủi ro sống: ""còn lại gì, ai chịu"" thay vì ""an toàn chưa""",14.11.2,book-s0
+RLS mọi tầng,"policy DB là lớp cuối, không phải duy nhất: app, API, cache cùng chặn","policy DB là lớp cuối, không phải duy nhất: app, API, cache cùng chặn",13.7,book-s0
+RLVR-style,"phần thưởng kiểm chứng được bằng máy: chạy code, so khớp: hướng thoát khỏi ""ai chấm""","RLVR-style — phần thưởng kiểm chứng được bằng máy: chạy code, so khớp: hướng thoát khỏi ""ai chấm""",14.4.3,book-s0
+roofline,hình vẽ cho biết bài toán bị chặn bởi tính toán hay bộ nhớ,roofline — hình vẽ cho biết bài toán bị chặn bởi tính toán hay bộ nhớ,1.5;14.4.1,book-s0
+rootless,chạy container mà không cần root thật,rootless — chạy container mà không cần root thật,2.7,book-s0
+rough consensus,đồng thuận thô cộng running code: triết lý IETF,rough consensus — đồng thuận thô cộng running code: triết lý IETF,14.8.1,book-s0
+RTO/RPO,"thời gian khôi phục tối đa và lượng dữ liệu chấp nhận mất: hợp đồng ghi số, không ghi ""nhanh nhất có thể""","RTO/RPO — thời gian khôi phục tối đa và lượng dữ liệu chấp nhận mất: hợp đồng ghi số, không ghi ""nhanh nhất có thể""",8.7,book-s0
+RTT,thời gian một vòng đi về trên mạng,RTT — thời gian một vòng đi về trên mạng,1.1;1.7,book-s0
+rubric,tiêu chí chấm nhiều mức có ví dụ neo: thay cho expected output,rubric — tiêu chí chấm nhiều mức có ví dụ neo: thay cho expected output,12.5,book-s0
+RUM,"đo trên máy thật của khách, không phải trong lab","RUM — đo trên máy thật của khách, không phải trong lab",6.1,book-s0
+runbook một trang,tóm mỗi chương thành runbook: viết ra mới biết mình hiểu tới đâu,tóm mỗi chương thành runbook: viết ra mới biết mình hiểu tới đâu,11.8,book-s0
+rung,tiên đề bị thực tiễn đe doạ (ví dụ mật mã trước máy lượng tử),rung — tiên đề bị thực tiễn đe doạ (ví dụ mật mã trước máy lượng tử),0.2,book-s0
+ràng buộc REST,"sáu điều, ba cái hay bị bỏ: stateless, cacheable, uniform interface","sáu điều, ba cái hay bị bỏ: stateless, cacheable, uniform interface",4.3,book-s0
+saga,"chuỗi bước địa phương, mỗi bước có bước hoàn tác: rollback nghiệp vụ thay vì rollback kỹ thuật","saga — chuỗi bước địa phương, mỗi bước có bước hoàn tác: rollback nghiệp vụ thay vì rollback kỹ thuật",8.3,book-s0
+sai cấp,"mã hoá cả record bằng RSA, hash trần làm ""chữ ký"": lỗi phổ biến nhất","mã hoá cả record bằng RSA, hash trần làm ""chữ ký"": lỗi phổ biến nhất",14.10.1,book-s0
+same-origin policy,"luật gốc của trình duyệt: scheme, host, port phải khớp","same-origin policy — luật gốc của trình duyệt: scheme, host, port phải khớp",7.7,book-s0
+sandbox,hành động agent chạy trong hộp (nối 2.7): quyền lực phải có hộp đựng,sandbox — hành động agent chạy trong hộp (nối 2.7): quyền lực phải có hộp đựng,12.4,book-s0
+sanitizer,"ASan/UBSan/TSan: chạy chậm hơn để bắt lỗi bộ nhớ, hành vi và đua","sanitizer — ASan/UBSan/TSan: chạy chậm hơn để bắt lỗi bộ nhớ, hành vi và đua",3.7,book-s0
+SBOM,danh sách thành phần phần mềm: không thể bảo vệ thứ mình không biết là có; bắt buộc theo CRA (nối 10.8),SBOM — danh sách thành phần phần mềm: không thể bảo vệ thứ mình không biết là có; bắt buộc theo CRA (nối 10.8),10.5,book-s0
+SBOM/digest,dấu vết từ commit tới production: chuỗi cung ứng build,SBOM/digest — dấu vết từ commit tới production: chuỗi cung ứng build,9.7,book-s0
+scale-to-zero,không việc thì tắt hẳn: rét là cái giá của lần đánh thức sau,scale-to-zero — không việc thì tắt hẳn: rét là cái giá của lần đánh thức sau,9.2,book-s0
+scale-up vs scale-out,thêm RAM hay thêm máy: ngưỡng đổi chi phí có tính được,scale-up vs scale-out — thêm RAM hay thêm máy: ngưỡng đổi chi phí có tính được,5.16,book-s0
+scaling law,"power law, biên giảm dần: pre-training là cuộc đua vốn, ""mô hình to năm sau"" là kế hoạch chi phí","scaling law — power law, biên giảm dần: pre-training là cuộc đua vốn, ""mô hình to năm sau"" là kế hoạch chi phí",14.4.2,book-s0
+scatter-gather,hỏi mọi shard rồi gộp: chậm theo shard chậm nhất,scatter-gather — hỏi mọi shard rồi gộp: chậm theo shard chậm nhất,8.4,book-s0
+Schema Registry,kho schema + cổng kiểm tra trước khi publish,Schema Registry — kho schema + cổng kiểm tra trước khi publish,4.7,book-s0
+schema validation,bậc thang tự do: từ không ràng buộc tới validator chặt,schema validation — bậc thang tự do: từ không ràng buộc tới validator chặt,5.3,book-s0
+schema/database-per-tenant,cô lập thật nhưng vận hành nhân lên: dành tenant to,schema/database-per-tenant — cô lập thật nhưng vận hành nhân lên: dành tenant to,5.14,book-s0
+screen reader,"khách ""nghe"" giao diện: ý nghĩa nằm ở cấu trúc DOM và ARIA, không ở hình ảnh","screen reader — khách ""nghe"" giao diện: ý nghĩa nằm ở cấu trúc DOM và ARIA, không ở hình ảnh",7.5,book-s0
+seccomp,lọc syscall process được phép gọi,seccomp — lọc syscall process được phép gọi,2.7,book-s0
+Security Group,"firewall stateful gắn instance: mặc định từ chối, mở từng cổng, viết đè nhau là bẫy","Security Group — firewall stateful gắn instance: mặc định từ chối, mở từng cổng, viết đè nhau là bẫy",9.3,book-s0
+semantic cache,câu khác chữ nhưng cùng ý vẫn trúng cache (tư duy 5.10): nhớ đo tỉ lệ trúng,semantic cache — câu khác chữ nhưng cùng ý vẫn trúng cache (tư duy 5.10): nhớ đo tỉ lệ trúng,12.6,book-s0
+semver,"major.minor.patch, major là break: tự động hoá được","semver — major.minor.patch, major là break: tự động hoá được",14.8.2,book-s0
+sensor fusion,"tin nguồn nhanh cho dao động ngắn, nguồn tuyệt đối hiệu chỉnh dài: Kalman-class","sensor fusion — tin nguồn nhanh cho dao động ngắn, nguồn tuyệt đối hiệu chỉnh dài: Kalman-class",14.7.1,book-s0
+serializer,"biến đối tượng thành byte và ngược lại: JSON, protobuf, msgpack","serializer — biến đối tượng thành byte và ngược lại: JSON, protobuf, msgpack",3.11,book-s0
+server state = cache,"bản sao của dữ liệu bên kia mạng: có thể cũ, có thể mất, luôn cần độ tươi","bản sao của dữ liệu bên kia mạng: có thể cũ, có thể mất, luôn cần độ tươi",7.2,book-s0
+serverless rộng hơn FaaS,"DB, queue, storage quản lý: phổ ""quên đi hạ tầng""","DB, queue, storage quản lý: phổ ""quên đi hạ tầng""",9.5,book-s0
+service mesh,mTLS + retry + observability cho mọi service: đáng tiền infra hay không,service mesh — mTLS + retry + observability cho mọi service: đáng tiền infra hay không,4.9,book-s0
+session vs JWT,server giữ phiên (thu hồi tức thì) hay token tự chứa (chết khi hết hạn): định hình mọi thứ phía sau,session vs JWT — server giữ phiên (thu hồi tức thì) hay token tự chứa (chết khi hết hạn): định hình mọi thứ phía sau,10.3,book-s0
+sev matrix,"mức độ và ai gọi ai: viết lúc bình thường, không viết lúc đang cháy","sev matrix — mức độ và ai gọi ai: viết lúc bình thường, không viết lúc đang cháy",11.4,book-s0
+shape drift,hình document đổi theo phiên bản app: bệnh đặc thù phải quản,shape drift — hình document đổi theo phiên bản app: bệnh đặc thù phải quản,5.3,book-s0
+shard,một Lucene index nhỏ: đơn vị phân tán và cũng đơn vị chết,shard — một Lucene index nhỏ: đơn vị phân tán và cũng đơn vị chết,5.6,book-s0
+shard key,"khoá phân vùng: truy vấn theo khoá chạy thẳng, không theo khoá thì scatter-gather","shard key — khoá phân vùng: truy vấn theo khoá chạy thẳng, không theo khoá thì scatter-gather",8.4,book-s0
+shared schema + RLS,"một bảng với cột tenant_id, policy chặn ở chính tầng DB: mặc định của 80% tenant nhỏ","shared schema + RLS — một bảng với cột tenant_id, policy chặn ở chính tầng DB: mặc định của 80% tenant nhỏ",5.14,book-s0
+Shor và Grover,Shor phá RSA/ECC; Grover chỉ cắt đôi bit đối xứng: AES-256 đủ,Shor phá RSA/ECC; Grover chỉ cắt đôi bit đối xứng: AES-256 đủ,14.10.2,book-s0
+showback/chargeback,"gán chi phí theo team: tiền là thông tin phản hồi, không phải trừng phạt","showback/chargeback — gán chi phí theo team: tiền là thông tin phản hồi, không phải trừng phạt",11.5,book-s0
+side-channel,"kênh không chủ ý: thời gian, cache, điện, nhiệt: đối thủ đo thay vì phá mã","side-channel — kênh không chủ ý: thời gian, cache, điện, nhiệt: đối thủ đo thay vì phá mã",14.11.1,book-s0
+SIL/ASIL,mức yêu cầu an toàn của IEC 61508 và ISO 26262: quy định lượng chứng cứ phải có,SIL/ASIL — mức yêu cầu an toàn của IEC 61508 và ISO 26262: quy định lượng chứng cứ phải có,14.7.3,book-s0
+silent push,"đánh thức app cập nhật ngầm: ngân sách pin có hạn, iOS cắt nếu lạm dụng","silent push — đánh thức app cập nhật ngầm: ngân sách pin có hạn, iOS cắt nếu lạm dụng",6.4,book-s0
+SIMD,một lệnh xử lý nhiều số cùng lúc,SIMD — một lệnh xử lý nhiều số cùng lúc,1.2,book-s0
+SIMT,hàng vạn thread chạy cùng một chương trình trên dữ liệu khác nhau,SIMT — hàng vạn thread chạy cùng một chương trình trên dữ liệu khác nhau,1.5,book-s0
+SLA,lời hứa ngoài kèm đền bù: luôn thấp hơn SLO,SLA — lời hứa ngoài kèm đền bù: luôn thấp hơn SLO,11.1,book-s0
+SLH-DSA,"chữ ký nền hash (FIPS 205): chậm, to, nhưng khác giỏ trứng","SLH-DSA — chữ ký nền hash (FIPS 205): chậm, to, nhưng khác giỏ trứng",14.10.2,book-s0
+SLI,"chỉ số đo từ mắt người dùng: ""đặt món xong trong 2 giây"", không phải CPU 80%","SLI — chỉ số đo từ mắt người dùng: ""đặt món xong trong 2 giây"", không phải CPU 80%",11.1,book-s0
+SLO,"mục tiêu nội bộ cho SLI, đặt có dư địa cho sự cố","SLO — mục tiêu nội bộ cho SLI, đặt có dư địa cho sự cố",11.1,book-s0
+SLSA,khung chứng minh nguồn gốc build: từ commit tới artifact không có bàn tay lạ chen vào,SLSA — khung chứng minh nguồn gốc build: từ commit tới artifact không có bàn tay lạ chen vào,10.5,book-s0
+Slurm,"khai báo nút, GPU, giờ, hình học: dữ liệu phải đặt gần cụm trước khi tính","Slurm — khai báo nút, GPU, giờ, hình học: dữ liệu phải đặt gần cụm trước khi tính",14.5.1,book-s0
+SNARK/STARK,"proof nhỏ cần trusted setup, hoặc to hơn nhưng kháng lượng tử: hai họ","SNARK/STARK — proof nhỏ cần trusted setup, hoặc to hơn nhưng kháng lượng tử: hai họ",14.10.3,book-s0
+softirq,"nửa dưới xử gói của kernel, chia theo lõi","softirq — nửa dưới xử gói của kernel, chia theo lõi",2.6,book-s0
+source map,lỗi production sau minify quay về dòng code gốc,source map — lỗi production sau minify quay về dòng code gốc,7.6,book-s0
+soát lại,hẹn định kỳ xem tiên đề nào đã chết,hẹn định kỳ xem tiên đề nào đã chết,0.2,book-s0
+span,"một đơn vị việc trong trace: tên, thời gian, attribute","span — một đơn vị việc trong trace: tên, thời gian, attribute",11.2,book-s0
+speculative execution,"đoán nhánh, tải vào cache trước khi kiểm quyền: Spectre/Meltdown","speculative execution — đoán nhánh, tải vào cache trước khi kiểm quyền: Spectre/Meltdown",14.11.1,book-s0
+SPIFFE,"chuẩn danh tính cho workload: cấp ""CMND"" cho máy như cho người","SPIFFE — chuẩn danh tính cho workload: cấp ""CMND"" cho máy như cho người",10.6,book-s0
+spoofing/jamming,giả mạo và nhiễu GNSS: mối đe thật ở vùng xung đột,spoofing/jamming — giả mạo và nhiễu GNSS: mối đe thật ở vùng xung đột,14.2.2,book-s0
+spot,"máy thừa giá rẻ đổi bị thu hồi: cho batch, không cho tầng online","spot — máy thừa giá rẻ đổi bị thu hồi: cho batch, không cho tầng online",11.5,book-s0
+SQLite,"DB một file nhúng vào app: ""phân tán"" theo nghĩa đồng bộ file","SQLite — DB một file nhúng vào app: ""phân tán"" theo nghĩa đồng bộ file",5.3,book-s0
+SRAM,"6 transistor/bit: nhanh, đắt, gần đứng yên theo node: cache to = die to = rủi ro yield","SRAM — 6 transistor/bit: nhanh, đắt, gần đứng yên theo node: cache to = die to = rủi ro yield",14.1.3,book-s0
+SSE,stream một chiều qua HTTP: reconnect và Last-Event-ID có sẵn trong chuẩn,SSE — stream một chiều qua HTTP: reconnect và Last-Event-ID có sẵn trong chuẩn,4.6,book-s0
+SSG,"dựng sẵn lúc build: nhanh nhất, đổi là build lại","SSG — dựng sẵn lúc build: nhanh nhất, đổi là build lại",7.1,book-s0
+SSM,trạng thái cuộn hằng số mỗi token: chuỗi dài rẻ,SSM — trạng thái cuộn hằng số mỗi token: chuỗi dài rẻ,14.4.1,book-s0
+SSO + SCIM + JIT,"một cửa đăng nhập, cấp gỡ quyền tự động, quyền đúng lúc: vòng đời danh tính nội bộ;","SSO + SCIM + JIT — một cửa đăng nhập, cấp gỡ quyền tự động, quyền đúng lúc: vòng đời danh tính nội bộ;",10.3,book-s0
+SSR,"server dựng HTML: thấy nhanh, tương tác đầu chậm hơn","SSR — server dựng HTML: thấy nhanh, tương tác đầu chậm hơn",7.1,book-s0
+SSR/RSC,render phía server mở bề mặt mới: nối lại 6.7,SSR/RSC — render phía server mở bề mặt mới: nối lại 6.7,7.7,book-s0
+stack,"vùng cấp phát theo chồng, rẻ nhất hệ sinh thái","stack — vùng cấp phát theo chồng, rẻ nhất hệ sinh thái",2.2,book-s0
+stale-while-revalidate,trả bản cũ trong lúc lấy bản mới: khách không phải chờ,stale-while-revalidate — trả bản cũ trong lúc lấy bản mới: khách không phải chờ,6.5;7.2,book-s0
+stampede,key hết hạn đúng lúc nghìn request cùng hỏi: DB hứng trọn,stampede — key hết hạn đúng lúc nghìn request cùng hỏi: DB hứng trọn,5.4,book-s0
+state,"kết quả dở dang của stream: to, phải checkpoint và khôi phục được","state — kết quả dở dang của stream: to, phải checkpoint và khôi phục được",5.12,book-s0
+std::execution,khung async chuẩn đang chuẩn hoá,khung async chuẩn đang chuẩn hoá,3.7,book-s0
+sticky session,ghim connection vào một server: cái giá hạ tầng thật của WS,sticky session — ghim connection vào một server: cái giá hạ tầng thật của WS,4.6,book-s0
+strangler fig,route từng chức năng sang hệ mới cho tới khi hệ cũ tự biến mất: dây leo bao cây,strangler fig — route từng chức năng sang hệ mới cho tới khi hệ cũ tự biến mất: dây leo bao cây,8.8,book-s0
+stream,"luồng có thứ tự riêng, một luồng nghẽn không chặn luồng khác","stream — luồng có thứ tự riêng, một luồng nghẽn không chặn luồng khác",4.1,book-s0
+streaming,trả từng phần thay vì chờ đủ cả,streaming — trả từng phần thay vì chờ đủ cả,3.11;7.1,book-s0
+sunset,"giết hệ thống cũ có kế hoạch: năng lực hiếm, dấu trưởng thành","sunset — giết hệ thống cũ có kế hoạch: năng lực hiếm, dấu trưởng thành",11.6,book-s0
+supply chain,một package npm độc hại chạy ngay trong lúc build: bề mặt lớn nhất của FE,supply chain — một package npm độc hại chạy ngay trong lúc build: bề mặt lớn nhất của FE,7.7,book-s0
+sync engine,tự viết hay mua: bài make-or-buy kinh điển của local-first,sync engine — tự viết hay mua: bài make-or-buy kinh điển của local-first,6.3,book-s0
+sáu bẫy,"debug build, single-run, mean-hog, DCE xoá vòng đo, micro sai cấp, apples/oranges: chương điểm từng bẫy","debug build, single-run, mean-hog, DCE xoá vòng đo, micro sai cấp, apples/oranges: chương điểm từng bẫy",14.9.3,book-s0
+số 9,"99,9% mỗi tháng vẫn là 43 phút downtime: mỗi chữ 9 gấp giá lên nhiều lần","99,9% mỗi tháng vẫn là 43 phút downtime: mỗi chữ 9 gấp giá lên nhiều lần",11.1,book-s0
+sở hữu dữ liệu,đúng một chủ ghi cho mỗi dữ liệu: chủ khác đọc qua hợp đồng (nối 4.3),đúng một chủ ghi cho mỗi dữ liệu: chủ khác đọc qua hợp đồng (nối 4.3),8.6,book-s0
+table format,lớp giao dịch + schema + version trên ngàn file: Iceberg/Delta/Hudi,table format — lớp giao dịch + schema + version trên ngàn file: Iceberg/Delta/Hudi,5.9,book-s0
+tabletop và purple team,"đóng vai sự cố định kỳ; đỏ tấn công, xanh phòng thủ chung một phòng: luyện thay đối đầu (nối 8.7)","đóng vai sự cố định kỳ; đỏ tấn công, xanh phòng thủ chung một phòng: luyện thay đối đầu (nối 8.7)",10.7,book-s0
+task,cách kernel nhìn process và thread như nhau,task — cách kernel nhìn process và thread như nhau,2.3,book-s0
+TCO,"tổng chi phí sở hữu: học, mượn người, vận hành — không chỉ chi phí chạy","TCO — tổng chi phí sở hữu: học, mượn người, vận hành — không chỉ chi phí chạy",3.9,book-s0
+TDP,"mức nhiệt thiết kế của chip, không phải mức tiêu thụ thật và cũng không phải trần","TDP — mức nhiệt thiết kế của chip, không phải mức tiêu thụ thật và cũng không phải trần",1.10,book-s0
+tech debt là kế toán,ước lượng lãi suất từng món: nợ không ghi sổ là nợ ngầm,ước lượng lãi suất từng món: nợ không ghi sổ là nợ ngầm,11.6,book-s0
+TEE/enclave,vùng tính toán kín ngay trên máy của người khác,TEE/enclave — vùng tính toán kín ngay trên máy của người khác,1.8,book-s0
+tenant lifecycle,"onboard, nâng plan, xuất dữ liệu, offboard: đường ra phải có từ ngày đầu (nối 5.13)","tenant lifecycle — onboard, nâng plan, xuất dữ liệu, offboard: đường ra phải có từ ngày đầu (nối 5.13)",13.7,book-s0
+tensor core,"khối cứng chuyên nhân ma trận, ruột của AI hiện đại","tensor core — khối cứng chuyên nhân ma trận, ruột của AI hiện đại",1.5,book-s0
+term,"""nhiệm kỳ"" bầu cử của Raft: term cao luôn thắng term thấp","term — ""nhiệm kỳ"" bầu cử của Raft: term cao luôn thắng term thấp",8.2,book-s0
+thang precision,"đổi số bit cho tốc và rẻ, trả bằng độ chính xác","FP16/FP8 — đổi số bit cho tốc và rẻ, trả bằng độ chính xác",1.5,book-s0
+THP,"trang to 2 MB, hai mặt","THP — trang to 2 MB, hai mặt",1.3,book-s0
+threat model,"ai, muốn gì, qua đường nào: ba câu trả lời trước khi mua bất kỳ công cụ nào","threat model — ai, muốn gì, qua đường nào: ba câu trả lời trước khi mua bất kỳ công cụ nào",10.1,book-s0
+throttle,hạ tần số để tự vệ khi nóng: p99 xấu từ đây,throttle — hạ tần số để tự vệ khi nóng: p99 xấu từ đây,1.10,book-s0
+throttling,bị đứng khi hết quota trong chu kỳ,throttling — bị đứng khi hết quota trong chu kỳ,2.3,book-s0
+throughput,"số việc xong mỗi giây, đại lượng khác hẳn độ trễ","throughput — số việc xong mỗi giây, đại lượng khác hẳn độ trễ",1.1;3.1,book-s0
+thuộc tính adversary,"bot quét, tội phạm, đối thủ có chủ đích: ngân sách khác nhau cả bậc","bot quét, tội phạm, đối thủ có chủ đích: ngân sách khác nhau cả bậc",10.1,book-s0
+tháp bộ nhớ,mỗi bậc rẻ hơn ~10× và chậm hơn ~10×: khoảng trống CPU–DRAM mở rộng hàng chục năm,mỗi bậc rẻ hơn ~10× và chậm hơn ~10×: khoảng trống CPU–DRAM mở rộng hàng chục năm,14.1.3,book-s0
+thêm-thể-chấp,"thêm field client cũ bỏ qua: không xoá, không đổi ý nghĩa","thêm field client cũ bỏ qua: không xoá, không đổi ý nghĩa",14.8.2,book-s0
+thấu kính kể chuyện,cách mỗi chương §7 trình bày đánh đổi bằng ngôn ngữ người,cách mỗi chương §7 trình bày đánh đổi bằng ngôn ngữ người,0.3,book-s0
+thống kê hành vi,aim-bot phát hiện bằng phân bố độ chính xác người thật với bot,aim-bot phát hiện bằng phân bố độ chính xác người thật với bot,14.6.3,book-s0
+thứ tự sự kiện,"ai xảy ra trước ai, câu hỏi khác ""ai xảy ra lúc mấy""","ai xảy ra trước ai, câu hỏi khác ""ai xảy ra lúc mấy""",1.9,book-s0
+time-series,"chuỗi (timestamp, giá trị) tần số cao, ghi chỉ thêm vào","time-series — chuỗi (timestamp, giá trị) tần số cao, ghi chỉ thêm vào",5.11,book-s0
+TIME_WAIT,"trạng thái đóng của bên chủ động, giữ khoảng 60 giây","TIME_WAIT — trạng thái đóng của bên chủ động, giữ khoảng 60 giây",2.6,book-s0
+timeout budget,"tổng thời gian cho phép chia xuống từng trạm, con nhỏ hơn cha","timeout budget — tổng thời gian cho phép chia xuống từng trạm, con nhỏ hơn cha",3.10,book-s0
+timing attack,so thời gian suy ra bí mật từng byte: thuốc là constant-time,timing attack — so thời gian suy ra bí mật từng byte: thuốc là constant-time,14.11.1,book-s0
+tiên đề,"điều coi đúng ban đầu, không chứng minh lại mỗi lần (chương 0.2)",Axiom — foundational assumption bounded by stated operating conditions.,0.1;0.2,book-s0
+TLS 1.3,bắt tay một vòng; quay lại được 0-RTT nhưng kèm rủi ro replay,TLS 1.3 — bắt tay một vòng; quay lại được 0-RTT nhưng kèm rủi ro replay,4.1,book-s0
+token,"màu, khoảng cách, cỡ chữ thành biến có tên: một quyết định, một chỗ sửa","token — màu, khoảng cách, cỡ chữ thành biến có tên: một quyết định, một chỗ sửa",7.4;12.6;10.3,book-s0
+token ngắn hạn,"access token tính bằng phút, refresh thu hồi được: thu hẹp thiệt hại","access token tính bằng phút, refresh thu hồi được: thu hẹp thiệt hại",6.7,book-s0
+token nằm đâu,"localStorage đọc được bởi XSS, cookie HttpOnly thì không: quyết định đúng một lần","localStorage đọc được bởi XSS, cookie HttpOnly thì không: quyết định đúng một lần",7.7,book-s0
+tokenizer,"bộ tách văn bản thành chuỗi mã số nguyên (BPE, Unigram, WordPiece) quyết định độ dài ngữ cảnh và chi phí",Tokenizer — deterministic segmentation mapping raw text into discrete vocabulary IDs before the model.,12.1;12.6,curated-bilingual
+tokio,runtime async của Rust: scheduler + I/O,tokio — runtime async của Rust: scheduler + I/O,3.5,book-s0
+tombstone,"xoá là đánh dấu mộ, compaction mới thật sự dọn: bệnh số một","tombstone — xoá là đánh dấu mộ, compaction mới thật sự dọn: bệnh số một",5.5;5.13,book-s0
+tool calling,"AI gọi hàm qua schema khai báo: tham số được validate, quyền tách bạch","tool calling — AI gọi hàm qua schema khai báo: tham số được validate, quyền tách bạch",12.4,book-s0
+topology spread,trải pod theo zone và rack: chống trùng máy,topology spread — trải pod theo zone và rack: chống trùng máy,9.1,book-s0
+TPOT,"thời gian mỗi token tiếp theo: chữ tuôn nhanh cỡ nào: hai SLO, hai bệnh, hai thuốc","TPOT — thời gian mỗi token tiếp theo: chữ tuôn nhanh cỡ nào: hai SLO, hai bệnh, hai thuốc",12.2,book-s0
+trace,một request để lại vết qua chín trạm (nối 3.10): span nối span,trace — một request để lại vết qua chín trạm (nối 3.10): span nối span,11.2,book-s0
+traceability,"yêu cầu truy tới test, test truy về yêu cầu: nghĩa vụ pháp lý (nối 11.2)","traceability — yêu cầu truy tới test, test truy về yêu cầu: nghĩa vụ pháp lý (nối 11.2)",14.7.3,book-s0
+Transformer,"attention nhìn toàn chuỗi, song song hoá GPU-friendly: nền LLM","Transformer — attention nhìn toàn chuỗi, song song hoá GPU-friendly: nền LLM",14.4.1;12.1,book-s0
+traversal,đi theo cạnh nhiều tầng: chỗ JOIN sâu của SQL gãy lưng,traversal — đi theo cạnh nhiều tầng: chỗ JOIN sâu của SQL gãy lưng,5.11,book-s0
+trunk-based,"nhánh ngắn cộng feature flag: hợp nhất nhỏ, tránh địa ngục merge","trunk-based — nhánh ngắn cộng feature flag: hợp nhất nhỏ, tránh địa ngục merge",9.7,book-s0
+trường phái bộ nhớ,marking GC / đếm tham chiếu / ownership / stack discipline,marking GC / đếm tham chiếu / ownership / stack discipline,3.1,book-s0
+trạm,"một tầng xử lý trên đường request, dù không ai vẽ ra","một tầng xử lý trên đường request, dù không ai vẽ ra",3.10,book-s0
+trạng thái 2026,bảng chọn đã verify để khỏi re-lai từ đầu,bảng chọn đã verify để khỏi re-lai từ đầu,6.2,book-s0
+trục,"một chiều phân loại, như trục ngang/dọc của đồ thị",Design axis — independent evaluation dimension on the systems map.,0.1,book-s0
+TTFB / LCP / INP,ba mốc khách thấy và chạm được: chỉ có nghĩa khi đo theo chế độ,TTFB / LCP / INP — ba mốc khách thấy và chạm được: chỉ có nghĩa khi đo theo chế độ,7.1,book-s0
+TTFT,"thời gian tới token đầu: khách thấy ""đang gõ"" nhanh cỡ nào","TTFT — thời gian tới token đầu: khách thấy ""đang gõ"" nhanh cỡ nào",12.2,book-s0
+TTL,"thời gian sống: van an toàn bắt buộc, kể cả khi nghĩ không cần","TTL — thời gian sống: van an toàn bắt buộc, kể cả khi nghĩ không cần",5.4,book-s0
+turbo/boost,nâng tần số ngắn hạn khi còn nhiệt độ,turbo/boost — nâng tần số ngắn hạn khi còn nhiệt độ,1.10,book-s0
+tuân thủ như kỹ thuật,"bằng chứng tự sinh từ pipeline, không screenshot lúc kiểm tra","bằng chứng tự sinh từ pipeline, không screenshot lúc kiểm tra",10.8,book-s0
+tuổi deprecated,"deprecated không ngày xoá là ""chết chưa chôn"": chỉ số quan trọng nhất","deprecated không ngày xoá là ""chết chưa chôn"": chỉ số quan trọng nhất",14.8.2,book-s0
+TypeScript,"kiểu tĩnh trên nền JS, chi phí nằm ở bước build","TypeScript — kiểu tĩnh trên nền JS, chi phí nằm ở bước build",3.3,book-s0
+tám ràng buộc,"pin, mạng, phần cứng, màn hình, độ tin của máy, kiên nhẫn người dùng, cửa hàng app, hệ điều hành chủ","pin, mạng, phần cứng, màn hình, độ tin của máy, kiên nhẫn người dùng, cửa hàng app, hệ điều hành chủ",6.1,book-s0
+tĩnh hoá,"cấp phát trước, không GC, số vòng lặp xác định: bỏ nguồn không đoán trước được","cấp phát trước, không GC, số vòng lặp xác định: bỏ nguồn không đoán trước được",14.7.2,book-s0
+tự do địa lý,nước ấm cho phép dựng gần nguồn điện và người dùng: tận dụng nhiệt sưởi ấm,nước ấm cho phép dựng gần nguồn điện và người dùng: tận dụng nhiệt sưởi ấm,14.3.1,book-s0
+UB,"vùng hành vi không định nghĩa: compiler được làm gì cũng ""đúng""","undefined behavior — vùng hành vi không định nghĩa: compiler được làm gì cũng ""đúng""",3.7;14.9.2,book-s0
+UCIe,chuẩn nối die-die: họ hàng của bus (1.2) nhưng đo bằng mm và pJ/bit,UCIe — chuẩn nối die-die: họ hàng của bus (1.2) nhưng đo bằng mm và pJ/bit,14.1.2,book-s0
+UI đi kèm dữ liệu,"ẩn nút không đủ: API phải chặn đúng như UI (nối 6.7, 5.14)","ẩn nút không đủ: API phải chặn đúng như UI (nối 6.7, 5.14)",10.3,book-s0
+ulp,đơn vị sai số nhỏ nhất: khoảng cách số máy với số toán,ulp — đơn vị sai số nhỏ nhất: khoảng cách số máy với số toán,14.5.2,book-s0
+undefined behavior,"UB: vùng hành vi không định nghĩa: compiler được làm gì cũng ""đúng""","undefined behavior (UB) — vùng hành vi không định nghĩa: compiler được làm gì cũng ""đúng""",3.7,book-s0-alias
+unit cost,ngôn ngữ chung tài chính và kỹ thuật: đồng mỗi đơn (nối 11.5),unit cost — ngôn ngữ chung tài chính và kỹ thuật: đồng mỗi đơn (nối 11.5),11.7,book-s0
+unit economics,chi phí theo đơn vị nghiệp vụ: đồng mỗi đơn giao thành công: con số duy nhất tài chính và kỹ thuật cùng hiểu,unit economics — chi phí theo đơn vị nghiệp vụ: đồng mỗi đơn giao thành công: con số duy nhất tài chính và kỹ thuật cùng hiểu,11.5,book-s0
+unit economics AI,đồng mỗi câu trả lời hữu ích: doanh thu trên chi phí,unit economics AI — đồng mỗi câu trả lời hữu ích: doanh thu trên chi phí,12.6,book-s0
+unsafe,lối chủ động gỡ hàng rào: hiếm và phải chứng minh được,unsafe — lối chủ động gỡ hàng rào: hiếm và phải chứng minh được,3.5,book-s0
+UPS,pin đỡ chục giây tới khi máy phát diesel chạy: khoảng trống bắt buộc,UPS — pin đỡ chục giây tới khi máy phát diesel chạy: khoảng trống bắt buộc,14.3.1,book-s0
+URE,lỗi không đọc được trong lúc rebuild,URE — lỗi không đọc được trong lúc rebuild,1.4,book-s0
+URL là state,"filter, tab, trang đưa lên URL: chia sẻ được, back đúng được","filter, tab, trang đưa lên URL: chia sẻ được, back đúng được",7.2,book-s0
+user enumeration,"reply nhanh cho ""không tồn tại"": timing nhìn từ ngoài","user enumeration — reply nhanh cho ""không tồn tại"": timing nhìn từ ngoài",14.11.1,book-s0
+USL,universal scalability law: throughput dẹt rồi đi xuống vì tranh chấp và đồng bộ: thêm máy có điểm hết lời,USL — universal scalability law: throughput dẹt rồi đi xuống vì tranh chấp và đồng bộ: thêm máy có điểm hết lời,11.3,book-s0
+validation hai lớp,"client cho nhanh, server cho đúng: một lớp là sai","client cho nhanh, server cho đúng: một lớp là sai",7.2,book-s0
+vCPU,một phần CPU vật lý được cắt cho máy ảo,vCPU — một phần CPU vật lý được cắt cho máy ảo,1.8,book-s0
+vector,mảng số biểu diễn đặc trưng đa chiều phục vụ tìm kiếm lân cận gần đúng (ANN/HNSW),Vector — multi-dimensional numeric feature point indexed by approximate nearest-neighbor structures.,5.10;12.3,curated-bilingual
+vector clock,"biết ""ai sửa trước ai"": merge có thông tin thay vì đoán","vector clock — biết ""ai sửa trước ai"": merge có thông tin thay vì đoán",6.3,book-s0
+vectorization,vòng lặp thành SIMD khi không alias và số bước biết trước,vectorization — vòng lặp thành SIMD khi không alias và số bước biết trước,14.9.2,book-s0
+verifier,duyệt từng đường thực thi trước khi cho chạy,verifier — duyệt từng đường thực thi trước khi cho chạy,2.8,book-s0
+verify,"đi kiểm một con số về nguồn sơ cấp, kèm ngày","verify — đi kiểm một con số về nguồn sơ cấp, kèm ngày",0.4,book-s0
+versioning schema,"phiên bản dữ liệu, phân biệt versioning đường API","versioning schema — phiên bản dữ liệu, phân biệt versioning đường API",4.3,book-s0
+virtio/SR-IOV,"hai cách nối thiết bị ảo vào thật, đổi độ linh hoạt lấy hiệu năng","virtio/SR-IOV — hai cách nối thiết bị ảo vào thật, đổi độ linh hoạt lấy hiệu năng",1.8,book-s0
+virtual thread,"thread nhẹ do JVM quản (Project Loom), chờ I/O không tốn OS thread","virtual thread — thread nhẹ do JVM quản (Project Loom), chờ I/O không tốn OS thread",3.6,book-s0
+Vite,toolchain mặc định 2026 (trạng thái verify trong chương),Vite — toolchain mặc định 2026 (trạng thái verify trong chương),7.3,book-s0
+VM exit,lần máy ảo phải nhường lại cho hypervisor xử: mỗi lần là tiền,VM exit — lần máy ảo phải nhường lại cho hypervisor xử: mỗi lần là tiền,1.8,book-s0
+VPC/subnet,"không gian IP riêng của bạn trên hạ tầng chia sẻ: ranh giới logic, không phải tường gạch","VPC/subnet — không gian IP riêng của bạn trên hạ tầng chia sẻ: ranh giới logic, không phải tường gạch",9.3,book-s0
+vsync,chờ quét màn hình: chuỗi input tới màn hình 2–4 khung trễ,vsync — chờ quét màn hình: chuỗi input tới màn hình 2–4 khung trễ,14.6.1,book-s0
+VSZ/RSS/PSS,"ba cách đo bộ nhớ đếm khác nhau, PSS mới chia phần dùng chung theo đúng tỉ lệ","VSZ/RSS/PSS — ba cách đo bộ nhớ đếm khác nhau, PSS mới chia phần dùng chung theo đúng tỉ lệ",2.1,book-s0
+vòng,nhóm chương cùng độ gần biên giới của bản đồ,nhóm chương cùng độ gần biên giới của bản đồ,0.1,book-s0
+vòng đời request,"từ accept tới trả response, chỗ mọi miligiây được chi","từ accept tới trả response, chỗ mọi miligiây được chi",3.2,book-s0
+văn hoá eval,"không đo thì đừng đổi: prompt cũng là code, cũng cần test","không đo thì đừng đổi: prompt cũng là code, cũng cần test",12.5,book-s0
+WAL,nhật ký viết trước: sự cố giữa chừng thì tua lại được,WAL — nhật ký viết trước: sự cố giữa chừng thì tua lại được,5.1,book-s0
+warmup,"bỏ lượt đầu: cache lạnh, JIT, lazy init","warmup — bỏ lượt đầu: cache lạnh, JIT, lazy init",14.9.3,book-s0
+WASI,"""hệ điều hành"" của Wasm: file, mạng, đồng hồ cấp theo quyền","WASI — ""hệ điều hành"" của Wasm: file, mạng, đồng hồ cấp theo quyền",3.8,book-s0
+Wasm,định dạng bytecode di động với sandbox nằm trong kết cấu,Wasm — định dạng bytecode di động với sandbox nằm trong kết cấu,3.8,book-s0
+wasm-opt,tối ưu kích thước và tốc độ module,wasm-opt — tối ưu kích thước và tốc độ module,3.8,book-s0
+WasmGC,để ngôn ngữ có GC biên dịch xuống gọn hơn,WasmGC — để ngôn ngữ có GC biên dịch xuống gọn hơn,3.8,book-s0
+watermark,"mốc ""dữ liệu cũ đã tới đủ"": đóng cửa sổ aggregation","watermark — mốc ""dữ liệu cũ đã tới đủ"": đóng cửa sổ aggregation",5.12,book-s0
+watt nhiệt,nhiệt giới hạn bởi làm mát: mọi tối ưu hiệu năng đều là bài nhiệt gián tiếp,nhiệt giới hạn bởi làm mát: mọi tối ưu hiệu năng đều là bài nhiệt gián tiếp,14.3.1,book-s0
+WCET,"thời gian thực hiện xấu nhất, có cận trên chứng minh được: không đo mò","WCET — thời gian thực hiện xấu nhất, có cận trên chứng minh được: không đo mò",14.7.2,book-s0
+web vitals,"LCP, INP, CLS đo trên máy thật của người dùng: RUM là thước cuối","web vitals — LCP, INP, CLS đo trên máy thật của người dùng: RUM là thước cuối",7.6,book-s0
+WebSocket,kênh hai chiều sau khi bắt tay Upgrade: cần sticky và tường lửa mở,WebSocket — kênh hai chiều sau khi bắt tay Upgrade: cần sticky và tường lửa mở,4.6,book-s0
+WebTransport,"kênh không tin cậy, đa stream trên HTTP/3","WebTransport — kênh không tin cậy, đa stream trên HTTP/3",4.6,book-s0
+window,cửa sổ: số byte bên gửi được phép thả ra trước khi chờ xác nhận,window (cửa sổ) — số byte bên gửi được phép thả ra trước khi chờ xác nhận,1.7,book-s0-alias
+worker_threads,"thread thật cho tính nặng, trao đổi bằng message","worker_threads — thread thật cho tính nặng, trao đổi bằng message",3.3,book-s0
+working set,phần dữ liệu thật được đụng tới: vừa RAM hay không là ranh giới nhanh/chậm,working set — phần dữ liệu thật được đụng tới: vừa RAM hay không là ranh giới nhanh/chậm,5.16,book-s0
+workload identity,K8s service account đổi token ngắn hạn: không có chuỗi dài hạn để rò rỉ,workload identity — K8s service account đổi token ngắn hạn: không có chuỗi dài hạn để rò rỉ,10.6,book-s0
+write amplification,ghi 1 byte phải xoá/di chuyển cả khối,write amplification — ghi 1 byte phải xoá/di chuyển cả khối,1.4,book-s0
+write-once vs write-per-user,"đổi dung lượng lấy độ trễ: tài khoản ""sao lớn"" là ca thử thật","write-once vs write-per-user — đổi dung lượng lấy độ trễ: tài khoản ""sao lớn"" là ca thử thật",13.2,book-s0
+write-through / write-behind,"ghi xuyên cache ngay, hoặc trễ sau: đổi tính nhất quán","write-through / write-behind — ghi xuyên cache ngay, hoặc trễ sau: đổi tính nhất quán",5.4,book-s0
+writeback,"kernel dồn trang bẩn xuống đĩa theo nhịp, chỉnh được","writeback — kernel dồn trang bẩn xuống đĩa theo nhịp, chỉnh được",2.4,book-s0
+WUE,nước cho một đơn vị tính toán: vùng khô là ràng buộc thật,WUE — nước cho một đơn vị tính toán: vùng khô là ràng buộc thật,14.3.2,book-s0
+XDP,"xử gói ngay tại driver, trước netstack","XDP — xử gói ngay tại driver, trước netstack",2.6,book-s0
+xoá thật,"GDPR và Nghị định 13: phải tới được mọi bản sao, kể cả backup — là một pipeline, không phải một câu DELETE","GDPR và Nghị định 13: phải tới được mọi bản sao, kể cả backup — là một pipeline, không phải một câu DELETE",5.13,book-s0
+XSS,chèn script chạy trong trang của bạn: vẫn là vua lỗi FE,XSS — chèn script chạy trong trang của bạn: vẫn là vua lỗi FE,7.7,book-s0
+xung đột cấu trúc,"hai mươi năm ""nhanh hơn"" trả nợ bằng ""khó cách ly"": kiến trúc, không bug","hai mươi năm ""nhanh hơn"" trả nợ bằng ""khó cách ly"": kiến trúc, không bug",14.11.1,book-s0
+xung đột đa vùng,"ba con đường của 8.7, giờ có địa lý thật","ba con đường của 8.7, giờ có địa lý thật",13.6,book-s0
+xác suất trong hộp xác định,"AI là phần xác suất đặt trong hạ tầng xác định: giám sát cái hộp, chấp nhận phần trong","AI là phần xác suất đặt trong hạ tầng xác định: giám sát cái hộp, chấp nhận phần trong",12.1,book-s0
+yield,tỉ lệ die tốt: die to gánh khuyết tật nhiều hơn hẳn: động lực của mọi quyết định chia nhỏ,yield — tỉ lệ die tốt: die to gánh khuyết tật nhiều hơn hẳn: động lực của mọi quyết định chia nhỏ,14.1.2,book-s0
+zero trust,"không tin theo vị trí mạng: mọi request phải chứng minh (nối 6.7, 9.4)","zero trust — không tin theo vị trí mạng: mọi request phải chứng minh (nối 6.7, 9.4)",10.1,book-s0
+zero trust client-server,"server kiểm mọi request: không tin header ""app của tao gửi""","zero trust client-server — server kiểm mọi request: không tin header ""app của tao gửi""",6.7,book-s0
+zero-copy,gửi file không chép qua không gian người dùng,zero-copy — gửi file không chép qua không gian người dùng,2.5,book-s0
+ZK proof,chứng minh biết bí mật mà không lộ: giá trị là nén việc tính (verify nhanh hơn làm lại),ZK proof — chứng minh biết bí mật mà không lộ: giá trị là nén việc tính (verify nhanh hơn làm lại),14.10.3,book-s0
+ô mù,"lens viết không ra, thường là lens quan trọng nhất","lens viết không ra, thường là lens quan trọng nhất",0.3,book-s0
+đang nhìn / không nhìn,"đang mở app thì SSE/WebSocket (4.6), tắt màn hình thì push: đúng kênh mỗi trạng thái","đang mở app thì SSE/WebSocket (4.6), tắt màn hình thì push: đúng kênh mỗi trạng thái",6.4,book-s0
+điều kiện biên,"chủ đề tuyên bố là ngoài vũ trụ, ghi rõ thay vì lảng tránh",Boundary condition — parameter regime where a design assumption stops holding.,0.2,book-s0
+điểm gối,nơi thêm tài nguyên hết sinh lời: đo trước khi mua,knee — nơi thêm tài nguyên hết sinh lời: đo trước khi mua,11.3,book-s0
+điểm hoà vốn,tần suất gọi nào thì container rẻ hơn: chương có mô hình tính,tần suất gọi nào thì container rẻ hơn: chương có mô hình tính,9.5,book-s0
+đo client khác đo server,"không kiểm soát, mẫu lệch, số tự báo: hiểu cách đo trước khi đọc số","không kiểm soát, mẫu lệch, số tự báo: hiểu cách đo trước khi đọc số",6.1,book-s0
+đo cái định kết luận,"""nhanh 30%"" trên vòng lặp rỗng không nói gì về production","""nhanh 30%"" trên vòng lặp rỗng không nói gì về production",14.9.3,book-s0
+đo hệ đo,"telemetry về telemetry: khi hệ đang chết, queue của telemetry cũng đang đầy","telemetry về telemetry: khi hệ đang chết, queue của telemetry cũng đang đầy",13.3,book-s0
+đo như đo hiệu năng,"điểm a11y trong CI, độ phủ ngôn ngữ trong release","điểm a11y trong CI, độ phủ ngôn ngữ trong release",7.5,book-s0
+đo theo nhiệm vụ,"trích thông tin, suy luận, viết, tool-use, tính toán: bảng nhiều hàng thay một xếp hạng tổng","trích thông tin, suy luận, viết, tool-use, tính toán: bảng nhiều hàng thay một xếp hạng tổng",14.4.3,book-s0
+đo thống nhất,"quét mã màu ngoài token, đếm component trùng mục đích: số hóa ""màn hình mọc lên không kiểm soát""","quét mã màu ngoài token, đếm component trùng mục đích: số hóa ""màn hình mọc lên không kiểm soát""",7.4,book-s0
+đèn đường,công cụ quét a11y bắt được thiểu số vấn đề: phần còn lại phải kiểm tay,công cụ quét a11y bắt được thiểu số vấn đề: phần còn lại phải kiểm tay,7.5,book-s0
+"đúng workload, đúng field","phân phối theo danh tính: không ""một bucket chung mọi bí mật"" cho cả cụm","phân phối theo danh tính: không ""một bucket chung mọi bí mật"" cho cả cụm",10.6,book-s0
+đúng-một-lần,"end-to-end cần idempotency ở sink (nối 5.7, 8.3): đổi bằng độ trễ","end-to-end cần idempotency ở sink (nối 5.7, 8.3): đổi bằng độ trễ",13.3,book-s0
+đường lùi,mỗi bước có kế hoạch rollback trước khi bấm: không có đường lùi là không được ship,mỗi bước có kế hoạch rollback trước khi bấm: không có đường lùi là không được ship,8.8,book-s0
+đường ống push,"APNs/FCM: hệ điều hành giữ một connection dài thay mọi app, app không được tự giữ","APNs/FCM: hệ điều hành giữ một connection dài thay mọi app, app không được tự giữ",6.4,book-s0
+đệm switch,chỗ đứng chờ của gói tại nút giao,chỗ đứng chờ của gói tại nút giao,1.7,book-s0
+đọc theo vai,"dev, ops, SRE, kinh tế: mỗi vai một đường, chương có bản đồ","dev, ops, SRE, kinh tế: mỗi vai một đường, chương có bản đồ",11.8,book-s0
+đối soát,"so ba nguồn số (internal, provider, ngân hàng): làm hằng ngày, tự động một phần","so ba nguồn số (internal, provider, ngân hàng): làm hằng ngày, tự động một phần",13.1,book-s0
+đồ thị giao dịch,"dup item, bot farm: giống phát hiện gian lận tài chính","dup item, bot farm: giống phát hiện gian lận tài chính",14.6.3,book-s0
+đồng hồ logic/vector clock,"Lamport đếm thứ tự, vector phân biệt ""trước""/""song song"" (nối 6.3)","Lamport đếm thứ tự, vector phân biệt ""trước""/""song song"" (nối 6.3)",8.1,book-s0
+đồng hồ đơn điệu,"bộ đếm chỉ tiến, dùng để đo khoảng, miễn nhiễm chỉnh giờ","bộ đếm chỉ tiến, dùng để đo khoảng, miễn nhiễm chỉnh giờ",1.9,book-s0
+đổi hợp đồng đang chạy,"thêm trường dễ, bỏ trường phải chờ mọi client nâng cấp (nối 4.8)","thêm trường dễ, bỏ trường phải chờ mọi client nâng cấp (nối 4.8)",8.8,book-s0
+độ hạt thảm hoạ,"bảo vệ tới tủ, tới zone, tới vùng: chọn theo giá","bảo vệ tới tủ, tới zone, tới vùng: chọn theo giá",8.7,book-s0
+độ tin best-effort,"push có thể mất hoặc trễ: thiết kế phải chịu được mất, không được dựa","push có thể mất hoặc trễ: thiết kế phải chịu được mất, không được dựa",6.4,book-s0
+độ trễ,thời gian một việc trọn vẹn,latency — thời gian một việc trọn vẹn,1.1,book-s0
+độ trễ khác throughput,"60 fps vững vẫn chạm chậm: hai chỉ số, hai bệnh",Latency — end-to-end duration of a single operation.,14.6.1,book-s0
+độ tươi,dữ liệu cũ bao nhiêu phút là quá cũ cho hành động này: quyết định nghiệp vụ,dữ liệu cũ bao nhiêu phút là quá cũ cho hành động này: quyết định nghiệp vụ,6.3;13.4,book-s0
+động từ,"việc hệ thống làm được với chủ đề: đo, chẩn, kiểm, thiết kế, vận hành, khai tử…","Engineering verb — recurring mode of work across design, diagnosis, and operations.",0.3,book-s0
+đủ cho bao nhiêu user,đổi tài nguyên ra đơn vị người dùng: câu hỏi cuối cùng của capacity,đổi tài nguyên ra đơn vị người dùng: câu hỏi cuối cùng của capacity,11.3,book-s0
+đừng phát minh lại,"tầng lõi 2026 đã có: dùng, đừng chế","tầng lõi 2026 đã có: dùng, đừng chế",12.1,book-s0
+ước lượng trạng thái,robot không biết chính xác mình ở đâu: mọi quyết định trên ước lượng,robot không biết chính xác mình ở đâu: mọi quyết định trên ước lượng,14.7.1,book-s0

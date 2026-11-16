@@ -1,0 +1,106 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { loadBookIndex, loadLearningPaths } from "../../../lib/atlas";
+
+const base = import.meta.env.BASE_URL;
+const pathsData = loadLearningPaths();
+const bookTitles = new Map(loadBookIndex().map((c) => [c.slug, c.title]));
+
+const PERSONAS = [
+  { id: "a", title: "Persona (a) — Người mới / Sinh viên năm 3", desc: "Lộ trình 16 tuần không đứt khái niệm tiên quyết (kiểm định nghiêm ngặt bằng walkthrough)." },
+  { id: "b", title: "Persona (b) — Kỹ sư Backend 1–3 năm", desc: "Tập trung máy thực, runtime, CSDL, giao thức, resilience và vận hành sản phẩm." },
+  { id: "c", title: "Persona (c) — Infra / Platform / AI Lead", desc: "Nhắm thẳng hệ phân tán, Kubernetes/Cilium, SRE, bảo mật và AI serving." },
+];
+---
+
+<Base
+  title="Lộ trình 3 Persona — System Craft"
+  description="Lộ trình học theo tuần cho 3 đối tượng trích từ facts/learning-paths.csv."
+  lang="vi"
+  altPath="paths/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">facts/learning-paths.csv · 3 Persona</div>
+      <h1>Lộ trình Học theo Vai</h1>
+      <p>Chọn vai trò phù hợp để theo dõi các chương lõi (<code>loi</code>), mở rộng (<code>morong</code>) và đọc lướt (<code>nhay</code>) từng tuần.</p>
+    </div>
+
+    <div class="controls-bar">
+      <div class="persona-group">
+        {PERSONAS.map((p, idx) => (
+          <button
+            type="button"
+            class={`ctrl-btn ${idx === 0 ? "active" : ""}`}
+            data-persona-tab={p.id}
+          >
+            Vai ({p.id})
+          </button>
+        ))}
+      </div>
+      <div id="persona-progress-text">Tiến độ: 0%</div>
+    </div>
+
+    {PERSONAS.map((p, idx) => {
+      const weeks = Object.entries(pathsData[p.id] || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+      return (
+        <div class="persona-panel" data-persona-panel={p.id} hidden={idx !== 0}>
+          <h2>{p.title}</h2>
+          <p>{p.desc}</p>
+          {weeks.map(([wk, items]) => (
+            <div style="margin:18px 0;">
+              <h3>Tuần {wk}</h3>
+              {items.map((it) => (
+                <a class="book-row" href={`${base}vi/book/${it.chap}/`} data-track-chap={it.chap}>
+                  <span class="br-id">{it.chap}</span>
+                  <span class="br-title">{bookTitles.get(it.chap) || `Chương ${it.chap}`}</span>
+                  <span class="br-badge">{it.kind}</span>
+                </a>
+              ))}
+            </div>
+          ))}
+        </div>
+      );
+    })}
+  </div>
+
+  <script is:inline>
+    (() => {
+      let doneMap = {};
+      try { doneMap = JSON.parse(localStorage.getItem("sc-progress-done") || "{}"); } catch {}
+
+      document.querySelectorAll("[data-track-chap]").forEach((row) => {
+        const ch = row.getAttribute("data-track-chap");
+        if (doneMap[ch]) {
+          const b = row.querySelector(".br-badge");
+          if (b) b.classList.add("done");
+        }
+      });
+
+      const tabs = [...document.querySelectorAll("[data-persona-tab]")];
+      const panels = [...document.querySelectorAll("[data-persona-panel]")];
+      const progText = document.getElementById("persona-progress-text");
+
+      const selectPersona = (id) => {
+        tabs.forEach((t) => t.classList.toggle("active", t.getAttribute("data-persona-tab") === id));
+        panels.forEach((p) => {
+          p.hidden = p.getAttribute("data-persona-panel") !== id;
+        });
+        const activePanel = panels.find((p) => p.getAttribute("data-persona-panel") === id);
+        if (activePanel && progText) {
+          const rows = [...activePanel.querySelectorAll("[data-track-chap]")];
+          const done = rows.filter((r) => doneMap[r.getAttribute("data-track-chap")]).length;
+          const pct = rows.length ? Math.round((done * 100) / rows.length) : 0;
+          progText.textContent = `Tiến độ Vai (${id}): ${done}/${rows.length} chương (${pct}%)`;
+        }
+        try { localStorage.setItem("sc-persona", id); } catch {}
+      };
+
+      let saved = "a";
+      try { saved = localStorage.getItem("sc-persona") || "a"; } catch {}
+      if (!["a", "b", "c"].includes(saved)) saved = "a";
+      selectPersona(saved);
+      tabs.forEach((t) => t.addEventListener("click", () => selectPersona(t.getAttribute("data-persona-tab"))));
+    })();
+  </script>
+</Base>

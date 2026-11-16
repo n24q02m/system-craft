@@ -6,7 +6,6 @@ interface Props {
   title: string;
   description: string;
   lang: Lang;
-  /** Đường dẫn tương đối trong cùng bài, để chuyển ngôn ngữ giữ nguyên vị trí. */
   altPath?: string;
 }
 const { title, description, lang, altPath = "" } = Astro.props;
@@ -44,8 +43,15 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
       <div class="wrap">
         <a class="brand" href={`${base}${lang}/`}>System<span>·</span>Craft</a>
         <nav class="nav">
-          <a href={`${base}${lang}/`}>{t.navPosts}</a>
+          <a href={`${base}vi/book/`}>{t.navBook}</a>
+          <a href={`${base}${lang}/cases/`}>{t.navCases}</a>
+          <a href={`${base}vi/paths/`}>{t.navPaths}</a>
+          <a href={`${base}${lang}/search/`}>{t.navSearch}</a>
+          <a href={`${base}${lang}/status/`}>{t.navStatus}</a>
           <a href={`${base}${lang}/about/`}>{t.navAbout}</a>
+          <form class="header-search" action={`${base}${lang}/search/`} method="get">
+            <input type="search" name="q" placeholder={t.searchPlaceholder} aria-label={t.navSearch} />
+          </form>
           {
             others.map((l) => (
               <a href={`${base}${l}/${altPath}`} class="lang-link">
@@ -70,6 +76,8 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
       </div>
     </footer>
 
+    <div id="gloss-popover" class="gloss-popover" role="tooltip" hidden></div>
+
     <script is:inline>
       document.getElementById("theme-toggle")?.addEventListener("click", () => {
         const root = document.documentElement;
@@ -80,6 +88,37 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
         root.setAttribute("data-theme", next);
         localStorage.setItem("theme", next);
       });
+
+      (() => {
+        const pop = document.getElementById("gloss-popover");
+        if (!pop) return;
+        const show = (el) => {
+          const term = el.getAttribute("data-term") || el.textContent;
+          const vi = el.getAttribute("data-vi") || "";
+          const en = el.getAttribute("data-en") || "";
+          pop.innerHTML =
+            `<strong>${term}</strong><div class="gp-vi">${vi}</div>` +
+            (en && en !== vi ? `<div class="gp-en">${en}</div>` : "");
+          const r = el.getBoundingClientRect();
+          pop.style.left = `${Math.max(12, Math.min(window.innerWidth - 340, r.left))}px`;
+          pop.style.top = `${r.bottom + window.scrollY + 8}px`;
+          pop.hidden = false;
+        };
+        const hide = () => { pop.hidden = true; };
+        document.addEventListener("mouseover", (e) => {
+          const abbr = e.target instanceof Element ? e.target.closest("abbr.gloss") : null;
+          if (abbr) show(abbr);
+        });
+        document.addEventListener("mouseout", (e) => {
+          const abbr = e.target instanceof Element ? e.target.closest("abbr.gloss") : null;
+          if (abbr) hide();
+        });
+        document.addEventListener("focusin", (e) => {
+          const abbr = e.target instanceof Element ? e.target.closest("abbr.gloss") : null;
+          if (abbr) show(abbr);
+        });
+        document.addEventListener("focusout", hide);
+      })();
     </script>
   </body>
 </html>

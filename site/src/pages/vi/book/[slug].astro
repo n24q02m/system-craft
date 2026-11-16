@@ -1,0 +1,188 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+import { loadBookIndex, loadEduBridges, loadChapterCaseLinks, PART_NAMES } from "../../../lib/atlas";
+
+export async function getStaticPaths() {
+  const all = loadBookIndex();
+  const bridges = loadEduBridges();
+  const { byChap } = loadChapterCaseLinks();
+  return all.map((item, idx) => ({
+    params: { slug: item.slug },
+    props: {
+      item,
+      prev: idx > 0 ? all[idx - 1] : null,
+      next: idx + 1 < all.length ? all[idx + 1] : null,
+      bridge: !item.isP15 ? bridges.get(item.slug) : undefined,
+      relatedCases: !item.isP15 ? byChap.get(item.slug) || [] : [],
+    },
+  }));
+}
+
+const { item, prev, next, bridge, relatedCases } = Astro.props;
+const entry = await getEntry("book", item.entryId);
+if (!entry) {
+  throw new Error(`Missing book collection entry for ${item.entryId}`);
+}
+const { Content, headings } = await render(entry);
+const base = import.meta.env.BASE_URL;
+const toc = headings.filter((h) => h.depth === 2);
+const partLabel = item.isP15 ? "Tầng học (P15)" : PART_NAMES[item.phan] || "Sổ tay";
+---
+
+<Base
+  title={`${item.title} — System Craft`}
+  description={`${partLabel} · ${item.title}`}
+  lang="vi"
+  altPath={`book/${item.slug}/`}
+>
+  <div class="wrap wrap--post">
+    <div class="post-head">
+      <div class="eyebrow">
+        <a href={`${base}vi/book/`}>Sổ tay</a> · {partLabel}
+        {item.star && <span> · ★ Xương sống</span>}
+      </div>
+      <h1 style="margin-top:6px;">{item.title}</h1>
+
+      <div class="controls-bar">
+        {!item.isP15 ? (
+          <div class="speed-group" role="group" aria-label="Tốc độ đọc">
+            <span class="eyebrow" style="margin-right:4px;">Tốc độ đọc:</span>
+            <button type="button" class="ctrl-btn" data-speed="brief">Tóm tắt 3′</button>
+            <button type="button" class="ctrl-btn" data-speed="practical">Thực chiến 15′</button>
+            <button type="button" class="ctrl-btn active" data-speed="full">Toàn văn</button>
+          </div>
+        ) : <div />}
+
+        <div class="persona-group">
+          <button
+            type="button"
+            class="progress-btn"
+            id="chap-done-btn"
+            data-chap={item.slug}
+          >
+            Đánh dấu đã xong
+          </button>
+        </div>
+      </div>
+
+      {bridge && (
+        <div class="bridge-box">
+          <strong>Nhịp nối (tuyến học):</strong> {bridge}
+        </div>
+      )}
+    </div>
+
+    <div class="post-layout">
+      <article class="prose" data-pagefind-body>
+        <Content />
+
+        {relatedCases.length > 0 && (
+          <div class="related-box">
+            <h3>Case Studies đối chiếu thực chiến</h3>
+            <ul>
+              {relatedCases.map((rel) => (
+                <li>
+                  <a href={`${base}vi/posts/${rel.case_slug}/`}>
+                    <strong>{rel.case_slug}</strong> (VI)
+                  </a>
+                  {" / "}
+                  <a href={`${base}en/posts/${rel.case_slug}/`}>(EN)</a>
+                  {" — "}
+                  <span>{rel.vi_relation}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <nav class="post-nav">
+          {prev ? (
+            <a href={`${base}vi/book/${prev.slug}/`}>
+              <span class="dir">Chương trước</span>
+              {prev.title}
+            </a>
+          ) : <span />}
+          {next ? (
+            <a href={`${base}vi/book/${next.slug}/`} style="text-align:right">
+              <span class="dir">Chương sau</span>
+              {next.title}
+            </a>
+          ) : <span />}
+        </nav>
+      </article>
+
+      {toc.length > 1 && (
+        <aside class="toc">
+          <div class="toc-title">Mục trong chương</div>
+          {toc.map((h) => (
+            <a href={`#${h.slug}`}>{h.text}</a>
+          ))}
+        </aside>
+      )}
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      // Hide duplicate markdown H1 since .post-head already shows item.title
+      const firstH1 = document.querySelector(".prose h1");
+      if (firstH1) firstH1.style.display = "none";
+
+      document.querySelectorAll(".prose table").forEach((tb) => {
+        if (tb.parentElement?.classList.contains("table-scroll")) return;
+        const box = document.createElement("div");
+        box.className = "table-scroll";
+        tb.replaceWith(box);
+        box.appendChild(tb);
+      });
+
+      const SPEEDS = {
+        brief: new Set(["0", "5", "7"]),
+        practical: new Set(["0", "1", "4", "5", "6", "7"]),
+        full: null,
+      };
+      const secs = [...document.querySelectorAll(".prose section.sec[data-sec]")];
+      const speedBtns = [...document.querySelectorAll("[data-speed]")];
+      const applySpeed = (mode) => {
+        const allow = SPEEDS[mode] || null;
+        secs.forEach((sec) => {
+          const id = sec.getAttribute("data-sec");
+          sec.classList.toggle("sec-hidden", Boolean(allow && !allow.has(id)));
+        });
+        speedBtns.forEach((b) => b.classList.toggle("active", b.getAttribute("data-speed") === mode));
+        try { localStorage.setItem("sc-speed", mode); } catch {}
+      };
+      if (speedBtns.length && secs.length) {
+        let savedSpeed = "full";
+        try { savedSpeed = localStorage.getItem("sc-speed") || "full"; } catch {}
+        if (!["brief", "practical", "full"].includes(savedSpeed)) savedSpeed = "full";
+        applySpeed(savedSpeed);
+        speedBtns.forEach((b) => {
+          b.addEventListener("click", () => applySpeed(b.getAttribute("data-speed")));
+        });
+      }
+
+      const btn = document.getElementById("chap-done-btn");
+      if (btn) {
+        const chap = btn.getAttribute("data-chap");
+        const loadMap = () => {
+          try { return JSON.parse(localStorage.getItem("sc-progress-done") || "{}"); }
+          catch { return {}; }
+        };
+        const sync = () => {
+          const done = Boolean(loadMap()[chap]);
+          btn.classList.toggle("done", done);
+          btn.textContent = done ? "✓ Đã hoàn thành" : "Đánh dấu đã xong";
+        };
+        sync();
+        btn.addEventListener("click", () => {
+          const m = loadMap();
+          if (m[chap]) delete m[chap]; else m[chap] = true;
+          try { localStorage.setItem("sc-progress-done", JSON.stringify(m)); } catch {}
+          sync();
+        });
+      }
+    })();
+  </script>
+</Base>

@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { ACTIVE_LANGS, T, type Lang } from "../../i18n";
+import { loadStatusSnapshot } from "../../lib/atlas";
 
 export async function getStaticPaths() {
   return ACTIVE_LANGS.map((lang) => ({ params: { lang } }));
@@ -9,33 +10,53 @@ export async function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const t = T[lang];
+const base = import.meta.env.BASE_URL;
+const snap = loadStatusSnapshot();
 const posts = (
   await getCollection("blog", ({ data, id }) => !data.draft && id.startsWith(`${lang}/`))
 ).sort((a, b) => a.data.order - b.data.order);
-const base = import.meta.env.BASE_URL;
-
-const HEAD = {
-  vi: {
-    eyebrow: "Ghi chép kỹ thuật",
-    title: "Những hệ thống đã xây, và những gì chúng dạy lại",
-    lede: "Mỗi bài dưới đây kể về một hệ thống học máy đã từng được xây dựng: bài toán đặt ra thế nào, hệ thống được ghép lại ra sao, kiến thức nền cần có để hiểu lĩnh vực đó, ngành công nghiệp giải cùng bài toán ấy theo chuẩn nào, và điều còn đọng lại sau khi mọi thứ đã chạy xong. Trọng tâm là nguyên lý và kiến trúc, không phải hướng dẫn từng bước.",
-  },
-  en: {
-    eyebrow: "Engineering notes",
-    title: "Systems that were built, and what they taught back",
-    lede: "Each post below takes one machine learning system that was actually built: what the problem really was, how the system was put together, the background needed to follow the field, how the industry solves the same problem, and what stayed useful once everything had shipped. The focus is on principles and architecture rather than step-by-step instructions.",
-  },
-}[lang];
 ---
 
 <Base title={t.siteTitle} description={t.siteDescription} lang={lang} altPath="">
   <div class="wrap">
     <div class="index-head">
-      <div class="eyebrow">{HEAD.eyebrow}</div>
-      <h1>{HEAD.title}</h1>
-      <p>{HEAD.lede}</p>
+      <div class="eyebrow">SA-2028.1</div>
+      <h1>{lang === "vi" ? "System Craft — Sổ tay Hệ thống & Case Studies" : "System Craft — Fieldbook & Case Studies"}</h1>
+      <p>{t.siteDescription}</p>
     </div>
 
+    <div class="hub-grid">
+      <a class="hub-card" href={`${base}vi/book/`}>
+        <div class="eyebrow">{lang === "vi" ? "Tập I–IV · 145 chương + Tầng học" : "Volumes I–IV · 145 Chapters (VI)"}</div>
+        <h2>{lang === "vi" ? "Sổ tay Kiến trúc Hệ thống" : "Systems Architecture Fieldbook"}</h2>
+        <p>{lang === "vi"
+          ? "145 chương P0–P14, 30 chương xương sống ★, 15 quiz cụm, 15 lab, 60 câu nâng cao và từ điển song ngữ."
+          : "145 chapters covering hardware, kernels, datastores, distributed systems, cloud, SRE, security, and AI serving."}</p>
+      </a>
+      <a class="hub-card" href={`${base}${lang}/cases/`}>
+        <div class="eyebrow">{lang === "vi" ? "Tập V · 6 hệ thống thực chiến" : "Volume V · 6 Bilingual Case Studies"}</div>
+        <h2>{lang === "vi" ? "Case Studies Học máy & Dữ liệu" : "ML & Data Production Case Studies"}</h2>
+        <p>{lang === "vi"
+          ? "Phân tích kiến trúc, bài toán gốc, chuẩn ngành và nguyên tắc giữ lại sau 6 hệ thống thật."
+          : "Deep technical retrospectives with SVG architecture diagrams and cross-links into fieldbook chapters."}</p>
+      </a>
+      <a class="hub-card" href={`${base}vi/paths/`}>
+        <div class="eyebrow">{lang === "vi" ? "3 Persona · Theo dõi tiến độ" : "3 Persona Tracks"}</div>
+        <h2>{lang === "vi" ? "Lộ trình Học theo Vai" : "Role-Based Roadmaps"}</h2>
+        <p>{lang === "vi"
+          ? "Tuyến (a) Người mới 16 tuần, (b) Backend 1–3 năm, (c) Infra/Platform — lưu tiến độ tại trình duyệt."
+          : "Structured reading paths for (a) newcomers, (b) backend engineers, and (c) infra leads."}</p>
+      </a>
+      <a class="hub-card" href={`${base}${lang}/search/`}>
+        <div class="eyebrow">{lang === "vi" ? `${snap.glossaryCount}+ thuật ngữ · Offline Pagefind` : `${snap.glossaryCount}+ terms · Offline Index`}</div>
+        <h2>{lang === "vi" ? "Tra cứu Toàn văn & Trạng thái" : "Offline Full-Text Search & Status"}</h2>
+        <p>{lang === "vi"
+          ? `Tìm kiếm 100% cục bộ bằng Pagefind trên toàn bộ 145 chương + case studies. Ledger verified ${snap.latestVerified}.`
+          : `Zero-network Pagefind full-text index across all chapters and essays. Ledger verified ${snap.latestVerified}.`}</p>
+      </a>
+    </div>
+
+    <h2>{lang === "vi" ? "Case Studies" : "Case Studies"}</h2>
     {
       posts.map((post) => {
         const slug = post.id.replace(`${lang}/`, "");

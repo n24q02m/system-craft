@@ -1,0 +1,121 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { loadBookIndex, PART_NAMES } from "../../../lib/atlas";
+
+const base = import.meta.env.BASE_URL;
+const allItems = loadBookIndex();
+const chapters = allItems.filter((c) => !c.isP15);
+const p15 = allItems.filter((c) => c.isP15);
+const parts = ["1", "2", "3", "4", "9"];
+---
+
+<Base
+  title="Sổ tay 145 Chương — System Craft"
+  description="Mục lục đầy đủ 145 chương kiến trúc hệ thống (SA-2028.1 EDU-ORDER) và 48+ văn kiện tầng học."
+  lang="vi"
+  altPath="book/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">SA-2028.1 · 145 Chương + Tầng học P15</div>
+      <h1>Sổ tay Kiến trúc Hệ thống</h1>
+      <p>
+        Sắp theo tuyến học <code>facts/edu-order.csv</code> qua 4 phần chính và Phụ lục đọc khi cần.
+        Các mục mang huy hiệu <strong>★</strong> là 30 chương xương sống của chương trình.
+      </p>
+    </div>
+
+    <div class="controls-bar">
+      <div>
+        <strong id="book-prog-label">Tiến độ của bạn: 0 / 145 chương (0%)</strong>
+      </div>
+      <div class="speed-group">
+        <button class="ctrl-btn active" type="button" data-filter="all">Tất cả (145)</button>
+        <button class="ctrl-btn" type="button" data-filter="star">30 Chương ★</button>
+        <button class="ctrl-btn" type="button" data-filter="unread">Chưa đọc</button>
+      </div>
+    </div>
+
+    {parts.map((p) => {
+      const list = chapters.filter((c) => c.phan === p);
+      return (
+        <section style="margin-bottom: 32px;">
+          <h2>{PART_NAMES[p]} ({list.length})</h2>
+          {list.map((ch) => (
+            <a
+              class="book-row"
+              href={`${base}vi/book/${ch.slug}/`}
+              data-chap={ch.slug}
+              data-star={ch.star ? "1" : "0"}
+            >
+              <span class="br-id">{ch.slug}</span>
+              <span class="br-title">{ch.title.replace(/^\d+(?:\.\d+)*\s*[—–-]\s*/, "")}</span>
+              <span style="display:flex;gap:6px;align-items:center;">
+                {ch.star && <span class="br-badge star">★ Lõi</span>}
+                <span class="br-badge br-done-tag" hidden>Đã xong</span>
+              </span>
+            </a>
+          ))}
+        </section>
+      );
+    })}
+
+    <section style="margin-top: 40px;">
+      <h2>Tầng học (P15): Đồ thị, 15 Quiz, 15 Lab, 60 Câu Nâng cao & Tài liệu</h2>
+      {p15.map((item) => (
+        <a class="book-row" href={`${base}vi/book/${item.slug}/`}>
+          <span class="br-id">P15</span>
+          <span class="br-title">{item.title}</span>
+          <span class="br-badge">Tầng học</span>
+        </a>
+      ))}
+    </section>
+  </div>
+
+  <script is:inline>
+    (() => {
+      let doneMap = {};
+      try {
+        doneMap = JSON.parse(localStorage.getItem("sc-progress-done") || "{}");
+      } catch {}
+
+      const rows = [...document.querySelectorAll(".book-row[data-chap]")];
+      let doneCount = 0;
+      rows.forEach((row) => {
+        const ch = row.getAttribute("data-chap");
+        if (doneMap[ch]) {
+          doneCount++;
+          const tag = row.querySelector(".br-done-tag");
+          if (tag) {
+            tag.hidden = false;
+            tag.classList.add("done");
+          }
+        }
+      });
+
+      const lbl = document.getElementById("book-prog-label");
+      if (lbl) {
+        const pct = rows.length ? Math.round((doneCount * 100) / rows.length) : 0;
+        lbl.textContent = `Tiến độ của bạn: ${doneCount} / ${rows.length} chương (${pct}%)`;
+      }
+
+      const btns = [...document.querySelectorAll("[data-filter]")];
+      btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const mode = btn.getAttribute("data-filter");
+          btns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          rows.forEach((row) => {
+            const ch = row.getAttribute("data-chap");
+            const isStar = row.getAttribute("data-star") === "1";
+            const show =
+              mode === "all" ||
+              (mode === "star" && isStar) ||
+              (mode === "unread" && !doneMap[ch]);
+            row.style.display = show ? "" : "none";
+          });
+        });
+      });
+    })();
+  </script>
+</Base>
