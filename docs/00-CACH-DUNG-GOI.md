@@ -1,7 +1,7 @@
 # SYSTEMS ATLAS — SA-2028.1 · Gói Học (LEARNER)
 
 > **Đây là gì:** một *bách khoa* hệ thống/backend/platform, **145 chương**, viết để **dạy được từ số 0** và dùng được như **một môn học nhiều tín** thay cả một chương trình.
-> **Đóng băng:** 2026-11-16 · **Quy mô:** 48 văn kiện tầng học (15 quiz + 1 quiz nâng cao 60 câu + 15 lab + 15 lời giải) · **433 mục bài tập, đã có lời giải 100%**.
+> **Đóng băng:** 2026-11-16 · **Quy mô:** 50 văn kiện tầng học (15 quiz + 1 quiz nâng cao 60 câu + 15 lab + 15 lời giải + 2 sổ tay ranh giới & điều tra sự cố) · **433 mục bài tập, đã có lời giải 100%**.
 > **Bốn định dạng:** `.md` (nguồn, đọc trên máy) · `.html` (đọc/tra trong trình duyệt) · `.docx` (in, chấm bài, sửa) · `.pdf` (phát cho người học).
 
 ---
@@ -11,7 +11,7 @@
 | Tầng | Là gì | Ở đâu trong gói |
 |---|---|---|
 | **Thân sách** (145 chương) | Bản thân kiến thức: P0 → P14, mỗi chương có §0 nhập môn, thân, §vận hành, **§3 số liệu**, và bài tập | xen kẽ theo tuyến học |
-| **Tầng học** (48 văn kiện) | Đồ thị + lộ trình, 15 bộ quiz theo cụm, 15 lab tay (`L00–L14`), 1 quiz nâng cao 60 câu (`P15-02-QA`), **15 tệp lời giải** | chèn ngay sau cụm tương ứng |
+| **Tầng học** (50 văn kiện) | Đồ thị + lộ trình, 15 bộ quiz theo cụm, 15 lab tay (`L00–L14`), 1 quiz nâng cao 60 câu (`P15-02-QA`), **15 tệp lời giải**, `P15-05` ranh giới & `P15-06` điều tra sự cố | chèn ngay sau cụm / cuối phụ lục |
 
 Tầng học **không** phải phụ lục: nó nằm đúng chỗ để người đọc không phải nhảy. Nếu bạn chỉ muốn tra cứu, đọc `DRAFT-tham-chieu.md` (tầng học dồn về cuối) — nội dung thân chương **giống hệt** (đã kiểm: 0 khác biệt trên 145/145).
 

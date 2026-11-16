@@ -88,7 +88,7 @@ def verify_release_dir(dist_dir):
     assert "SA-2028.1" in md_text.splitlines()[0]
 
     h1s = _h1s_outside_code(md_text)
-    assert len(h1s) == 199, f"Expected 199 H1s outside code, got {len(h1s)}"
+    assert len(h1s) == 201, f"Expected 201 H1s outside code, got {len(h1s)}"
 
     labs = [h for h in h1s if h.startswith("# P15-03-L")]
     quizzes = [h for h in h1s if re.match(r"^# P15-02-Q\d+", h)]
@@ -120,7 +120,7 @@ def verify_release_dir(dist_dir):
     ]
     assert ext == [], f"External assets in HTML: {ext}"
     html_h1s = len(soup.find_all("h1", class_="chap"))
-    assert html_h1s == 198, f"Expected 198 chapter h1.chap in HTML body, got {html_h1s}"
+    assert html_h1s == 200, f"Expected 200 chapter h1.chap in HTML body, got {html_h1s}"
 
     # Verify DOCX opens & has tables + headings
     d = docx.Document(os.path.join(dist_dir, "SYSTEMS-ATLAS-LEARNER-SA-2028.1.docx"))
@@ -213,7 +213,7 @@ def main():
     if args.write_receipt:
         lines = [
             "# QA RECEIPT — SA-2028.1 LEARNER\n",
-            f"- **H1 ngoài code:** {res['h1s']} (145 chương + 1 bìa + 2 P15-00/01 + 5 trang nhãn + 15 quiz + 1 QA + 15 lab + 15 lời giải)",
+            f"- **H1 ngoài code:** {res['h1s']} (145 chương + 1 bìa + 4 P15-00/01/05/06 + 5 trang nhãn + 15 quiz + 1 QA + 15 lab + 15 lời giải)",
             f"- **Tự chấm:** {res['tu_cham']} (M1+M3) · **Quiz nâng cao (`P15-02-QA`):** 60 câu / 60 đáp án · **Lab:** {res['labs']}/15",
             f"- **Nhịp nối (F1):** {res['nhip_noi']} · **Tham chiếu gãy:** {res['broken_refs']}",
             f"- **HTML:** {res['html_h1s']} chương `h1.chap`, 0 tài nguyên ngoài",

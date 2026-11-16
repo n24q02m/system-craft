@@ -1,0 +1,144 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Base from "../../../layouts/Base.astro";
+import { REPO_ROOT } from "../../../lib/atlas";
+
+const base = import.meta.env.BASE_URL;
+
+function parseTable(relPath: string) {
+  const txt = fs.readFileSync(path.join(REPO_ROOT, relPath), "utf8");
+  const rows: string[][] = [];
+  for (const line of txt.split("\n")) {
+    const s = line.trim();
+    if (!s.startsWith("|") || s.startsWith("|---")) continue;
+    const cells = s.slice(1, -1).split("|").map((c) => c.trim().replace(/`/g, ""));
+    if (rows.length === 0 && (cells[0] === "ID" || cells[0] === "Chương")) continue;
+    rows.push(cells);
+  }
+  return rows;
+}
+
+const decRows = parseTable("content/generated/INDEX-DECISIONS.md");
+const incRows = parseTable("content/generated/INDEX-INCIDENTS.md");
+const csRows = parseTable("content/generated/INDEX-CS2023.md");
+---
+
+<Base
+  title="3 Danh mục Tra cứu (Decisions · Incidents · CS2023) — System Craft"
+  description="Bảng chỉ mục tổng hợp quyết định kiến trúc, bảng chẩn sự cố và ánh xạ giáo trình ACM/IEEE CS2023."
+  lang="vi"
+  altPath="indexes/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">
+        Tra cứu · <a href={`${base}vi/book/`}>Sổ tay</a> · <a href={`${base}vi/cards/`}>Thẻ &amp; Flashcards</a> · <a href={`${base}vi/triage/`}>Ranh giới &amp; Triage</a>
+      </div>
+      <h1>Ba Danh mục Tra cứu Tổng hợp</h1>
+      <p>
+        Tổng hợp từ toàn bộ 145 chương: <strong>INDEX-DECISIONS</strong> ({decRows.length} quyết định),
+        <strong>INDEX-INCIDENTS</strong> ({incRows.length} ca lỗi &amp; lệnh đo đầu tiên) và
+        <strong>INDEX-CS2023</strong> ({csRows.length} chương theo chuẩn môn học &amp; CS2023).
+      </p>
+    </div>
+
+    <div class="controls-bar" style="flex-wrap:wrap;gap:10px;margin:20px 0;">
+      <div class="speed-group" role="tablist">
+        <button type="button" class="ctrl-btn active" data-tab="dec">INDEX-DECISIONS ({decRows.length})</button>
+        <button type="button" class="ctrl-btn" data-tab="inc">INDEX-INCIDENTS ({incRows.length})</button>
+        <button type="button" class="ctrl-btn" data-tab="cs">INDEX-CS2023 ({csRows.length})</button>
+      </div>
+      <input
+        id="idx-search"
+        type="search"
+        placeholder="Tìm theo từ khoá, lệnh hoặc chương…"
+        style="padding:7px 12px;min-width:260px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);"
+      />
+    </div>
+
+    <div data-pagefind-body>
+      <section id="tab-dec">
+        <h2>INDEX-DECISIONS ({decRows.length} Quyết định Kiến trúc)</h2>
+        <table>
+          <thead><tr><th>ID</th><th>Quyết định</th><th>Câu hỏi tự vấn</th><th>Chương</th></tr></thead>
+          <tbody>
+            {decRows.map(([id, dec, q, ch]) => (
+              <tr class="idx-row" data-q={`${id} ${dec} ${q} ${ch}`.toLowerCase()}>
+                <td><code>{id}</code></td>
+                <td><strong>{dec}</strong></td>
+                <td>{q}</td>
+                <td><a href={`${base}vi/book/${ch}/`}>{ch}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="tab-inc" hidden>
+        <h2>INDEX-INCIDENTS ({incRows.length} Triệu chứng &amp; Lệnh Chẩn)</h2>
+        <table>
+          <thead><tr><th>ID</th><th>Triệu chứng</th><th>Nguyên nhân gốc</th><th>Kiểm tra đầu tiên</th><th>Chương</th></tr></thead>
+          <tbody>
+            {incRows.map(([id, sym, cause, cmd, ch]) => (
+              <tr class="idx-row" data-q={`${id} ${sym} ${cause} ${cmd} ${ch}`.toLowerCase()}>
+                <td><code>{id}</code></td>
+                <td><strong>{sym}</strong></td>
+                <td>{cause}</td>
+                <td><code>{cmd}</code></td>
+                <td><a href={`${base}vi/book/${ch}/`}>{ch}</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section id="tab-cs" hidden>
+        <h2>INDEX-CS2023 (Ánh xạ 145 Chương · ACM/IEEE/AAAI &amp; 3 Môn Kit)</h2>
+        <table>
+          <thead><tr><th>Chương</th><th>Tiêu đề</th><th>Cụm</th><th>Môn Kit</th><th>CS2023 KA</th></tr></thead>
+          <tbody>
+            {csRows.map(([ch, title, cl, course, ka]) => (
+              <tr class="idx-row" data-q={`${ch} ${title} ${cl} ${course} ${ka}`.toLowerCase()}>
+                <td><a href={`${base}vi/book/${ch}/`}><code>{ch}</code></a></td>
+                <td>{title}</td>
+                <td><code>{cl}</code></td>
+                <td>{course}</td>
+                <td><code>{ka}</code></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const panels = {
+        dec: document.getElementById("tab-dec"),
+        inc: document.getElementById("tab-inc"),
+        cs: document.getElementById("tab-cs"),
+      };
+      document.querySelectorAll("[data-tab]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tgt = btn.getAttribute("data-tab");
+          document.querySelectorAll("[data-tab]").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          Object.entries(panels).forEach(([k, el]) => {
+            if (el) el.hidden = k !== tgt;
+          });
+        });
+      });
+
+      const input = document.getElementById("idx-search");
+      const rows = [...document.querySelectorAll(".idx-row")];
+      input?.addEventListener("input", () => {
+        const q = (input.value || "").trim().toLowerCase();
+        rows.forEach((tr) => {
+          tr.style.display = !q || (tr.getAttribute("data-q") || "").includes(q) ? "" : "none";
+        });
+      });
+    })();
+  </script>
+</Base>

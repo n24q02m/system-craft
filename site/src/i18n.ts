@@ -15,6 +15,8 @@ type Key =
   | "navBook"
   | "navCases"
   | "navPaths"
+  | "navCards"
+  | "navTriage"
   | "navTools"
   | "navSearch"
   | "navStatus"
@@ -34,6 +36,8 @@ export const T: Record<Lang, Record<Key, string>> = {
     navBook: "Sổ tay (145)",
     navCases: "Case Studies",
     navPaths: "Lộ trình",
+    navCards: "Thẻ 493",
+    navTriage: "Ranh giới & Triage",
     navTools: "Công cụ tính",
     navSearch: "Tìm kiếm",
     navStatus: "Trạng thái",
@@ -52,6 +56,8 @@ export const T: Record<Lang, Record<Key, string>> = {
     navBook: "Fieldbook (VI)",
     navCases: "Case Studies",
     navPaths: "Roadmaps (VI)",
+    navCards: "Cards (493)",
+    navTriage: "Triage (VI)",
     navTools: "Calculators",
     navSearch: "Search",
     navStatus: "Status",

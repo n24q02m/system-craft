@@ -64,6 +64,10 @@ def main():
         guide = guide.replace("2026-11-16", today)
         open(os.path.join(learner_dir, "00-CACH-DUNG-GOI.md"), "w", encoding="utf-8", newline="\n").write(guide)
 
+        # 4b. Export Volume V Case Studies 4 formats + refresh cards/indexes
+        _run([sys.executable, "tools/build_cards.py"])
+        _run([sys.executable, "tools/export_cases_volume.py", "--out-dir", os.path.join(learner_dir, "cases")])
+
     # 5. Audit & write QA-RECEIPT.md + FREEZE-MANIFEST.md
     _run([
         sys.executable,
@@ -75,7 +79,7 @@ def main():
     manifest_lines = [
         "# FREEZE MANIFEST — SYSTEMS ATLAS SA-2028.1 LEARNER\n",
         f"- **Ngày đóng gói:** {today}",
-        f"- **Quy mô:** {res['md_words']:,} từ · {res['h1s']} H1 (145 chương + 1 bìa + 2 dẫn + 5 trang nhãn phần học + 15 quiz + 1 quiz nâng cao 60 câu + 15 lab + 15 lời giải)",
+        f"- **Quy mô:** {res['md_words']:,} từ · {res['h1s']} H1 (145 chương + 1 bìa + 4 dẫn/trade-off/triage + 5 trang nhãn phần học + 15 quiz + 1 quiz nâng cao 60 câu + 15 lab + 15 lời giải)",
         f"- **Bài tập & Tự chấm:** {res['tu_cham']} mục Tự chấm (M1+M3) · {res['nhip_noi']} nhịp nối tuyến học · {res['broken_refs']} tham chiếu gãy",
         f"- **PDF:** {res['pdf_pages']:,} trang · {res['pdf_bookmarks']:,} bookmarks · + 5 tập PDF phân phần trong `volumes/`",
         "\n## Tệp phát hành & SHA-256\n",

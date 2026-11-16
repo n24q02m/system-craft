@@ -26,7 +26,7 @@ def test_find_broken_refs_catches_real_breaks_without_false_positives():
 def test_sa_2028_1_learner_release_complete_and_verified():
     dist_dir = os.path.join(ROOT, "dist", "SA-2028.1-LEARNER")
     res = verify_release_dir(dist_dir)
-    assert res["h1s"] == 199
+    assert res["h1s"] == 201
     assert res["labs"] == 15
     assert res["qa_files"] == 1
     assert res["tu_cham"] == 433

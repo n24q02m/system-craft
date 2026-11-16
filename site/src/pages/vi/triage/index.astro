@@ -1,0 +1,55 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../../layouts/Base.astro";
+
+const base = import.meta.env.BASE_URL;
+const e05 = await getEntry("book", "P15-05-ranh-gioi-va-tradeoff");
+const e06 = await getEntry("book", "P15-06-dieu-tra-su-co");
+if (!e05 || !e06) {
+  throw new Error("Missing P15-05 or P15-06 entries in book collection");
+}
+const { Content: BoundaryContent } = await render(e05);
+const { Content: TriageContent } = await render(e06);
+---
+
+<Base
+  title="Ranh giới Trade-off (P15-05) & Điều tra Sự cố (P15-06) — System Craft"
+  description="Ma trận Khi nào SAI theo 3 ngưỡng quy mô Startup/Scale-up/Enterprise và 5 ca walkthrough điều tra sự cố thực chiến."
+  lang="vi"
+  altPath="triage/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">
+        Thực chiến · <a href={`${base}vi/book/`}>Sổ tay</a> · <a href={`${base}vi/cards/`}>493 Flashcards</a> · <a href={`${base}vi/indexes/`}>3 Danh mục</a>
+      </div>
+      <h1>Ranh giới Trade-off &amp; Điều tra Sự cố</h1>
+      <p>
+        Hai chương tầng học bổ sung: xác định điểm gãy giải pháp qua 3 quy mô (<code>P15-05</code>) và quy trình đo kiểm chứng thực tế cho 5 ca sự cố kinh điển (<code>P15-06</code>).
+      </p>
+    </div>
+
+    <div class="hub-grid" style="margin:24px 0 36px;">
+      <a class="hub-card" href="#p15-05-boundary">
+        <div class="eyebrow">P15-05 · Trade-off &amp; Scale</div>
+        <h2>12 Ranh giới "Khi nào SAI" &amp; Startup / Scale-up / Enterprise</h2>
+        <p>Biết trước giải pháp nào đang dư thừa ở đội 10 người và giải pháp nào sẽ vỡ khi qua 5 triệu MAU.</p>
+      </a>
+      <a class="hub-card" href="#p15-06-triage">
+        <div class="eyebrow">P15-06 · 5 Incident Walkthroughs</div>
+        <h2>5 Ca Điều tra Sự cố theo Khung OODA 15 Giây</h2>
+        <p>Tách 3 giả thuyết loại trừ nhau cho CFS throttling, Flash Sale stampede, K8s PDB/502, Kafka lag và LLM RAG TTL/ACL.</p>
+      </a>
+    </div>
+
+    <article class="prose" data-pagefind-body>
+      <section id="p15-05-boundary" style="margin-bottom:48px;">
+        <BoundaryContent />
+      </section>
+      <hr />
+      <section id="p15-06-triage" style="margin-top:40px;">
+        <TriageContent />
+      </section>
+    </article>
+  </div>
+</Base>

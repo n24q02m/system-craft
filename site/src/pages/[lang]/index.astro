@@ -47,6 +47,34 @@ const posts = (
           ? "Tuyến (a) Người mới 16 tuần, (b) Backend 1–3 năm, (c) Infra/Platform — lưu tiến độ tại trình duyệt."
           : "Structured reading paths for (a) newcomers, (b) backend engineers, and (c) infra leads."}</p>
       </a>
+      <a class="hub-card" href={`${base}vi/cards/`}>
+        <div class="eyebrow">{lang === "vi" ? "Micropaedia · 145 Cards + 493 Flashcards" : "Micropaedia · 145 Cards + 493 Flashcards"}</div>
+        <h2>{lang === "vi" ? "Thẻ Tra cứu & Lật Ôn tập" : "Reference Cards & Interactive Flashcards"}</h2>
+        <p>{lang === "vi"
+          ? "145 thẻ quyết định/số liệu/lỗi, bộ lật 433 Tự chấm + 60 QA nâng cao và 3 danh mục tổng hợp."
+          : "145 compact chapter summary cards, 493 interactive flashcards, plus 3 searchable cross-indexes (VI)."}</p>
+      </a>
+      <a class="hub-card" href={`${base}vi/triage/`}>
+        <div class="eyebrow">{lang === "vi" ? "Trade-off · 5 Ca Triage · 5 Công cụ tính" : "Trade-offs · 5 Triage Walks · Calculators"}</div>
+        <h2>{lang === "vi" ? "Ranh giới Quy mô, Triage & 5 Máy tính" : "Scale Boundaries, Incident Triage & Calculators"}</h2>
+        <p>{lang === "vi"
+          ? "Startup / Scale-up / Enterprise (P15-05), 5 ca điều tra sự cố thực chiến (P15-06) và bộ tính định lượng."
+          : "When solutions fail by scale tier, 5 incident triage walkthroughs (VI), and interactive engineering calculators."}</p>
+      </a>
+      <a class="hub-card" href={`${base}${lang}/tools/`}>
+        <div class="eyebrow">{lang === "vi" ? "Tính nhanh · Offline JS" : "Zero-Network Tools"}</div>
+        <h2>{lang === "vi" ? "5 Công cụ Tính Định lượng Hệ thống" : "5 Interactive System Sizing Calculators"}</h2>
+        <p>{lang === "vi"
+          ? "Latency Budget, RAID Rebuild URE, TCP BDP, Hàng đợi Little và LLM KV-Cache / Token Economics."
+          : "Latency budget, RAID URE rebuild risk, TCP BDP window, Little's Law queue, and LLM KV-cache estimator."}</p>
+      </a>
+      <a class="hub-card" href={`${base}vi/indexes/`}>
+        <div class="eyebrow">{lang === "vi" ? "139 Quyết định · 68 Sự cố · CS2023" : "139 Decisions · 68 Incidents · CS2023"}</div>
+        <h2>{lang === "vi" ? "3 Bảng Chỉ mục Tra cứu Toàn sách" : "Decisions, Incidents & CS2023 Indexes"}</h2>
+        <p>{lang === "vi"
+          ? "Tra theo ID quyết định, triệu chứng sự cố kèm lệnh chẩn 15 giây đầu tiên, và ánh xạ giáo trình CS2023."
+          : "Searchable lookup tables across architectural decisions, incident diagnostic commands, and CS2023 mapping."}</p>
+      </a>
       <a class="hub-card" href={`${base}${lang}/search/`}>
         <div class="eyebrow">{lang === "vi" ? `${snap.glossaryCount}+ thuật ngữ · Offline Pagefind` : `${snap.glossaryCount}+ terms · Offline Index`}</div>
         <h2>{lang === "vi" ? "Tra cứu Toàn văn & Trạng thái" : "Offline Full-Text Search & Status"}</h2>

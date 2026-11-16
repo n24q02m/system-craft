@@ -1,0 +1,234 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Base from "../../../layouts/Base.astro";
+import { REPO_ROOT } from "../../../lib/atlas";
+
+const base = import.meta.env.BASE_URL;
+
+interface RefCard {
+  chap: string;
+  title: string;
+  lines: string[];
+}
+
+function loadRefCards(): RefCard[] {
+  const md = fs.readFileSync(path.join(REPO_ROOT, "content", "generated", "cards-145.md"), "utf8");
+  const blocks = md.split(/(?=^## Card )/m).filter((b) => b.startsWith("## Card "));
+  return blocks.map((blk) => {
+    const lines = blk.trim().split("\n");
+    const head = lines[0].replace(/^## Card\s+/, "").trim();
+    const dash = head.indexOf("—");
+    const chap = (dash > 0 ? head.slice(0, dash) : head.split(/\s+/)[0]).trim();
+    const title = (dash > 0 ? head.slice(dash + 1) : head).trim();
+    return {
+      chap,
+      title,
+      lines: lines.slice(1).filter((l) => l.trim().length > 0),
+    };
+  });
+}
+
+const rawFcJson = fs.readFileSync(path.join(REPO_ROOT, "content", "generated", "flashcards.json"), "utf8");
+const fcMeta = JSON.parse(rawFcJson);
+const safeFcJson = rawFcJson.replace(/<\//g, "<\\/");
+const refCards = loadRefCards();
+const decks: string[] = Array.from(new Set(fcMeta.cards.map((c: { deck: string }) => c.deck)));
+---
+
+<Base
+  title="145 Thẻ Tra Cứu & 493 Flashcards — System Craft"
+  description="Micropaedia 145 thẻ quyết định/số liệu/bệnh học cùng 433 thẻ Tự chấm và 60 câu QA nâng cao."
+  lang="vi"
+  altPath="cards/"
+>
+  <div class="wrap">
+    <div class="index-head">
+      <div class="eyebrow">
+        Micropaedia · <a href={`${base}vi/book/`}>Sổ tay</a> · <a href={`${base}vi/indexes/`}>3 Danh mục</a> · <a href={`${base}vi/triage/`}>Ranh giới & Triage</a>
+      </div>
+      <h1>145 Thẻ Tra Cứu &amp; {fcMeta.total} Flashcards</h1>
+      <p>
+        Phần trên là bộ thẻ lật ôn tập ({fcMeta.self_check_count} tiêu chí <code>Tự chấm</code> + {fcMeta.qa_count} câu <code>QA nâng cao</code>, lưu tiến độ ngay trên trình duyệt).
+        Phần dưới là 145 thẻ tóm tắt từng chương.
+      </p>
+    </div>
+
+    <section id="fc-viewer" style="margin: 24px 0 44px;">
+      <div class="controls-bar" style="flex-wrap: wrap; gap: 10px;">
+        <div class="speed-group" role="group" aria-label="Bộ lọc flashcard">
+          <button type="button" class="ctrl-btn active" data-fckind="all">Tất cả ({fcMeta.total})</button>
+          <button type="button" class="ctrl-btn" data-fckind="self-check">Tự chấm ({fcMeta.self_check_count})</button>
+          <button type="button" class="ctrl-btn" data-fckind="decision-qa">QA nâng cao ({fcMeta.qa_count})</button>
+          <button type="button" class="ctrl-btn" data-fckind="review">Cần ôn lại</button>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <select id="fc-deck" style="padding:6px 10px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);font-family:var(--mono);font-size:12px;">
+            <option value="all">Mọi cụm ({decks.length})</option>
+            {decks.map((d) => <option value={d}>{d}</option>)}
+          </select>
+          <strong id="fc-stats" style="font-family:var(--mono);font-size:12px;">0 / {fcMeta.total} Đạt</strong>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--line-strong);background:var(--surface);border-radius:4px;padding:24px;min-height:220px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-family:var(--mono);font-size:12px;color:var(--muted);">
+          <span id="fc-pos">Thẻ 1 / {fcMeta.total}</span>
+          <a id="fc-chap-link" href={`${base}vi/book/`}>Mở chương gốc</a>
+        </div>
+        <h2 id="fc-front" style="margin:0 0 14px;font-size:20px;">Đang tải...</h2>
+        <div id="fc-back-wrap" hidden style="border-top:1px dashed var(--line-strong);padding-top:14px;margin-top:14px;">
+          <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Lời giải</div>
+          <p id="fc-back" style="white-space:pre-wrap;margin:0 0 12px;"></p>
+          <div style="font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--ok);margin-bottom:6px;">Tiêu chí Tự chấm</div>
+          <p id="fc-crit" style="white-space:pre-wrap;margin:0;color:var(--ink-soft);"></p>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;">
+          <button type="button" class="ctrl-btn" id="fc-flip">Hiện đáp án / Tự chấm</button>
+          <button type="button" class="ctrl-btn" id="fc-prev">← Trước</button>
+          <button type="button" class="ctrl-btn" id="fc-next">Tiếp →</button>
+          <button type="button" class="ctrl-btn" id="fc-rand">Ngẫu nhiên</button>
+          <button type="button" class="ctrl-btn" id="fc-pass" style="border-color:var(--ok);color:var(--ok);">Đạt ✓</button>
+          <button type="button" class="ctrl-btn" id="fc-retry" style="border-color:var(--warn);color:var(--warn);">Ôn lại ↺</button>
+        </div>
+      </div>
+    </section>
+
+    <section data-pagefind-body>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;">
+        <h2 style="margin:0;">145 Thẻ Tra cứu Nhanh (Card 0.1 – 14.11.2)</h2>
+        <input
+          id="ref-card-filter"
+          type="search"
+          placeholder="Lọc theo chương, con số hoặc triệu chứng…"
+          style="padding:7px 12px;min-width:260px;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);"
+        />
+      </div>
+
+      <div class="hub-grid" id="ref-card-grid">
+        {refCards.map((c) => (
+          <a
+            class="hub-card ref-card-item"
+            href={`${base}vi/book/${c.chap}/`}
+            data-search={`${c.chap} ${c.title} ${c.lines.join(" ")}`.toLowerCase()}
+          >
+            <div class="eyebrow">Card {c.chap}</div>
+            <h3 style="margin:6px 0 10px;font-size:17px;">{c.title}</h3>
+            {c.lines.map((ln) => (
+              <p style="font-size:13.5px;margin:4px 0;color:var(--ink-soft);">
+                {ln.replace(/\*\*/g, "").replace(/`/g, "")}
+              </p>
+            ))}
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+
+  <script type="application/json" id="fc-json" set:html={safeFcJson}></script>
+
+  <script is:inline define:vars={{ base }}>
+    (() => {
+      const payload = JSON.parse(document.getElementById("fc-json").textContent || "{}");
+      const allCards = payload.cards || [];
+      const STORAGE = "sc-fc-grade";
+      let grades = {};
+      try { grades = JSON.parse(localStorage.getItem(STORAGE) || "{}"); } catch {}
+
+      let kind = "all";
+      let deck = "all";
+      let pool = allCards;
+      let idx = 0;
+
+      const elPos = document.getElementById("fc-pos");
+      const elChap = document.getElementById("fc-chap-link");
+      const elFront = document.getElementById("fc-front");
+      const elBackWrap = document.getElementById("fc-back-wrap");
+      const elBack = document.getElementById("fc-back");
+      const elCrit = document.getElementById("fc-crit");
+      const elStats = document.getElementById("fc-stats");
+      const selDeck = document.getElementById("fc-deck");
+
+      const save = () => {
+        try { localStorage.setItem(STORAGE, JSON.stringify(grades)); } catch {}
+        const passed = Object.values(grades).filter((v) => v === "pass").length;
+        if (elStats) elStats.textContent = `${passed} / ${allCards.length} Đạt`;
+      };
+
+      const renderCard = () => {
+        if (!pool.length) {
+          elPos.textContent = "0 / 0";
+          elFront.textContent = "Không có thẻ nào khớp bộ lọc hiện tại.";
+          elBackWrap.hidden = true;
+          elChap.removeAttribute("href");
+          return;
+        }
+        if (idx >= pool.length) idx = 0;
+        if (idx < 0) idx = pool.length - 1;
+        const c = pool[idx];
+        const status = grades[c.id] === "pass" ? " · [Đạt]" : grades[c.id] === "retry" ? " · [Ôn lại]" : "";
+        elPos.textContent = `${c.id} · ${c.deck} (${idx + 1} / ${pool.length})${status}`;
+        elChap.href = c.chapter ? `${base}vi/book/${c.chapter}/` : `${base}vi/book/`;
+        elChap.textContent = c.chapter ? `Mở chương ${c.chapter} →` : "Mở Sổ tay";
+        elFront.textContent = c.front;
+        elBack.textContent = c.back;
+        elCrit.textContent = c.criteria;
+        elBackWrap.hidden = true;
+      };
+
+      const refilter = () => {
+        pool = allCards.filter((c) => {
+          if (deck !== "all" && c.deck !== deck) return false;
+          if (kind === "review") return grades[c.id] === "retry";
+          if (kind !== "all" && c.kind !== kind) return false;
+          return true;
+        });
+        idx = 0;
+        renderCard();
+      };
+
+      document.querySelectorAll("[data-fckind]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-fckind]").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          kind = btn.getAttribute("data-fckind") || "all";
+          refilter();
+        });
+      });
+
+      selDeck?.addEventListener("change", () => {
+        deck = selDeck.value;
+        refilter();
+      });
+
+      document.getElementById("fc-flip")?.addEventListener("click", () => {
+        elBackWrap.hidden = !elBackWrap.hidden;
+      });
+      document.getElementById("fc-prev")?.addEventListener("click", () => { idx--; renderCard(); });
+      document.getElementById("fc-next")?.addEventListener("click", () => { idx++; renderCard(); });
+      document.getElementById("fc-rand")?.addEventListener("click", () => {
+        if (pool.length) idx = Math.floor(Math.random() * pool.length);
+        renderCard();
+      });
+      document.getElementById("fc-pass")?.addEventListener("click", () => {
+        if (pool[idx]) { grades[pool[idx].id] = "pass"; save(); idx++; renderCard(); }
+      });
+      document.getElementById("fc-retry")?.addEventListener("click", () => {
+        if (pool[idx]) { grades[pool[idx].id] = "retry"; save(); idx++; renderCard(); }
+      });
+
+      const refInput = document.getElementById("ref-card-filter");
+      const refItems = [...document.querySelectorAll(".ref-card-item")];
+      refInput?.addEventListener("input", () => {
+        const q = (refInput.value || "").trim().toLowerCase();
+        refItems.forEach((el) => {
+          const hay = el.getAttribute("data-search") || "";
+          el.style.display = !q || hay.includes(q) ? "" : "none";
+        });
+      });
+
+      save();
+      renderCard();
+    })();
+  </script>
+</Base>
