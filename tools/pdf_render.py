@@ -109,10 +109,25 @@ def render_pdf_with_fallback(html_path, pdf_path, print_css=""):
         from weasyprint import HTML
         from weasyprint.css import CSS as WCSS
 
-        stylesheets = [WCSS(string=print_css)] if print_css else []
+        no_cover_bm = WCSS(string="header.cover h1, nav.toc h2 { bookmark-level: none; }")
+        stylesheets = [no_cover_bm] + ([WCSS(string=print_css)] if print_css else [])
         HTML(string=html_text, base_url=os.path.dirname(os.path.abspath(html_path))).write_pdf(
             pdf_path, stylesheets=stylesheets
         )
+        # Ensure Cover/TOC headings on page 1 never leak as first bookmark
+        wdoc = pymupdf.open(pdf_path)
+        wtoc = wdoc.get_toc()
+        filtered = [row for row in wtoc if not (row[2] <= 2 and ("SYSTEMS ATLAS" in row[1] or row[1].strip().lower() == "mục lục"))]
+        if filtered and len(filtered) != len(wtoc):
+            base_lvl = filtered[0][0]
+            norm_toc = [[max(1, r[0] - base_lvl + 1), r[1], r[2]] for r in filtered]
+            wdoc.set_toc(norm_toc)
+            wtmp = pdf_path + ".weasy.tmp.pdf"
+            wdoc.save(wtmp, garbage=2, deflate=True)
+            wdoc.close()
+            os.replace(wtmp, pdf_path)
+        else:
+            wdoc.close()
         return "weasyprint"
     except (ImportError, OSError, RuntimeError):
         pass
