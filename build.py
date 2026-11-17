@@ -31,7 +31,7 @@ OUTS = {
                   docx='SYSTEMS-ATLAS-EDU.docx',   pdf='SYSTEMS-ATLAS-EDU.pdf'),
 }
 PROFILE = 'draft'
-OUT_DIR = BASE
+OUT_DIR = None
 OUT_MD = OUT_HTML = OUT_DOCX = OUT_PDF = None
 
 def set_profile(p, out_dir=None):
@@ -44,8 +44,6 @@ def set_profile(p, out_dir=None):
     OUT_HTML = os.path.join(OUT_DIR, OUTS[p]['html'])
     OUT_DOCX = os.path.join(OUT_DIR, OUTS[p]['docx'])
     OUT_PDF  = os.path.join(OUT_DIR, OUTS[p]['pdf'])
-
-set_profile('draft')
 
 # ---------- self-healing deps ----------
 def _ensure(mods):
@@ -143,7 +141,7 @@ def part_separator(p, basenames, phan):
     n = sum(1 for b in basenames if phan.get(b, '1') == p)
     return '# %s\n\n> **%d chương** · %s\n> %s\n' % (title, n, arc, note)
 
-def assemble(profile='draft'):
+def assemble(profile='draft', out_dir=None, write_md=True):
     chapters = sorted(chapter_files(), key=sort_key)
     edu = edu_files()
     if profile == 'edu':
@@ -259,10 +257,13 @@ def assemble(profile='draft'):
 ---
 
 '''
-    with open(OUT_MD, 'w', encoding='utf-8') as o:
-        o.write(header)
-        for f, txt, words, written in parts:
-            o.write(txt.rstrip() + '\n\n---\n\n')
+    md_path = os.path.join(os.path.abspath(out_dir), OUTS.get(profile, OUTS['draft'])['md']) if out_dir else OUT_MD
+    if write_md and md_path:
+        os.makedirs(os.path.dirname(md_path), exist_ok=True)
+        with open(md_path, 'w', encoding='utf-8') as o:
+            o.write(header)
+            for f, txt, words, written in parts:
+                o.write(txt.rstrip() + '\n\n---\n\n')
     return files, parts, done, todo, total_words
 
 # ---------- HTML ----------
@@ -386,6 +387,11 @@ def render_html_doc(parts, stats, title_override=None):
         cover_meta = (f'{EDITION_VER} · Tuyến học: <code>facts/edu-order.csv</code> · {stats["chapters"]} chương · '
                       f'{stats["words"]:,} từ · Tầng học: {stats.get("edu", 0)} văn kiện · rev {today}<br>'
                       'Cùng nguồn với DRAFT (<code>content/book/</code>) — khác cách lắp: tuyến học thay vì bản đồ ngành')
+    elif stats.get('profile') == 'cases':
+        cover_title = title_override or f'SYSTEMS ATLAS ({EDITION_VER}) — TẬP V: {stats["chapters"]} CASE STUDIES THỰC CHIẾN'
+        cover_meta = (f'{EDITION_VER} · Tập V: {stats["chapters"]} Case Studies Thực chiến · '
+                      f'{stats["words"]:,} từ · rev {today}<br>'
+                      'Nguồn: <code>content/cases/vi/*.md</code> — phân tích kiến trúc và nguyên tắc vận hành hệ thống thật')
     else:
         cover_title = title_override or f'SYSTEMS ATLAS ({EDITION_VER})'
         edu_note = (f' · Tầng học (P15): {stats.get("edu", 0)} văn kiện' if stats.get('edu') else '')
@@ -414,7 +420,7 @@ def build_html(parts, stats, html_path=None):
     return doc
 
 # ---------- DOCX ----------
-def build_docx(parts, stats):
+def build_docx(parts, stats, docx_path=None):
     import docx
     from docx import Document
     from docx.shared import Pt, RGBColor, Cm
@@ -425,7 +431,7 @@ def build_docx(parts, stats):
     # base styles
     st = doc.styles['Normal']; st.font.name = 'Calibri'; st.font.size = Pt(10.5)
     st.paragraph_format.space_after = Pt(6)
-    for h, sz in [('Heading 1', 17), ('Heading 2', 13), ('Heading 3', 11.5)]:
+    for h, sz in [('Heading 1', 17), ('Heading 2', 13), ('Heading 3', 11.5), ('Heading 4', 10.5)]:
         s = doc.styles[h]; s.font.name = 'Calibri'; s.font.size = Pt(sz)
         s.font.color.rgb = RGBColor(0x1a, 0x1c, 0x1f)
     for sec in doc.sections:
@@ -436,13 +442,17 @@ def build_docx(parts, stats):
         cover_head = f'SYSTEMS ATLAS — LEARNER EDITION ({EDITION_VER})'
         cover_sub = (f'{EDITION_VER} · Tuyến học: facts/edu-order.csv · {stats["chapters"]} chương · {stats["words"]:,} từ · '
                      f'Tầng học: {stats.get("edu", 0)} văn kiện · rev {today}\n'
-                     'Cùng nguồn với DRAFT (src/) — khác cách lắp: tuyến học thay vì bản đồ ngành')
+                     'Cùng nguồn với DRAFT (content/book/) — khác cách lắp: tuyến học thay vì bản đồ ngành')
+    elif stats.get('profile') == 'cases':
+        cover_head = f'SYSTEMS ATLAS ({EDITION_VER}) — TẬP V: {stats["chapters"]} CASE STUDIES THỰC CHIẾN'
+        cover_sub = (f'{EDITION_VER} · Tập V: {stats["chapters"]} Case Studies Thực chiến · {stats["words"]:,} từ · rev {today}\n'
+                     'Nguồn: content/cases/vi/*.md — phân tích kiến trúc và nguyên tắc vận hành hệ thống thật')
     else:
         cover_head = f'SYSTEMS ATLAS ({EDITION_VER})'
         edu_note = (f'\nTầng học (P15): {stats.get("edu", 0)} văn kiện' if stats.get('edu') else '')
         cover_sub = (f'Bản dựng (DRAFT) · {EDITION_VER} rev {today}\n'
                      f'{stats["chapters"]} chương · đã viết {stats["done"]} / chưa viết {stats["todo"]} · {stats["words"]:,} từ\n'
-                     f'Nguồn: src/P*.md — một nguồn, nhiều đầu ra (md/html/docx/pdf){edu_note}')
+                     f'Nguồn: content/book/P*.md — một nguồn, nhiều đầu ra (md/html/docx/pdf){edu_note}')
     t = doc.add_paragraph(); t.alignment = WD_ALIGN_PARAGRAPH.CENTER
     r = t.add_run(cover_head); r.bold = True; r.font.size = Pt(30)
     t2 = doc.add_paragraph(); t2.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -480,7 +490,7 @@ def build_docx(parts, stats):
     def add_block(el):
         from docx.enum.text import WD_ALIGN_PARAGRAPH
         name = el.name
-        if name in ('h1', 'h2', 'h3'):
+        if name in ('h1', 'h2', 'h3', 'h4'):
             lvl = int(name[1])
             p = doc.add_heading('', level=lvl)
             add_runs(p, el)
@@ -524,6 +534,18 @@ def build_docx(parts, stats):
                         for run in par.runs: run.font.size = Pt(9)
                         if cells[c].name == 'th':
                             for run in par.runs: run.bold = True
+        elif name == 'figure':
+            cap = el.find('figcaption')
+            svg = el.find('svg')
+            aria = (svg.get('aria-label') or '').strip() if svg else ''
+            cap_txt = ' '.join(cap.get_text(' ', strip=True).split()) if cap else ''
+            label = cap_txt or ' '.join(aria.split())
+            if label:
+                p = doc.add_paragraph()
+                p.paragraph_format.left_indent = Cm(0.6)
+                r = p.add_run(f'[Sơ đồ: {label}]')
+                r.italic = True
+                r.font.color.rgb = RGBColor(0x5b, 0x64, 0x70)
         elif name == 'hr':
             p = doc.add_paragraph(); p.add_run('—').font.color.rgb = RGBColor(0xaa, 0xaa, 0xaa)
 
@@ -536,7 +558,10 @@ def build_docx(parts, stats):
         for el in soup.children:
             if getattr(el, 'name', None):
                 add_block(el)
-    doc.save(OUT_DOCX)
+    out = docx_path or OUT_DOCX
+    if not out:
+        raise ValueError('docx_path or OUT_DOCX must be set before calling build_docx')
+    doc.save(out)
 
 # ---------- PDF ----------
 PRINT_CSS = '''

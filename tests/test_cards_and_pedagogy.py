@@ -94,3 +94,34 @@ def test_astro_cards_indexes_and_triage_routes_built():
 
     triage_html = (dist / "vi" / "triage" / "index.html").read_text(encoding="utf-8")
     assert "Triage 1" in triage_html and "Startup" in triage_html
+
+
+def test_volume_v_docx_cover_and_diagram_captions(tmp_path):
+    from tools import export_cases_volume
+
+    res = export_cases_volume.export_volume_v(out_dir=str(tmp_path), want_pdf=False)
+    assert res["cases"] == 6
+
+    docx_path = tmp_path / "SYSTEMS-ATLAS-VOLUME-5-CASES.docx"
+    assert docx_path.exists()
+    doc = docx.Document(str(docx_path))
+    full_text = "\n".join(p.text for p in doc.paragraphs)
+
+    assert "src/" not in full_text
+    assert "Tuyến học: facts/edu-order.csv" not in full_text
+    assert "SYSTEMS ATLAS" in full_text
+    assert "CASE STUDIES" in full_text
+    assert "content/cases/vi/*.md" in full_text
+
+    expected_captions = []
+    for case_md in sorted((ROOT / "content" / "cases" / "vi").glob("*.md")):
+        txt = case_md.read_text(encoding="utf-8")
+        for cap in re.findall(r"<figcaption>(.*?)</figcaption>", txt, flags=re.S):
+            cleaned = " ".join(cap.split())
+            if cleaned:
+                expected_captions.append(cleaned)
+
+    assert len(expected_captions) >= 25
+    assert "[Sơ đồ:" in full_text
+    for cap in expected_captions:
+        assert cap in full_text, f"Missing diagram caption in Volume V DOCX: {cap}"

@@ -1,4 +1,6 @@
-import json, datetime, subprocess, decimal
+import json, datetime, subprocess, decimal, os, sys, tempfile
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 payload = {
   "tien": decimal.Decimal("1234567.89"),
   "emoji": "Ổn định 🚀 — tiếng Việt có dấu",
@@ -15,9 +17,19 @@ let buf="";process.stdin.on("data",d=>buf+=d).on("end",()=>{
   const out={ tien:Number(o.tien), emoji:o.emoji, ngay_dst:new Date(o.ngay_dst).toISOString(), rong:o.rong };
   console.log(JSON.stringify(out));
 });'''
-open('svc.js','w').write(js)
 s = py_roundtrip(payload)
-r = subprocess.run(['node','svc.js'], input=s, capture_output=True, text=True)
+with tempfile.TemporaryDirectory() as td:
+    js_path = os.path.join(td, "svc.js")
+    with open(js_path, "w", encoding="utf-8") as f:
+        f.write(js)
+    r = subprocess.run(
+        ["node", js_path],
+        input=s,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
 print("JS  ←", r.stdout.strip())
 back = json.loads(r.stdout)
 fails=[]

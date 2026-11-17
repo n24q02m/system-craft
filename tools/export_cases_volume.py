@@ -96,7 +96,7 @@ def export_volume_v(out_dir=None, want_pdf=True):
     )
     open(out_md, "w", encoding="utf-8", newline="\n").write(header + "\n\n---\n\n".join(p[1] for p in parts) + "\n")
 
-    stats = dict(profile="edu", chapters=len(parts), done=len(parts), todo=0, words=total_words, edu=0, dec=0, inc=0)
+    stats = dict(profile="cases", chapters=len(parts), done=len(parts), todo=0, words=total_words, edu=0, dec=0, inc=0)
     html_text = build.render_html_doc(
         parts,
         stats,
@@ -109,7 +109,7 @@ def export_volume_v(out_dir=None, want_pdf=True):
         build.OUT_DOCX = out_docx
         build.OUT_HTML = out_html
         build.OUT_PDF = out_pdf
-        build.build_docx(parts, stats)
+        build.build_docx(parts, stats, docx_path=out_docx)
         engine = build.build_pdf(out_html, out_pdf) if want_pdf else "skipped"
     finally:
         build.OUT_DOCX, build.OUT_HTML, build.OUT_PDF = old_docx, old_html, old_pdf

@@ -17,6 +17,7 @@ site/dist/
 # Generated distributions & large binary baselines
 dist/
 trial-00c/*.pdf
+SYSTEMS-ATLAS-*.md
 SYSTEMS-ATLAS-*.pdf
 SYSTEMS-ATLAS-*.docx
 SYSTEMS-ATLAS-*.html

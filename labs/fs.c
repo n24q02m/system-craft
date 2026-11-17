@@ -8,8 +8,8 @@
 struct __attribute__((aligned(64))) padded { long v; char pad[56]; };
 struct tight { long v; };
 struct tight2 { long v[8]; };
-static struct tight2 shared_tight;
-static struct padded pad[4];
+static volatile struct tight2 shared_tight;
+static volatile struct padded pad[4];
 static long plain[4];
 static int mode;   /* 0 = tight (cùng cache line), 1 = padded */
 void* worker(void* a){

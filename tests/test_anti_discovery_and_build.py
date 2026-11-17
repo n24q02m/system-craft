@@ -70,3 +70,32 @@ def test_python_html_generators_include_noindex():
 
     slides_py = (ROOT / "kit" / "slides" / "build_slides.py").read_text(encoding="utf-8")
     assert NOINDEX_TOKEN in slides_py
+
+
+def test_build_import_does_not_write_root_draft(tmp_path):
+    root_draft = ROOT / "SYSTEMS-ATLAS-DRAFT.md"
+    root_docx = ROOT / "SYSTEMS-ATLAS-DRAFT.docx"
+    assert not root_draft.exists(), "Stale SYSTEMS-ATLAS-DRAFT.md present at repo root"
+
+    try:
+        build.assemble("draft", write_md=False)
+        assert not root_draft.exists(), "assemble(..., write_md=False) wrote root draft"
+
+        build.assemble("draft")
+        assert not root_draft.exists(), "assemble('draft') without out_dir wrote root draft"
+
+        build.assemble("draft", out_dir=str(tmp_path))
+        assert (tmp_path / "SYSTEMS-ATLAS-DRAFT.md").exists()
+        assert not root_draft.exists(), "assemble('draft', out_dir=...) leaked root draft"
+
+        sample_parts = [("P0-00-1.md", "# 0.1 Sample\n\n#### Sub\n\n<figure><figcaption>Diagram cap</figcaption></figure>\n", 5, True)]
+        stats = {"profile": "cases", "chapters": 1, "done": 1, "todo": 0, "words": 5, "dec": 0, "inc": 0}
+        out_docx = tmp_path / "out.docx"
+        build.build_docx(sample_parts, stats, docx_path=str(out_docx))
+        assert out_docx.exists()
+        assert not root_docx.exists(), "build_docx(..., docx_path=...) wrote root docx"
+    finally:
+        if root_draft.exists():
+            root_draft.unlink()
+        if root_docx.exists():
+            root_docx.unlink()

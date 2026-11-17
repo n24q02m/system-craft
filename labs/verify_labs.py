@@ -49,7 +49,7 @@ def _check_c_labs(full=False):
     if not gcc or sys.platform == "win32":
         return "skipped (POSIX gcc optional on Windows; tested in Linux devcontainer/CI)"
     with tempfile.TemporaryDirectory() as td:
-        for src in ("prog.c", "prog2.c", "prog3.c", os.path.join("d1", "prog3.c")):
+        for src in ("prog.c", "prog2.c", "prog3.c", os.path.join("d1", "prog3.c"), os.path.join("d2", "prog3.c")):
             out_bin = os.path.join(td, src.replace(os.sep, "_") + ".out")
             env = dict(os.environ, SOURCE_DATE_EPOCH="1700000000")
             subprocess.run(
@@ -58,9 +58,11 @@ def _check_c_labs(full=False):
                 env=env,
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
             )
             if full:
-                subprocess.run([out_bin], check=True, capture_output=True, text=True)
+                subprocess.run([out_bin], check=True, capture_output=True, text=True, encoding="utf-8", errors="replace")
         for src in ("fs.c", "fs2.c"):
             out_bin = os.path.join(td, src + ".out")
             subprocess.run(
@@ -68,8 +70,10 @@ def _check_c_labs(full=False):
                 check=True,
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
+                errors="replace",
             )
-    return "compiled 6 C labs cleanly with gcc"
+    return "compiled 7 C labs cleanly with gcc"
 
 
 def verify(full=False):
