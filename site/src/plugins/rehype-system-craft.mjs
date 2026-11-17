@@ -249,12 +249,35 @@ function annotateGlossary(node, parentTag, state, gloss) {
   }
 }
 
+function rewriteBookLinks(node) {
+  if (!node || typeof node !== "object") return;
+  if (node.type === "element" && node.tagName === "a" && typeof node.properties?.href === "string") {
+    const m = node.properties.href.match(/^\.\/(P[^/#?]+)\.md(#.*)?$/);
+    if (m) {
+      const stem = m[1];
+      const hash = m[2] || "";
+      const slug = stem.startsWith("P15") ? stem : fnameToChap(`${stem}.md`);
+      if (slug) {
+        node.properties.href = `/system-craft/vi/book/${slug}/${hash}`;
+      }
+    }
+  }
+  if (Array.isArray(node.children)) {
+    for (const child of node.children) rewriteBookLinks(child);
+  }
+}
+
 export default function rehypeSystemCraft() {
   return (tree, file) => {
     const filePath = (file?.history && file.history[0]) || "";
     const normPath = filePath.replace(/\\/g, "/");
-    const isBookChapter = normPath.includes("/content/book/") && !path.basename(normPath).startsWith("P15");
+    const isBookFile = normPath.includes("/content/book/");
+    const isBookChapter = isBookFile && !path.basename(normPath).startsWith("P15");
     const isCasePost = normPath.includes("/content/cases/");
+
+    if (isBookFile) {
+      rewriteBookLinks(tree);
+    }
 
     if (isBookChapter && Array.isArray(tree.children)) {
       const newChildren = [];

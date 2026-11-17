@@ -94,3 +94,51 @@ def test_astro_dist_unified_pages_and_pagefind_search():
     # Verify status page surfaces ledger counts without leaking secrets
     status_html = (dist / "vi" / "status" / "index.html").read_text(encoding="utf-8")
     assert "versions.csv" in status_html or "145" in status_html
+
+
+def test_astro_dist_zero_broken_internal_links():
+    from bs4 import BeautifulSoup
+
+    dist = ROOT / "site" / "dist"
+    assert (dist / "index.html").exists(), "Run bun run --cwd site build first"
+
+    broken = []
+    checked = 0
+    for html_file in sorted(dist.rglob("*.html")):
+        soup = BeautifulSoup(html_file.read_text(encoding="utf-8"), "html.parser")
+        targets = []
+        for a in soup.find_all("a", href=True):
+            targets.append(("a[href]", a["href"]))
+        for lnk in soup.find_all("link", href=True):
+            rels = [r.lower() for r in (lnk.get("rel") or [])]
+            if "alternate" in rels and lnk.has_attr("hreflang"):
+                targets.append(("link[rel=alternate]", lnk["href"]))
+
+        for kind, raw in targets:
+            href = raw.strip()
+            if not href or href.startswith(("http://", "https://", "mailto:", "tel:", "javascript:", "#")):
+                continue
+            path_part = href.split("#", 1)[0].split("?", 1)[0]
+            if not path_part:
+                continue
+            checked += 1
+
+            if path_part.startswith("/"):
+                if path_part == "/system-craft" or path_part == "/system-craft/":
+                    rel = ""
+                elif path_part.startswith("/system-craft/"):
+                    rel = path_part[len("/system-craft/") :].lstrip("/")
+                else:
+                    broken.append(f"{html_file.relative_to(dist)} {kind}={raw!r} (missing /system-craft base)")
+                    continue
+                target_file = dist / rel if rel else dist / "index.html"
+                target_dir_index = (dist / rel / "index.html") if rel else (dist / "index.html")
+            else:
+                target_file = (html_file.parent / path_part).resolve()
+                target_dir_index = target_file / "index.html"
+
+            if not (target_file.is_file() or target_dir_index.is_file()):
+                broken.append(f"{html_file.relative_to(dist)} {kind}={raw!r}")
+
+    assert checked >= 100
+    assert broken == [], f"Found {len(broken)} broken internal links:\n" + "\n".join(broken[:25])

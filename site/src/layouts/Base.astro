@@ -9,10 +9,11 @@ interface Props {
   lang: Lang;
   altPath?: string;
 }
-const { title, description, lang, altPath = "" } = Astro.props;
+const { title, description, lang, altPath } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const t = T[lang];
 const others = ACTIVE_LANGS.filter((l) => l !== lang);
+const hasAlt = altPath !== undefined && altPath !== null;
 ---
 
 <!doctype html>
@@ -26,9 +27,13 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
     <meta name="description" content={description} />
     <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
     {
-      ACTIVE_LANGS.map((l) => (
-        <link rel="alternate" hreflang={l} href={`${base}${l}/${altPath}`} />
-      ))
+      hasAlt ? (
+        ACTIVE_LANGS.map((l) => (
+          <link rel="alternate" hreflang={l} href={`${base}${l}/${altPath}`} />
+        ))
+      ) : (
+        <link rel="alternate" hreflang={lang} href={Astro.url.pathname} />
+      )
     }
     <script is:inline>
       (() => {
@@ -57,11 +62,12 @@ const others = ACTIVE_LANGS.filter((l) => l !== lang);
             <input type="search" name="q" placeholder={t.searchPlaceholder} aria-label={t.navSearch} />
           </form>
           {
-            others.map((l) => (
-              <a href={`${base}${l}/${altPath}`} class="lang-link">
-                {LABEL[l]}
-              </a>
-            ))
+            hasAlt &&
+              others.map((l) => (
+                <a href={`${base}${l}/${altPath}`} class="lang-link">
+                  {LABEL[l]}
+                </a>
+              ))
           }
           <button class="theme-toggle" id="theme-toggle" type="button" aria-label={t.toggleTheme}>
             {t.toggleTheme}

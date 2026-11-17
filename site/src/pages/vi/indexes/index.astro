@@ -20,7 +20,11 @@ function parseTable(relPath: string) {
 }
 
 const decRows = parseTable("content/generated/INDEX-DECISIONS.md");
-const incRows = parseTable("content/generated/INDEX-INCIDENTS.md");
+const incRows = parseTable("content/generated/INDEX-INCIDENTS.md").map((cells) =>
+  cells.length > 5
+    ? [cells[0], cells[1], cells[2], cells.slice(3, -1).join(" | "), cells[cells.length - 1]]
+    : cells
+);
 const csRows = parseTable("content/generated/INDEX-CS2023.md");
 ---
 
@@ -28,7 +32,6 @@ const csRows = parseTable("content/generated/INDEX-CS2023.md");
   title="3 Danh mục Tra cứu (Decisions · Incidents · CS2023) — System Craft"
   description="Bảng chỉ mục tổng hợp quyết định kiến trúc, bảng chẩn sự cố và ánh xạ giáo trình ACM/IEEE CS2023."
   lang="vi"
-  altPath="indexes/"
 >
   <div class="wrap">
     <div class="index-head">
