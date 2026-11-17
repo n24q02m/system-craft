@@ -34,7 +34,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from tools.paths import FACTS, read_csv_dicts  # noqa: E402
+from tools.paths import FACTS, WATCH_ALIAS, read_csv_dicts  # noqa: E402
 
 WATCH = os.path.join(FACTS, 'watchlist.csv')
 VERSIONS = os.path.join(FACTS, 'versions.csv')
@@ -82,6 +82,8 @@ def norm(v):
 
 
 def main():
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     ap = argparse.ArgumentParser()
     ap.add_argument('--json', dest='json_out')
     ap.add_argument('--sync', action='store_true',
@@ -95,31 +97,40 @@ def main():
     if args.sync:
         led = {}
         for r in read_csv(VERSIONS):
-            led[(r['product'].strip().lower(), r['cycle'].strip())] = r
+            led[(r['product'].strip().lower(), r['cycle'].strip().lower())] = r
             led.setdefault(r['product'].strip().lower(), r)      # fallback tên
         rows = read_csv(WATCH)
         upd = 0
         for w in rows:
-            lr = led.get((w['product'].strip().lower(), w.get('cycle', '').strip())) \
-                 or led.get(w['product'].strip().lower())
+            pname = WATCH_ALIAS.get(w['product'].strip(), w['product'].strip()).lower()
+            lr = led.get((pname, w.get('cycle', '').strip().lower())) or led.get(pname)
             if lr:
                 w['known'] = lr['latest_version'].strip()
                 w['cycle'] = w.get('cycle') or lr['cycle'].strip()
                 w['last_verified'] = today.isoformat()
                 upd += 1
         cols = ['product', 'kind', 'ref', 'cycle', 'known', 'last_verified']
-        with open(WATCH, 'w', encoding='utf-8') as f:
+        with open(WATCH, 'w', encoding='utf-8', newline='') as f:
             f.write('# WATCHLIST — baseline đồng bộ từ facts/versions.csv (--sync, %s)\n' % today)
-            f.write(','.join(cols) + '\n')
-            for w in rows:
-                f.write(','.join(str(w.get(c, '')) for c in cols) + '\n')
+            writer = csv.DictWriter(f, fieldnames=cols, lineterminator='\n', extrasaction='ignore')
+            writer.writeheader()
+            writer.writerows(rows)
         print(f'watchlist: đồng bộ {upd} dòng từ versions.csv')
         return 0
     out, drift, warn, skip = [], [], [], 0
 
     for w in read_csv(WATCH):
+        age = None
+        if w.get('last_verified'):
+            try:
+                age = (today - datetime.strptime(w['last_verified'], '%Y-%m-%d').date()).days
+            except ValueError:
+                pass
         rec = {'product': w['product'], 'kind': w['kind'], 'ref': w.get('ref', ''),
-               'known': w.get('known', ''), 'status': '?'}
+               'known': w.get('known', ''), 'last_verified': w.get('last_verified', ''),
+               'age_days': age, 'status': '?'}
+        if args.max_age and age is not None and age > args.max_age:
+            warn.append(rec)
         try:
             if w['kind'] == 'eol':
                 cur = check_eol(w['ref'], w.get('cycle', ''))
@@ -146,16 +157,6 @@ def main():
             drift.append(rec)
         else:
             rec['status'] = 'OK'
-
-        age = None
-        if w.get('last_verified'):
-            try:
-                age = (today - datetime.strptime(w['last_verified'], '%Y-%m-%d').date()).days
-            except ValueError:
-                pass
-        rec['age_days'] = age
-        if args.max_age and age is not None and age > args.max_age:
-            warn.append(rec)
 
         print(f"{rec['status']:8s} {rec['product']:34s} known={rec['known']:>14s}  "
               f"now={str(cur.get('latest')):>14s}  ({cur.get('date')})")

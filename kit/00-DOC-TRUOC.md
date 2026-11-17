@@ -2,7 +2,7 @@
 
 ### Biến bộ sách 145 chương thành **chương trình dạy được trong 1–2 năm**, không phải "tài liệu tham khảo"
 
-> **Gồm:** 1 môn nền tảng (4 tín) · 1 môn hệ thống thực (4 tín) · 1 môn tự chọn (4 tín) · 1 môn siêu đại cương (15 tiết) · ngân hàng đề 40 câu có đáp án · rubric chấm · bộ slide 11 chương xương sống (`kit/slides/`).
+> **Gồm:** 1 môn nền tảng (4 tín) · 1 môn hệ thống thực (4 tín) · 1 môn tự chọn (4 tín) · 1 môn siêu đại cương (15 tiết) · ngân hàng đề 40 câu có đáp án · rubric chấm · bộ slide 30 chương xương sống `SYS101–103` (`kit/slides/`).
 > **Đi kèm:** `SYSTEMS-ATLAS-LEARNER-SA-2028.1.pdf` (sách + tầng học `P15-02-QA` 60 câu nâng cao) — kit này **không** chứa lại nội dung sách, chỉ chứa **cách dạy**.
 
 ---
@@ -34,7 +34,7 @@
 
 ## 4. Điều kit này **không** làm (nói trước để khỏi kỳ vọng sai)
 
-- **Slide có mẫu khởi điểm cho 11 chương `★` của SYS101 (`kit/slides/`), không làm thay toàn bộ 145 chương.** Các chương còn lại (`34`/`35`/`36` tuỳ môn) do giảng viên tự chọn số từ §0 + §3 khi giảng.
+- **Slide có mẫu khởi điểm cho 30 chương `★` của cả ba môn `SYS101–103` (`11` của SYS101 + `10` của SYS102 + `9` của SYS103 trong `kit/slides/`), không làm thay toàn bộ 145 chương.** Các chương còn lại (`34`/`35`/`36` tuỳ môn) do giảng viên tự chọn số từ §0 + §3 khi giảng.
 - **Không có đề thi đóng kín.** Ngân hàng 40 câu là **mẫu và chuẩn chất lượng**; mỗi học kỳ nên đổi 30%, giữ nguyên 5 câu "kinh điển" (kèm `P15-02-QA` 60 câu nâng cao trong sách).
 - **Không thay được lab có người hướng dẫn.** 15 bộ lab (`15/15` từ `L00` đến `L14`) cần một người biết cách đọc số đo — đó là chi phí thật của môn này, không phải sách.
 

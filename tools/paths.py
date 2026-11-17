@@ -20,6 +20,9 @@ DOCS = os.path.join(ROOT, "docs")
 SITE = os.path.join(ROOT, "site")
 TRIAL = os.path.join(ROOT, "trial-00c")
 
+# Shared aliases between facts/watchlist.csv product names and facts/versions.csv product names
+WATCH_ALIAS = {"MCP spec": "MCP (Model Context Protocol)"}
+
 
 def sort_key(path):
     """Numeric tuple sort key for chapter and P15 filenames."""

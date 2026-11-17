@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from tools.paths import FACTS, read_csv_dicts as _read_csv_rows  # noqa: E402
+from tools.paths import FACTS, WATCH_ALIAS, read_csv_dicts as _read_csv_rows  # noqa: E402
 
 VERSIONS_CSV = os.path.join(FACTS, "versions.csv")
 WATCHLIST_CSV = os.path.join(FACTS, "watchlist.csv")
@@ -85,8 +85,28 @@ SOURCES = [
     ("ai", "MCP (Model Context Protocol)", "gh", "modelcontextprotocol/modelcontextprotocol", "-"),
 ]
 
-# Aliases between watchlist product names and ledger product names
-WATCH_ALIAS = {"MCP spec": "MCP (Model Context Protocol)"}
+STALE_COMBINED = {
+    ("vllm / sglang", "2026"),
+    ("cilium / gateway api", "1.20 / 1.6"),
+    ("terraform / opentofu", "1.17 / 1.13"),
+    ("linux kernel", "7.3 / 6.18 lts"),
+}
+
+
+def normalize_key(product, cycle):
+    """Return case-folded (product, cycle) key for deduplicating ledger rows."""
+    return (str(product or "").strip().lower(), str(cycle or "").strip().lower())
+
+
+def prune_stale_rows(merged):
+    """Drop legacy combined rows and GH cycles superseded by cycle='-'."""
+    gh_products = {prod.lower() for _, prod, kind, _, cyc in SOURCES if kind == "gh" and cyc == "-"}
+    for k in list(merged.keys()):
+        prod_k, cyc_k = k
+        if k in STALE_COMBINED:
+            merged.pop(k, None)
+        elif prod_k in gh_products and cyc_k != "-" and not (prod_k == "opentelemetry" and cyc_k == "2026") and not (prod_k == "react / next / vite" and cyc_k == "2026"):
+            merged.pop(k, None)
 
 
 def _get_token():
@@ -151,25 +171,13 @@ def sync_all():
     merged = {}
 
     for r in _read_csv_rows(VERSIONS_CSV):
-        merged[(r["product"].strip().lower(), r["cycle"].strip())] = {c: r.get(c, "") for c in COLS}
+        merged[normalize_key(r["product"], r["cycle"])] = {c: r.get(c, "") for c in COLS}
 
     # Prune legacy combined rows & single-product GH older cycle duplicates superseded by cycle='-'
-    gh_products = {prod.lower() for _, prod, kind, _, cyc in SOURCES if kind == "gh" and cyc == "-"}
-    stale_combined = {
-        ("vllm / sglang", "2026"),
-        ("cilium / gateway api", "1.20 / 1.6"),
-        ("terraform / opentofu", "1.17 / 1.13"),
-        ("linux kernel", "7.3 / 6.18 lts"),
-    }
-    for k in list(merged.keys()):
-        prod_k, cyc_k = k
-        if k in stale_combined:
-            merged.pop(k, None)
-        elif prod_k in gh_products and cyc_k != "-" and not (prod_k == "opentelemetry" and cyc_k == "2026") and not (prod_k == "react / next / vite" and cyc_k == "2026"):
-            merged.pop(k, None)
+    prune_stale_rows(merged)
 
     for cat, prod, kind, ref, cyc in SOURCES:
-        key = (prod.lower(), cyc)
+        key = normalize_key(prod, cyc)
         prev = merged.get(key, {})
         try:
             live = _fetch_live(kind, ref, cyc, token)
@@ -202,7 +210,7 @@ def sync_all():
         ("protocol", "GraphQL", "spec", "Oct 2021 + incremental delivery", "manual"),
     ]
     for cat, prod, cyc, ver, src in manuals:
-        key = (prod.lower(), cyc)
+        key = normalize_key(prod, cyc)
         if key not in merged:
             merged[key] = {
                 "category": cat, "product": prod, "cycle": cyc, "latest_version": ver,
@@ -221,7 +229,7 @@ def sync_all():
 
     # Sync watchlist.csv (also matching MCP spec -> MCP (Model Context Protocol))
     if os.path.exists(WATCHLIST_CSV):
-        by_pc = {(r["product"].strip().lower(), r["cycle"].strip()): r for r in rows_out}
+        by_pc = {normalize_key(r["product"], r["cycle"]): r for r in rows_out}
         by_p = {}
         for r in rows_out:
             by_p.setdefault(r["product"].strip().lower(), r)
@@ -229,7 +237,7 @@ def sync_all():
         wcols = ["product", "kind", "ref", "cycle", "known", "last_verified"]
         for w in wrows:
             pname = WATCH_ALIAS.get(w["product"].strip(), w["product"].strip()).lower()
-            lr = by_pc.get((pname, w.get("cycle", "").strip())) or by_p.get(pname)
+            lr = by_pc.get((pname, w.get("cycle", "").strip().lower())) or by_p.get(pname)
             if lr:
                 w["known"] = lr["latest_version"].strip()
                 w["cycle"] = w.get("cycle") or lr["cycle"].strip()

@@ -21,7 +21,7 @@ Tầng học **không** phải phụ lục: nó nằm đúng chỗ để ngườ
 |---|---|---|
 | Kỹ sư backend 1–3 năm | P1 → P2 → P3 (một nhánh) → P5 → P11 | 6–10 tuần, 2 h/ngày |
 | Người mới hoàn toàn (sinh viên năm 3) | P0 → P1 → P4 → P5 → P6 → P7 → P8 → P11 | 2 học kỳ (P15-01 có lộ trình tuần-by-tuần) |
-| Kỹ sư hệ thống / platform | P1 → P2 → P9 → P10 → P11 → P13 | 8 tuần + lab L9–L11 |
+| Kỹ sư hệ thống / platform | P1 → P2 → P9 → P10 → P11 → P13 | 8 tuần + lab L09–L11 |
 | Lãnh đạo kỹ thuật / kiến trúc sư | P0 → P11 (đọc §3 số liệu từng chương) → P13 → P14 | 3–4 tuần, 1 h/ngày |
 
 ## 3. Cách học một chương (đúng thứ tự, đừng đảo)
@@ -48,7 +48,7 @@ Một môn **4 tín**: 45 tiết lý thuyết ánh xạ vào P0–P5 + 45 tiết
 
 ## 5. Thứ không có trong gói (nói rõ để không kỳ vọng sai)
 
-- **Không** có đề thi, khoá học video, hay hệ LMS. Gói này là *nội dung*; LMS là việc của bạn.
+- **Không** có hệ LMS, khoá học video, hay đề thi đóng kín; gói này là *nội dung tự học* (nếu cần giáo trình giảng dạy, bộ kit `SA-2028.1-KIT` có sẵn ngân hàng 40 câu đề mẫu kèm đáp án tại `kit/04-NGAN-HANG-DE-THI.md`).
 - **Không** có mã nguồn ví dụ chạy sẵn cho mọi chương — chỉ các bài/lab có lệnh và số đo tái lập được.
 - Số liệu có **ngày** và **nguồn**; thứ gì không kiểm được thì đã ghi là "chưa kiểm" hoặc cắt. Nếu bạn đọc lại sau 6 tháng, xem `facts/versions.csv` trước khi tin bất kỳ con số phiên bản nào.
 

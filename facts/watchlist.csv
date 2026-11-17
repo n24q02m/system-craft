@@ -1,40 +1,40 @@
-# WATCHLIST — baseline đồng bộ từ facts/versions.csv (2026-11-16)
+# WATCHLIST — baseline đồng bộ từ facts/versions.csv (2026-11-17)
 product,kind,ref,cycle,known,last_verified
-Python,eol,python,3.15,3.15.2,2026-11-16
-Node.js,eol,nodejs,26,26.13.1,2026-11-16
-Go,eol,go,1.27,1.27.4,2026-11-16
-Rust,eol,rust,1.99,1.99.1,2026-11-16
-Java (Temurin),eol,eclipse-temurin,25,25.0.5+8,2026-11-16
-Kubernetes,eol,kubernetes,1.37,1.37.2,2026-11-16
-Linux Kernel,eol,linux,7.3,7.3.4,2026-11-16
-PostgreSQL,eol,postgresql,18,18.7,2026-11-16
-MySQL,eol,mysql,26.10,26.10.0,2026-11-16
-MongoDB,eol,mongodb,9.0,9.0.8,2026-11-16
-Redis,eol,redis,8.10,8.10.3,2026-11-16
-Valkey,eol,valkey,9.1,9.1.3,2026-11-16
-Apache Kafka,eol,apache-kafka,4.4,4.4.0,2026-11-16
-RabbitMQ,eol,rabbitmq,4.4,4.4.0,2026-11-16
-Apache Cassandra,eol,apache-cassandra,5.0,5.0.9,2026-11-16
-Elasticsearch,eol,elasticsearch,9.5,9.5.6,2026-11-16
-ClickHouse,eol,clickhouse,26.8,26.8.37.168,2026-11-16
-SQLite,eol,sqlite,3,3.54.1,2026-11-16
-Prometheus,eol,prometheus,3.15,3.15.1,2026-11-16
-Docker Engine,eol,docker-engine,29,29.9.3,2026-11-16
-OpenSSL,eol,openssl,4.1,4.1.0,2026-11-16
-Envoy,eol,envoy,1.40,1.40.2,2026-11-16
-vLLM,gh,vllm-project/vllm,-,v0.33.0rc3,2026-11-16
-SGLang,gh,sgl-project/sglang,-,v0.5.23,2026-11-16
-llama.cpp,gh,ggml-org/llama.cpp,-,v1.0.0,2026-11-16
-Ollama,gh,ollama/ollama,-,v0.40.16,2026-11-16
-DuckDB,gh,duckdb/duckdb,-,v2.0.0,2026-11-16
-Apache Iceberg,gh,apache/iceberg,-,apache-iceberg-1.12.0,2026-11-16
-Cilium,gh,cilium/cilium,-,v1.20.4,2026-11-16
-NVIDIA Dynamo,gh,ai-dynamo/dynamo,-,v1.6.2,2026-11-16
-Apache Arrow,gh,apache/arrow,-,apache-arrow-26.0.1,2026-11-16
-Terraform,gh,hashicorp/terraform,-,v1.17.2,2026-11-16
-OpenTofu,gh,opentofu/opentofu,-,v1.13.9,2026-11-16
-MCP spec,gh,modelcontextprotocol/modelcontextprotocol,-,2026-07-28,2026-11-16
-gRPC,gh,grpc/grpc,-,v1.84.3,2026-11-16
-Istio,gh,istio/istio,-,1.32.0,2026-11-16
-Argo CD,gh,argoproj/argo-cd,-,v3.6.1,2026-11-16
-Flux,gh,fluxcd/flux2,-,v2.10.0,2026-11-16
+Python,eol,python,3.15,3.15.2,2026-11-17
+Node.js,eol,nodejs,26,26.13.1,2026-11-17
+Go,eol,go,1.27,1.27.4,2026-11-17
+Rust,eol,rust,1.99,1.99.1,2026-11-17
+Java (Temurin),eol,eclipse-temurin,25,25.0.5+8,2026-11-17
+Kubernetes,eol,kubernetes,1.37,1.37.2,2026-11-17
+Linux Kernel,eol,linux,7.3,7.3.4,2026-11-17
+PostgreSQL,eol,postgresql,18,18.7,2026-11-17
+MySQL,eol,mysql,26.10,26.10.0,2026-11-17
+MongoDB,eol,mongodb,9.0,9.0.8,2026-11-17
+Redis,eol,redis,8.10,8.10.3,2026-11-17
+Valkey,eol,valkey,9.1,9.1.3,2026-11-17
+Apache Kafka,eol,apache-kafka,4.4,4.4.0,2026-11-17
+RabbitMQ,eol,rabbitmq,4.4,4.4.1,2026-11-17
+Apache Cassandra,eol,apache-cassandra,5.0,5.0.9,2026-11-17
+Elasticsearch,eol,elasticsearch,9.5,9.5.6,2026-11-17
+ClickHouse,eol,clickhouse,26.8,26.8.38.9,2026-11-17
+SQLite,eol,sqlite,3,3.54.1,2026-11-17
+Prometheus,eol,prometheus,3.15,3.15.1,2026-11-17
+Docker Engine,eol,docker-engine,29,29.10.0,2026-11-17
+OpenSSL,eol,openssl,4.1,4.1.0,2026-11-17
+Envoy,eol,envoy,1.40,1.40.2,2026-11-17
+vLLM,gh,vllm-project/vllm,-,v0.34.0,2026-11-17
+SGLang,gh,sgl-project/sglang,-,v0.5.23,2026-11-17
+llama.cpp,gh,ggml-org/llama.cpp,-,v1.0.0,2026-11-17
+Ollama,gh,ollama/ollama,-,v0.40.16,2026-11-17
+DuckDB,gh,duckdb/duckdb,-,v2.0.0,2026-11-17
+Apache Iceberg,gh,apache/iceberg,-,apache-iceberg-1.12.0,2026-11-17
+Cilium,gh,cilium/cilium,-,v1.20.4,2026-11-17
+NVIDIA Dynamo,gh,ai-dynamo/dynamo,-,v1.6.2,2026-11-17
+Apache Arrow,gh,apache/arrow,-,apache-arrow-26.0.1,2026-11-17
+Terraform,gh,hashicorp/terraform,-,v1.17.2,2026-11-17
+OpenTofu,gh,opentofu/opentofu,-,v1.13.9,2026-11-17
+MCP spec,gh,modelcontextprotocol/modelcontextprotocol,-,2026-07-28,2026-11-17
+gRPC,gh,grpc/grpc,-,v1.84.3,2026-11-17
+Istio,gh,istio/istio,-,1.32.0,2026-11-17
+Argo CD,gh,argoproj/argo-cd,-,v3.6.1,2026-11-17
+Flux,gh,fluxcd/flux2,-,v2.10.0,2026-11-17

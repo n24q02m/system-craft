@@ -39,26 +39,31 @@ jobs:
 
       - name: Install Python & Astro dependencies
         run: |
-          uv sync --dev
+          uv sync --frozen --dev
           bun install --cwd site --frozen-lockfile
 
-      - name: Build Astro static site & Pagefind index
-        run: bun run --cwd site build
-
       - name: Run F1/F2/F3/F4 validators and labs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           uv run python tools/edu_order_check.py --quiet
+          uv run python tools/red_thread_check.py --with-src
           uv run python tools/red_thread_edu_check.py --strict
           uv run python tools/ledger_coverage_check.py --strict
           uv run python tools/benchmark_provenance_check.py --strict
+          uv run python tools/maintenance_check.py
           uv run python labs/verify_labs.py --fast
 
-      - name: Build 4-format release, KIT, slides & trial pack
+      - name: Build glossary, 4-format release, KIT, slides & trial pack
         run: |
+          uv run python tools/build_glossary.py
           uv run python tools/package_release.py
           uv run python kit/make_kit.py
           uv run python kit/slides/build_slides.py
           uv run python tools/build_trial_pack.py
+
+      - name: Build Astro static site & Pagefind index
+        run: bun run --cwd site build
 
       - name: Run full pytest suite
         run: uv run pytest -v
