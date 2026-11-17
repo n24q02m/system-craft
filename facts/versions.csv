@@ -37,7 +37,7 @@ datastore,Weaviate,-,v1.40.5,2026-11-10,,false,active,NEW_ROW,OK,Synced live on 
 frontend,React / Next / Vite,-,v16.4.6,2026-11-09,,false,active,NEW_ROW,OK,Synced live on 2026-11-16,https://api.github.com/repos/vercel/next.js/releases/latest,2026-11-17
 frontend,React / Next / Vite,2026,React 19 / Next 16.3 / Vite 8,2026-09-01,2025-12-01,false,active,N/A (New Domain),NEW_DOMAIN,"React Compiler 1.0, RSC default, Vite 8 + Rolldown 1.0 (Rust), INP ranking signal",https://vite.dev/,2026-10-29
 infra,Argo CD,-,v3.6.1,2026-11-04,,false,active,NEW_ROW,OK,Synced live on 2026-11-16,https://api.github.com/repos/argoproj/argo-cd/releases/latest,2026-11-17
-infra,Cilium,-,v1.20.4,2026-10-23,,false,active,NEW_ROW,OK,Synced live on 2026-11-16,https://api.github.com/repos/cilium/cilium/releases/latest,2026-11-17
+infra,Cilium,-,v1.20.5,2026-11-17,,false,active,NEW_ROW,OK,Synced live on 2026-11-17,https://api.github.com/repos/cilium/cilium/releases/latest,2026-11-17
 infra,Docker Engine,29,29.10.0,2026-11-13,2025-11-10,false,active,N/A (New Domain),SYNCED_2026-11-17,Ledger chưa từng có dòng Docker — thiếu ở mọi chương container (9.x). 28.x EOL 13/05/2026,https://endoflife.date/api/docker-engine.json,2026-11-17
 infra,Envoy,1.40,1.40.2,2026-10-26,2026-10-13,false,2027-10-13,N/A (New Domain),OK,Data plane của service mesh; ledger thiếu,https://endoflife.date/api/envoy.json,2026-11-17
 infra,Flux,-,v2.10.0,2026-10-26,,false,active,NEW_ROW,OK,Synced live on 2026-11-16,https://api.github.com/repos/fluxcd/flux2/releases/latest,2026-11-17

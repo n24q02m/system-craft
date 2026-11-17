@@ -28,7 +28,7 @@ llama.cpp,gh,ggml-org/llama.cpp,-,v1.0.0,2026-11-17
 Ollama,gh,ollama/ollama,-,v0.40.16,2026-11-17
 DuckDB,gh,duckdb/duckdb,-,v2.0.0,2026-11-17
 Apache Iceberg,gh,apache/iceberg,-,apache-iceberg-1.12.0,2026-11-17
-Cilium,gh,cilium/cilium,-,v1.20.4,2026-11-17
+Cilium,gh,cilium/cilium,-,v1.20.5,2026-11-17
 NVIDIA Dynamo,gh,ai-dynamo/dynamo,-,v1.6.2,2026-11-17
 Apache Arrow,gh,apache/arrow,-,apache-arrow-26.0.1,2026-11-17
 Terraform,gh,hashicorp/terraform,-,v1.17.2,2026-11-17
