@@ -63,7 +63,8 @@ jobs:
           uv run python tools/build_trial_pack.py
 
       - name: Build Astro static site & Pagefind index
-        run: bun run --cwd site build
+        run: |
+          bun run --cwd site build
 
       - name: Run full pytest suite
         run: uv run pytest -v

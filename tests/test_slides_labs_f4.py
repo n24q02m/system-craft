@@ -100,3 +100,49 @@ def test_f4_benchmarks_csv_and_provenance_check():
         errors="replace",
     )
     assert r.returncode == 0, f"benchmark_provenance_check.py failed:\n{r.stdout}\n{r.stderr}"
+
+
+def test_labs_d2_utf8_and_volatile():
+    d2_prog3 = ROOT / "labs" / "d2" / "prog3.c"
+    verifier_path = ROOT / "labs" / "verify_labs.py"
+    assert d2_prog3.is_file() and d2_prog3.stat().st_size > 0, "Missing labs/d2/prog3.c"
+
+    verifier_txt = verifier_path.read_text(encoding="utf-8")
+    c_lab_tuple = re.search(r"(?m)^\s*for src in \((.+)\):\s*$", verifier_txt)
+    assert c_lab_tuple, "Missing C lab source tuple in verify_labs.py"
+    assert 'os.path.join("d2", "prog3.c")' in c_lab_tuple.group(1), (
+        "labs/d2/prog3.c is not compiled by the C lab tuple"
+    )
+
+    fs_txt = (ROOT / "labs" / "fs.c").read_text(encoding="utf-8")
+    assert re.search(r"(?m)^\s*static\s+volatile\s+struct\s+tight2\s+shared_tight\s*;", fs_txt), (
+        "Missing volatile declaration for shared_tight in labs/fs.c"
+    )
+    assert re.search(r"(?m)^\s*static\s+volatile\s+struct\s+padded\s+pad\[4\]\s*;", fs_txt), (
+        "Missing volatile declaration for pad in labs/fs.c"
+    )
+
+    svc_txt = (ROOT / "labs" / "svc.py").read_text(encoding="utf-8")
+    svc2_txt = (ROOT / "labs" / "svc2.py").read_text(encoding="utf-8")
+    for name, txt in (("svc.py", svc_txt), ("svc2.py", svc2_txt)):
+        assert re.search(
+            r"sys\.stdout\.reconfigure\(encoding=\"utf-8\",\s*errors=\"replace\"\)",
+            txt,
+        ), f"Missing explicit UTF-8 stdout handling in {name}"
+        assert re.search(
+            r"subprocess\.run\(.*?text=True,\s*encoding=\"utf-8\",\s*errors=\"replace\"",
+            txt,
+            flags=re.S,
+        ), f"Missing explicit UTF-8 subprocess decoding in {name}"
+    assert 'with open(js_path, "w", encoding="utf-8")' in svc_txt, (
+        "Missing explicit UTF-8 JavaScript file write in svc.py"
+    )
+
+    assert 'env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONUTF8="1")' in verifier_txt, (
+        "Missing PYTHONIOENCODING/PYTHONUTF8 environment in verify_labs.py"
+    )
+    assert re.search(
+        r"subprocess\.run\(.*?text=True,\s*encoding=\"utf-8\",\s*errors=\"replace\"",
+        verifier_txt,
+        flags=re.S,
+    ), "Missing explicit UTF-8 subprocess decoding in verify_labs.py"

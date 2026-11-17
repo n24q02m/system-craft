@@ -121,7 +121,9 @@ def test_volume_v_docx_cover_and_diagram_captions(tmp_path):
             if cleaned:
                 expected_captions.append(cleaned)
 
-    assert len(expected_captions) >= 25
-    assert "[Sơ đồ:" in full_text
+    assert len(expected_captions) == 45, f"Expected 45 diagram captions in source, got {len(expected_captions)}"
+    assert full_text.count("[Sơ đồ:") == 45, (
+        f"Expected 45 diagram captions in Volume V DOCX, got {full_text.count('[Sơ đồ:')}"
+    )
     for cap in expected_captions:
         assert cap in full_text, f"Missing diagram caption in Volume V DOCX: {cap}"
