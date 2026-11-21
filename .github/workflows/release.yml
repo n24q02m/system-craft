@@ -66,7 +66,7 @@ jobs:
 
       - name: Run better-semantic-release
         id: rel
-        uses: n24q02m/better-semantic-release@v1.13.1
+        uses: n24q02m/better-semantic-release@v1.13.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: ${{ inputs.release_type == 'beta' }}
