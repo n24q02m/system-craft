@@ -1,0 +1,140 @@
+name: cd
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Release channel (use beta before stable)
+        type: choice
+        required: true
+        default: beta
+        options:
+          - beta
+          - stable
+      force:
+        description: Optional prerelease bump override
+        type: choice
+        required: false
+        default: none
+        options:
+          - none
+          - prerelease
+      run_release:
+        description: Run semantic release job
+        type: boolean
+        required: false
+        default: true
+      deploy_pages:
+        description: Build and deploy GitHub Pages site
+        type: boolean
+        required: false
+        default: true
+
+permissions: {}
+
+# ci-policy: allow concurrency reason: serialize releases and pages deploys, never cancel one mid-publish
+concurrency:
+  group: cd-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: ${{ inputs.run_release }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+          disable-telemetry: true
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Install system libs for PDF & labs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            gcc libc6-dev libpango-1.0-0 libpangoft2-1.0-0 libpangocairo-1.0-0 \
+            libharfbuzz0b libffi8 fonts-dejavu-core
+
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          python-version: "3.13"
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Install dependencies & build distributions
+        run: |
+          uv sync --frozen --dev
+          bun install --cwd site --frozen-lockfile
+          bun run --cwd site build
+          uv run python tools/package_release.py
+          uv run python kit/make_kit.py
+          uv run python kit/slides/build_slides.py
+          uv run python tools/build_trial_pack.py
+          uv run pytest -v
+
+      - name: Run better-semantic-release
+        id: rel
+        uses: n24q02m/better-semantic-release@a73de1a9b877fead3dcb0d5eca6b33bb4fe7d3b5 # v1.14.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: ${{ inputs.release_type == 'beta' }}
+          prerelease_token: beta
+          force: ${{ inputs.release_type == 'beta' && inputs.force == 'prerelease' && 'prerelease' || '' }}
+
+  pages-build:
+    if: ${{ inputs.deploy_pages }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+          disable-telemetry: true
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version: latest
+
+      - name: Install site dependencies & build
+        run: |
+          bun install --cwd site --frozen-lockfile
+          bun run --cwd site build
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/dist
+          retention-days: 3
+
+  pages-deploy:
+    needs: pages-build
+    if: ${{ inputs.deploy_pages }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: step-security/harden-runner@aebdcf6156ab6691adf63218240e476564a1ed4c # v2.23.0
+        with:
+          egress-policy: audit
+          disable-telemetry: true
+
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
